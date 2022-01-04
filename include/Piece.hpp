@@ -21,11 +21,13 @@ class Piece {
         // expressions that identify the colors WHITE and BLACK as bool variables (respectivly true and false)
         static constexpr bool WHITE = true;
         static constexpr bool BLACK = false;
+        // constructs an object "Piece" with the given ID
+        Piece(bool ID);
         // checks if the chosen move is valid for this Piece 
-        // (also in reference to the Board in which it's positioned )
+        // (in reference to the Board in which it's positioned )
         virtual bool can_move(std::string& from, std::string& to) = 0;
         // generates and returns a vector contaning all the possible moves that this Piece can do as strings 
-        // (also in reference to the Board in which it's positioned)
+        // (in reference to the Board in which it's positioned)
         virtual std::vector<std::string> get_possible_moves(std::string& from) = 0;
         // writes in the os stream the characther associated with this Piece
         virtual std::ostream operator<<(std::ostream& os) = 0;
