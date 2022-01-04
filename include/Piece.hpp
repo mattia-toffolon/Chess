@@ -1,7 +1,7 @@
 // Author: Toffolon Mattia
 
-#ifndef PIECE_H
-#define PIECE_H
+#ifndef PIECE_HPP
+#define PIECE_HPP
 
 #include<iostream>
 #include<vector>
