@@ -1,3 +1,5 @@
+//Author: Toffolon Mattia
+
 #ifndef KING_HPP
 #define KING_HPP
 
