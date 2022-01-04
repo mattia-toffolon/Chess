@@ -24,7 +24,8 @@ class Piece {
         // constructs an object "Piece" with the given ID
         Piece(bool ID);
         // checks if the chosen move is valid for this Piece 
-        // (in reference to the Board in which it's positioned )
+        // (in reference to the Board in which it's positioned)
+        // can trow an exception if the move is illegal or if the match ends
         virtual bool can_move(std::string& from, std::string& to) = 0;
         // generates and returns a vector contaning all the possible moves that this Piece can do as strings 
         // (in reference to the Board in which it's positioned)

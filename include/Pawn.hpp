@@ -11,7 +11,8 @@ class Pawn : public Piece{
         // constructs an object "Pawn" with the given ID
         Pawn(bool ID) : Piece(ID) {};
         // checks if the chosen move is valid for this Pawn 
-        // (in reference to the Board in which it's positioned )
+        // (in reference to the Board in which it's positioned)
+        // can trow an exception if the move is illegal or if the match ends
         bool can_move(std::string& from, std::string& to);
         // generates and returns a vector contaning all the possible moves that this Pawn can do as strings 
         // (in reference to the Board in which it's positioned)

@@ -11,7 +11,8 @@ class Rook : public Piece{
         // constructs an object "Rook" with the given ID
         Rook(bool ID) : Piece(ID) {};
         // checks if the chosen move is valid for this Rook 
-        // (in reference to the Board in which it's positioned )
+        // (in reference to the Board in which it's positioned)
+        // can trow an exception if the move is illegal or if the match ends
         bool can_move(std::string& from, std::string& to);
         // generates and returns a vector contaning all the possible moves that this Rook can do as strings 
         // (in reference to the Board in which it's positioned)
