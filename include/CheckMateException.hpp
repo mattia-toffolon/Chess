@@ -1,3 +1,5 @@
+// Author: Guerrini Alberto
+
 #ifndef CHECKMATEEXCEPTION_HPP
 #define CHECKMATEEXCEPTION_HPP
 

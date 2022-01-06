@@ -1,3 +1,5 @@
+// Author: Guerrini Alberto
+
 #ifndef INVALIDMOVEEXCEPTION_HPP
 #define INVALIDMOVEEXCEPTION_HPP
 

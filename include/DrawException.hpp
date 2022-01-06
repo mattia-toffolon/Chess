@@ -1,3 +1,5 @@
+// Author: Guerrini Alberto
+
 #ifndef DRAWEXCEPTION_HPP
 #define DRAWEXCEPTION_HPP
 
