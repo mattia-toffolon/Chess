@@ -3,6 +3,7 @@
 #define MATCH_HPP
 #include<iostream>
 #include "Player.hpp"
+#include "Board.hpp"
 
 //We use this class to start the game if it's
 //a computer vs computer or a human vs computer game
@@ -20,8 +21,6 @@ public:
     //Costructor with where the argument is a bool
     //to determine playerB
     Match(bool isHuman);
-    //Destructor
-    ~Match();
     //Until the value is true, the game is still going on
     //When it became false the game is over
     bool start();

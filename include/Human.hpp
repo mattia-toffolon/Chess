@@ -9,8 +9,7 @@ class Human : public Player
 public:
     //Costructor
     Human();
-    //Destructor
-    ~Human();
+    //Function that control the turn
     void turn();
 };
 

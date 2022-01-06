@@ -14,11 +14,9 @@ private:
     bool ID;
 public:
     //Costructor
-    Player(bool ID);
-    //Destructor
-    ~Player();
+    Player(bool ID, Board& b);
     //pure virtual function to manage each turn
-    virtual void turn()= 0;
+    void turn();
     //Invalidate copy costructor and copy assignement
     //to avoid slicing
     Player(Player&) = delete;
