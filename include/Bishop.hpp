@@ -8,7 +8,7 @@
 class Bishop : public Piece{
 
     public:
-        // constructs an object "Bishop" with the given ID
+        // constructs an object "Bishop" with the given ID and the given reference to the Board
         Bishop(bool ID, Board& b) : Piece(ID, b) {};
         // checks if the chosen move is valid for this Bishop 
         // (in reference to the Board in which it's positioned)

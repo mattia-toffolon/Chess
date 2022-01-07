@@ -8,7 +8,7 @@
 class Pawn : public Piece{
 
     public:
-        // constructs an object "Pawn" with the given ID
+        // constructs an object "Pawn" with the given ID and the given reference to the Board
         Pawn(bool ID, Board& b) : Piece(ID, b) {};
         // checks if the chosen move is valid for this Pawn 
         // (in reference to the Board in which it's positioned)

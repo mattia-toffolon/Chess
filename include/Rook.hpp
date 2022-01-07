@@ -8,7 +8,7 @@
 class Rook : public Piece{
 
     public:
-        // constructs an object "Rook" with the given ID
+        // constructs an object "Rook" with the given ID and the given reference to the Board
         Rook(bool ID, Board& b) : Piece(ID, b) {};
         // checks if the chosen move is valid for this Rook 
         // (in reference to the Board in which it's positioned)

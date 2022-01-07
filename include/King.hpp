@@ -8,7 +8,7 @@
 class King : public Piece{
 
     public:
-        // constructs an object "King" with the given ID
+        // constructs an object "King" with the given ID and the given reference to the Board
         King(bool ID, Board& b) : Piece(ID, b) {};
         // checks if the chosen move is valid for this King 
         // (in reference to the Board in which it's positioned)
