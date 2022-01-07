@@ -39,7 +39,7 @@ class Piece {
         // returns the status of this Piece (true=still on the dashboard, false=eaten)
         bool get_status();
         // sets the status of this Piece (true=still on the dashboard, false=eaten)
-        void set_status(bool s);
+        void set_status(bool status);
         // invalidates copy constructor and copy assignement for "Piece" objects to avoid slicing 
         Piece(Piece&) = delete;
         Piece& operator=(Piece&) = delete;
