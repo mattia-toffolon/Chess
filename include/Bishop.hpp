@@ -17,8 +17,8 @@ class Bishop : public Piece{
         // generates and returns a vector contaning all the possible moves that this Bishop can do as strings 
         // (in reference to the Board in which it's positioned)
         std::vector<std::string> get_possible_moves(std::string& from) const;
-        // writes in the os stream the characther associated with this Bishop
-        std::ostream operator<<(std::ostream& os);
+        // writes in the given os stream the characther associated with this Bishop
+        std::ostream& operator<<(std::ostream& os);
         // returns the characther associated with this Bishop
         char to_char();
 };
