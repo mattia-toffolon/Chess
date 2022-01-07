@@ -9,7 +9,7 @@ class Queen : public Piece{
 
     public:
         // constructs an object "Queen" with the given ID
-        Queen(bool ID) : Piece(ID) {};
+        Queen(bool ID, Board& b) : Piece(ID, b) {};
         // checks if the chosen move is valid for this Queen 
         // (in reference to the Board in which it's positioned)
         // can trow an exception if the move is illegal or if the match ends
