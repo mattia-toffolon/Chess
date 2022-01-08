@@ -6,6 +6,12 @@
 #include <iostream>
 #include <vector>
 #include "Piece.hpp"
+#include "Pawn.hpp"
+#include "Rook.hpp"
+#include "Knight.hpp"
+#include "Bishop.hpp"
+#include "Queen.hpp"
+#include "King.hpp"
 
 class Board {
     
@@ -22,18 +28,20 @@ class Board {
 
     public:
         explicit Board(bool player_color = Piece::WHITE);
+        ~Board();
         // moves the piece in the cell identified by the coordinates "from" to the one identified
         // by the coordinates "to". Can trow an exception if the move is illegal or if the match ends
         bool move(const std::string& from, const std::string& to);
-        // returns a reference to the piece at i position with the specified color in the pieces array
+        // returns a reference to the piece at i position of the specified color in the pieces array
         // i must be in [0,15], the pieces are P P P P P P P P T C A D R A C T
-        Piece& get_piece(const int i, const bool ID);
+        Piece& get_piece_at(const int i, const bool ID);
+        // returns a reference to a random piece of the specified color
+        Piece& get_random_piece(const bool ID);
         // writes in the os stream the dashboard as a square using letters to identify pieces
         std::ostream& operator<<(std::ostream& os) const;
         // returns the reference to the pointer to the piece in the position identified
         // by the coordinates coord. Returns a reference to null if there isn't pieces
         Piece*& operator[](std::string coord);
 };
-
 
 #endif

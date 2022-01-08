@@ -1,16 +1,16 @@
 // Author: Guerrini Alberto
 
-#ifndef INVALIDMOVEEXCEPTION_HPP
-#define INVALIDMOVEEXCEPTION_HPP
+#ifndef CHECKMATEEXCEPTION_HPP
+#define CHECKMATEEXCEPTION_HPP
 
 #include <exception>
 #include <string>
 
-class IllegalMoveException : public std::exception{
+class CheckMateException : public std::exception{
     private:
         std::string what_;
     public:
-        IllegalMoveException(std::string description = "Illegal move made") : 
+        CheckMateException(std::string description = "Check Mate made") : 
             what_ {description} {}
 
         //override what function

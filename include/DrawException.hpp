@@ -1,16 +1,16 @@
 // Author: Guerrini Alberto
 
-#ifndef INVALIDMOVEEXCEPTION_HPP
-#define INVALIDMOVEEXCEPTION_HPP
+#ifndef DRAWEXCEPTION_HPP
+#define DRAWEXCEPTION_HPP
 
 #include <exception>
 #include <string>
 
-class IllegalMoveException : public std::exception{
+class DrawException : public std::exception{
     private:
         std::string what_;
     public:
-        IllegalMoveException(std::string description = "Illegal move made") : 
+        DrawException(std::string description = "Draw done") : 
             what_ {description} {}
 
         //override what function
