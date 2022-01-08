@@ -5,6 +5,9 @@
 
 #include <iostream>
 #include <vector>
+#include <regex>
+#include <string>
+#include <algorithm>
 #include "Piece.hpp"
 #include "Pawn.hpp"
 #include "Rook.hpp"
@@ -14,7 +17,6 @@
 #include "King.hpp"
 
 class Board {
-    
     private:
         static constexpr short DIM = 8;
         // index offset to reach the first black piece in the pieces_ vector
@@ -27,7 +29,7 @@ class Board {
         std::vector<std::vector<Piece*>> dashboard_;
 
     public:
-        explicit Board(bool player_color = Piece::WHITE);
+        explicit Board(const bool player_color);
         ~Board();
         // moves the piece in the cell identified by the coordinates "from" to the one identified
         // by the coordinates "to". Can trow an exception if the move is illegal or if the match ends
@@ -41,7 +43,8 @@ class Board {
         std::ostream& operator<<(std::ostream& os) const;
         // returns the reference to the pointer to the piece in the position identified
         // by the coordinates coord. Returns a reference to null if there isn't pieces
-        Piece*& operator[](std::string coord);
+        // Can trow std::invalid_argoument if coordinates aren't in [A-Ha-h][1-8] format
+        Piece*& operator[](const std::string& coord);
 };
 
 #endif
