@@ -13,10 +13,11 @@ private:
     //to use during the game
     bool ID;
 public:
-    //Costructor
+    //Costructor with argument ID for the color of the pawns
+    // and a reference to the chessboard
     Player(bool ID, Board& b);
     //pure virtual function to manage each turn
-    void turn();
+    virtual void turn();
     //Invalidate copy costructor and copy assignement
     //to avoid slicing
     Player(Player&) = delete;
