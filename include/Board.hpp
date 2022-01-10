@@ -8,6 +8,10 @@
 #include <regex>
 #include <string>
 #include <algorithm>
+#include <stdlib.h>
+#include <cstdlib>
+#include <time.h>
+
 #include "Piece.hpp"
 #include "Pawn.hpp"
 #include "Rook.hpp"
@@ -33,8 +37,9 @@ class Board {
         ~Board();
         // moves the piece in the cell identified by the coordinates "from" to the one identified
         // by the coordinates "to". Can trow an exception if the move is illegal or if the match ends
-        bool move(const std::string& from, const std::string& to);
+        bool move(const std::string& from, const std::string& to, const bool player_ID);
         // returns a reference to the piece at i position of the specified color in the pieces array
+        // returns nullptr if the piece has been captured
         // i must be in [0,15], the pieces are P P P P P P P P T C A D R A C T
         Piece& get_piece_at(const int i, const bool ID);
         // returns a reference to a random piece of the specified color
@@ -45,6 +50,12 @@ class Board {
         // by the coordinates coord. Returns a reference to null if there isn't pieces
         // Can trow std::invalid_argoument if coordinates aren't in [A-Ha-h][1-8] format
         Piece*& operator[](const std::string& coord);
+
+    private:
+        // implements the capture of one piece
+        bool capture(const std::string& from, const std::string& to);
+        // implements the castling move
+        bool castling(const std::string& from, const std::string& to, const bool player_ID);
 };
 
 #endif
