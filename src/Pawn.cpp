@@ -75,8 +75,9 @@ std::vector<std::string> Pawn::get_possible_moves(std::string& from) const {
                 if(can_move(from, to))
                 ret.push_back(to);
             }
-            catch(IllegalMoveException e)
+            catch(IllegalMoveException e){
                 continue;
+            }
             
         }
     }
