@@ -8,7 +8,7 @@
 class Pawn : public Piece{
 
     public:
-        // constructs an object "Pawn" with the given ID and the given reference to the Board
+        // constructs an object "Rook" with the given ID, reference to the Board and initial position
         Pawn(bool ID, Board& b, std::string arg_pos) : Piece(ID, b, arg_pos) {};
         // checks if the chosen move is valid for this Pawn 
         // (in reference to the Board in which it's positioned)

@@ -25,7 +25,7 @@ class Piece {
         // expressions that identify the colors WHITE and BLACK as bool variables (respectivly true and false)
         static constexpr bool WHITE = true;
         static constexpr bool BLACK = false;
-        // constructs an object "Piece" with the given ID and the given reference to the Board
+        // constructs an object "Rook" with the given ID, reference to the Board and initial position
         Piece(bool arg_ID, Board& arg_board, std::string arg_pos);
         // checks if the chosen move is valid for this Piece 
         // (in reference to the Board in which it's positioned)
