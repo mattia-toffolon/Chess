@@ -7,9 +7,13 @@
 
 class King : public Piece{
 
+    private:
+        // determines if the castling can be performed or not
+        bool castling;
+
     public:
         // constructs an object "King" with the given ID and the given reference to the Board
-        King(bool ID, Board& b, std::string arg_pos) : Piece(ID, b, arg_pos) {};
+        King(bool ID, Board& b, std::string arg_pos) : Piece(ID, b, arg_pos) {castling=true;};
         // checks if the chosen move is valid for this King 
         // (in reference to the Board in which it's positioned)
         // can trow an exception if the move is illegal or if the match ends
@@ -21,8 +25,12 @@ class King : public Piece{
         std::ostream& operator<<(std::ostream& os);
         // returns the characther associated with this King
         char to_char();
+        // sets castling
+        void set_castling(bool c);
+        // returns castling
+        bool get_castling() const;
 };
 
-#include "../src/Piece.cpp"
+#include "../src/King.cpp"
 
 #endif

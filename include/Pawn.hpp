@@ -23,4 +23,6 @@ class Pawn : public Piece{
         char to_char();
 };
 
+#include "../src/Pawn.cpp"
+
 #endif

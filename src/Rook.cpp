@@ -16,6 +16,13 @@ bool Rook::can_move(std::string& to) const {
     if(std::toupper(pos.at(0))!=std::toupper(to.at(0)) && pos.at(1)!=to.at(1))
         throw IllegalMoveException("The selected move is considered illegal.");
 
+    // checks the conditions to perform the castling
+    if((*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())=='R'){
+        King* k = dynamic_cast<King*>((*board)[to]);
+        if(get_castling()!=true || (*k).get_castling()!=true)
+            throw IllegalMoveException("The selected move is considered illegal.");
+    }
+
     // if the 'to' tile is occupied by a Piece of this player other than his King (so that the castling can be performed), the move is unexecutable
     if((*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())!='R' )
         throw IllegalMoveException("The selected move is considered illegal.");
@@ -86,6 +93,16 @@ std::ostream& Rook::operator<<(std::ostream& os){
 // returns the characther associated with this Rook
 char Rook::to_char(){
     return (ID ? 't' : 'T');
+}
+
+// sets castling
+void Rook::set_castling(bool c){
+    castling = c;
+}
+
+// returns castling
+bool Rook::get_castling() const{
+    return castling;
 }
 
 #endif

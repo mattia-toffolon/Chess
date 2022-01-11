@@ -57,5 +57,15 @@ char King::to_char(){
     return (ID ? 'r' : 'R');
 }
 
+// sets castling
+void King::set_castling(bool c){
+    castling = c;
+}
+
+// returns castling
+bool King::get_castling() const{
+    return castling;
+}
+
 
 #endif

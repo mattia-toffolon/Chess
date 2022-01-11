@@ -7,9 +7,13 @@
 
 class Rook : public Piece{
 
+    private:
+        // determines if the castling can be performed or not
+        bool castling;
+
     public:
         // constructs an object "Rook" with the given ID and the given reference to the Board
-        Rook(bool ID, Board& b, std::string arg_pos) : Piece(ID, b, arg_pos) {};
+        Rook(bool ID, Board& b, std::string arg_pos) : Piece(ID, b, arg_pos) {castling=true;};
         // checks if the chosen move is valid for this Rook 
         // (in reference to the Board in which it's positioned)
         // can trow an exception if the move is illegal
@@ -21,6 +25,12 @@ class Rook : public Piece{
         std::ostream& operator<<(std::ostream& os);
         // returns the characther associated with this Rook
         char to_char();
+        // sets castling
+        void set_castling(bool c);
+        // returns castling
+        bool get_castling() const;
 };
+
+#include "../src/Rook.cpp"
 
 #endif
