@@ -15,14 +15,14 @@ class Piece {
         // specifies if the Piece is still on the dashboard or if it has been eaten
         bool status;
         // pointer to the dashboard in which the Piece is positioned
-        Board* b;
+        Board* board;
 
     public:
         // expressions that identify the colors WHITE and BLACK as bool variables (respectivly true and false)
         static constexpr bool WHITE = true;
         static constexpr bool BLACK = false;
         // constructs an object "Piece" with the given ID and the given reference to the Board
-        Piece(bool ID, Board& b);
+        Piece(bool arg_ID, Board& arg_board);
         // checks if the chosen move is valid for this Piece 
         // (in reference to the Board in which it's positioned)
         // can trow an exception if the move is illegal or if the match ends
