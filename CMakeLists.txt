@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 
-set(PROJECT_NAME
-    Progetto_Dea
+set(PROJ_NAME
+    scacchiera
 )
 
 set(LIBRARIES
@@ -10,7 +10,7 @@ set(LIBRARIES
     Player
 )
 
-project(${PROJECT_NAME})
+project(${PROJ_NAME})
 
 include_directories(include)
 
@@ -21,8 +21,8 @@ foreach(LIBRARY ${LIBRARIES})
     )
 endforeach(LIBRARY)
 
-add_executable(scacchiera
+add_executable(${PROJ_NAME}
     src/main.cpp
 )
 
-target_link_libraries(${PROJECT_NAME} ${LIBRARIES}) 
+target_link_libraries(${PROJ_NAME} ${LIBRARIES}) 
