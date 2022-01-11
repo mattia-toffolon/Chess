@@ -1,7 +1,7 @@
 // Author: Guerrini Alberto
 
-#ifndef INVALIDMOVEEXCEPTION_HPP
-#define INVALIDMOVEEXCEPTION_HPP
+#ifndef ILLEGALMOVEEXCEPTION_HPP
+#define ILLEGALMOVEEXCEPTION_HPP
 
 #include <exception>
 #include <string>

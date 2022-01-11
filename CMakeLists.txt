@@ -1,18 +1,28 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 
-project(Progetto Dea)
+set(PROJECT_NAME
+    Progetto_Dea
+)
+
+set(LIBRARIES
+    Board
+    Piece
+    Player
+)
+
+project(${PROJECT_NAME})
 
 include_directories(include)
 
-add_library(Board
-    include/Board.hpp
-    src/Board.hpp
+foreach(LIBRARY ${LIBRARIES}) 
+    add_library(${LIBRARY}
+        include/${LIBRARY}.hpp
+        src/${LIBRARY}.cpp
+    )
+endforeach(LIBRARY)
+
+add_executable(scacchiera
+    src/main.cpp
 )
-add_library(Piece
-    include/Piece.hpp
-    src/Piece.hpp
-)
-add_library(Player
-    include/Player.hpp
-    src/Player.hpp
-)
+
+target_link_libraries(${PROJECT_NAME} ${LIBRARIES}) 

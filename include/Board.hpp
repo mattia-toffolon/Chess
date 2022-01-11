@@ -19,6 +19,7 @@
 #include "Bishop.hpp"
 #include "Queen.hpp"
 #include "King.hpp"
+#include "IllegalMoveException.hpp"
 
 class Board {
     private:

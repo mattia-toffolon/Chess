@@ -78,10 +78,10 @@ Board::~Board() {
 bool Board::move(const std::string& from, const std::string& to, const bool player_ID) {
     // check if the "from" coordinates are referred to an empty cell
     if((*this)[from] == nullptr)
-        throw std::invalid_argument("No piece in the cell " + from);
+        throw IllegalMoveException("No piece in the cell " + from);
      // check if the piece in "from" coordinates has the opponent color
     if((*this)[from]->get_ID() != player_ID)
-        throw std::invalid_argument("Player can't move an opponent piece");
+        throw IllegalMoveException("Player can't move an opponent piece");
     // check if the "to" coordinates are valid (operator[] can throw exceptions)
     (*this)[to];
     // check if the piece in coordinates from can move to the cell "to"
@@ -156,7 +156,7 @@ bool Board::castling(const std::string& from, const std::string& to, const bool 
 
 Piece& Board::get_piece_at(const int i, const bool ID) {
     if(i < 0 || i >= Board::COLOR_OFFSET)
-        throw std::invalid_argument("parameter i must be in [0,15]");
+        throw IllegalMoveException("parameter i must be in [0,15]");
     short index = i;
     index += ID == Piece::BLACK? Board::COLOR_OFFSET:0;
     return *pieces_.at(index);
@@ -197,16 +197,11 @@ Piece*& Board::operator[](const std::string& coord) {
     std::regex coord_pattern ("[A-Ha-h][1-8]");
     // check if coordinates are in the right format and in the right range
     if(!std::regex_match(coord, coord_pattern)) 
-        throw std::invalid_argument("Illegal Coordinates: Coordinates must be in [A-Ha-h][1-8] format");
+        throw IllegalMoveException("Illegal Coordinates: Coordinates must be in [A-Ha-h][1-8] format");
     return dashboard_.at(coord.at(1) - '1').at(std::toupper(coord.at(0)) - 'A');
 }
 
 #endif
-
-
-int main(void) {
-    return 0;
-}
 
 // unused code lambda function 
 //  std::vector<Piece*>::iterator piece_it = std::replace_if(pieces_.begin(), pieces_.end(), 
