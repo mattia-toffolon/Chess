@@ -3,14 +3,15 @@
 #ifndef PIECE_CPP
 #define PIECE_CPP
 
-#include"include/Piece.hpp"
+#include"../include/Piece.hpp"
 
 // constructs an object "Piece" with the given ID and the given reference to the Board
 // (when a new Piece is created, status is automatically set to true beacuse we assume 
 // that it will be instantly placed on the dashboard)
-Piece::Piece(bool arg_ID, Board& arg_board){
+Piece::Piece(bool arg_ID, Board& arg_board, std::string arg_pos){
     ID = arg_ID;
     board = &arg_board;
+    pos = arg_pos;
     status = true;
 }
 
@@ -29,5 +30,14 @@ void Piece::set_status(bool arg_status){
     status = arg_status;
 }
 
+// returns the string that determines the position of this Piece on the dashboard
+std::string Piece::get_pos(){
+    return pos;
+}
+
+// sets the string that determines the position of this Piece on the dashboard
+void Piece::set_pos(std::string arg_pos){
+    pos = arg_pos;
+}
 
 #endif

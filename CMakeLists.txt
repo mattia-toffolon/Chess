@@ -1,18 +1,22 @@
+# Author: Guerrini Alberto
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 
-set(PROJECT_NAME
-    Progetto_Dea
+# variabile for project name that names the executable
+set(PROJ_NAME
+    scacchiera
 )
 
 set(LIBRARIES
     Board
     Piece
-    Player
+    Pawn
+    Rook
+    King
 )
 
-project(${PROJECT_NAME})
+project(${PROJ_NAME})
 
-include_directories(include)
+include_directories(/include)
 
 foreach(LIBRARY ${LIBRARIES}) 
     add_library(${LIBRARY}
@@ -21,8 +25,8 @@ foreach(LIBRARY ${LIBRARIES})
     )
 endforeach(LIBRARY)
 
-add_executable(scacchiera
+add_executable(${PROJ_NAME}
     src/main.cpp
 )
 
-target_link_libraries(${PROJECT_NAME} ${LIBRARIES}) 
+target_link_libraries(${PROJ_NAME} ${LIBRARIES}) 
