@@ -1,5 +1,7 @@
+# Author: Guerrini Alberto
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 
+# variabile for project name that names the executable
 set(PROJ_NAME
     scacchiera
 )
@@ -7,12 +9,14 @@ set(PROJ_NAME
 set(LIBRARIES
     Board
     Piece
-    Player
+    Pawn
+    Rook
+    King
 )
 
 project(${PROJ_NAME})
 
-include_directories(include)
+include_directories(/include)
 
 foreach(LIBRARY ${LIBRARIES}) 
     add_library(${LIBRARY}
