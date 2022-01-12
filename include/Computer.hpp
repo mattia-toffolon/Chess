@@ -2,6 +2,7 @@
 #ifndef COMPUTER_HPP
 #define COMPUTER_HPP
 #include "Player.hpp"
+#include "Board.hpp"
  
 class Computer : public Player
 {

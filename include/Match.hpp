@@ -12,7 +12,7 @@ class Match
 private:
     //We use the variable board to access the square 
     //and the pawns of the chessboard
-    Board board;
+    Board* board;
     //Player A is always a computer
     Player playerA;
     //Player B should be a human or a computer
@@ -25,4 +25,6 @@ public:
     //When it became false the game is over
     bool start();
 };
+
+#include "src/Match.cpp"
 #endif  //MATCH_HPP
