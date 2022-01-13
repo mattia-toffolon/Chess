@@ -15,11 +15,11 @@ class King : public Piece{
         // constructs an object "Rook" with the given ID, reference to the Board and initial position
         // (castling is set to true when the Rook is placed in the dashboard since castling can be 
         // performed only if both the selected Rook and the King haven't moved yet)
-        King(bool ID, Board& b, std::string arg_pos) : Piece(ID, b, arg_pos) {castling=true;};
+        King(const bool& ID, Board* b, std::string arg_pos) : Piece(ID, b, arg_pos) {castling=true;};
         // checks if the chosen move is valid for this King 
         // (in reference to the Board in which it's positioned)
         // can trow an exception if the move is illegal or if the match ends
-        bool can_move(std::string& to) const;
+        bool can_move(const std::string& to) const;
         // generates and returns a vector contaning all the possible moves that this King can do as strings 
         // (in reference to the Board in which it's positioned)
         std::vector<std::string> get_possible_moves() const;
@@ -33,6 +33,6 @@ class King : public Piece{
         bool get_castling() const;
 };
 
-#include "../src/King.cpp"
+//#include "../src/King.cpp"
 
 #endif

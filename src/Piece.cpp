@@ -8,9 +8,9 @@
 // constructs an object "Piece" with the given ID and the given reference to the Board
 // (when a new Piece is created, status is automatically set to true beacuse we assume 
 // that it will be instantly placed on the dashboard)
-Piece::Piece(bool arg_ID, Board& arg_board, std::string arg_pos){
+Piece::Piece(const bool& arg_ID, Board* arg_board, std::string arg_pos){
     ID = arg_ID;
-    board = &arg_board;
+    board = arg_board;
     pos = arg_pos;
     status = true;
 }

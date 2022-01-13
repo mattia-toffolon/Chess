@@ -6,11 +6,12 @@
 #include <cmath>
 
 #include "../include/Knight.hpp"
+#include "../include/Board.hpp"
 
 // checks if the chosen move is valid for this Knight 
 // (in reference to the Board in which it's positioned)
 // can trow an exception if the move is illegal
-bool Knight::can_move(std::string& to) const{
+bool Knight::can_move(const std::string& to) const{
     
     // if the 'to' tile is occupied by a Piece of this player, the move is unexecutable
     if((*(*board)[to]).get_ID()==ID)

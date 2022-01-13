@@ -6,11 +6,13 @@
 #include <algorithm>
 
 #include "../include/Rook.hpp"
+#include "../include/King.hpp"
+#include "../include/Board.hpp"
 
 // checks if the chosen move is valid for this Rook 
 // (in reference to the Board in which it's positioned)
 // can trow an exception if the move is illegal
-bool Rook::can_move(std::string& to) const {
+bool Rook::can_move(const std::string& to) const {
 
     // if the 'to' tile is in a different row and colummn of to 'pos' tile, the move is unexecutable
     if(std::toupper(pos.at(0))!=std::toupper(to.at(0)) && pos.at(1)!=to.at(1))

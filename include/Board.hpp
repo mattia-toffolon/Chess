@@ -12,14 +12,8 @@
 #include <cstdlib>
 #include <time.h>
 
-#include "Piece.hpp"
-#include "Pawn.hpp"
-#include "Rook.hpp"
-#include "Knight.hpp"
-#include "Bishop.hpp"
-#include "Queen.hpp"
-#include "King.hpp"
 #include "IllegalMoveException.hpp"
+#include "Piece.hpp"
 
 class Board {
     private:
@@ -45,8 +39,6 @@ class Board {
         Piece& get_piece_at(const int i, const bool ID);
         // returns a reference to a random piece of the specified color
         Piece& get_random_piece(const bool ID);
-        // writes in the os stream the dashboard as a square using letters to identify pieces
-        std::ostream& operator<<(std::ostream& os) const;
         // returns the reference to the pointer to the piece in the position identified
         // by the coordinates coord. Returns a reference to null if there isn't pieces
         // Can trow std::invalid_argoument if coordinates aren't in [A-Ha-h][1-8] format
@@ -58,5 +50,8 @@ class Board {
         // implements the castling move
         bool castling(const std::string& from, const std::string& to, const bool player_ID);
 };
+
+// writes in the os stream the dashboard as a square using letters to identify pieces
+std::ostream& operator<<(std::ostream& os, Board& b);
 
 #endif

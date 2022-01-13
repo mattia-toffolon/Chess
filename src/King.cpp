@@ -4,11 +4,12 @@
 #define KING_CPP
 
 #include"../include/King.hpp"
+#include "../include/Board.hpp"
 
 // checks if the chosen move is valid for this King 
 // (in reference to the Board in which it's positioned)
 // can trow an exception if the move is illegal or if the match ends
-bool King::can_move(std::string& to) const {
+bool King::can_move(const std::string& to) const {
 
     // if the absolute values of the both differences between the x and y coordinates of the 'pos' tile and the 'to' tile are <=1 
     // and the 'to' tile is empty or there's an opponent's Piece in it, the move is valid
