@@ -1,10 +1,11 @@
 #include "../include/Board.hpp"
+#include "../include/Piece.hpp"
 #include <iostream>
 
 int main(){
     // test
-    Board a (true);
-    a.move("A1","b1", true);
-    a.operator<<(std::cout);
+    //Board b (Piece::WHITE);
 
+    //std::cout << "B"<< b << std::endl;
+    return 0;
 }

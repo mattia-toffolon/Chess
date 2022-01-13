@@ -8,10 +8,11 @@ set(PROJ_NAME
 
 set(LIBRARIES
     Board
-    Piece
-    Pawn
-    Rook
     King
+    Knight
+    Pawn
+    Piece
+    Rook
 )
 
 project(${PROJ_NAME})

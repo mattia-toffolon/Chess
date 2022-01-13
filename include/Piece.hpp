@@ -6,8 +6,10 @@
 #include<iostream>
 #include<vector>
 
-#include"Board.hpp"
+// #include"Board.hpp"
 #include"IllegalMoveException.hpp"
+
+class Board;
 
 class Piece {
 
@@ -26,7 +28,7 @@ class Piece {
         static constexpr bool WHITE = true;
         static constexpr bool BLACK = false;
         // constructs an object "Rook" with the given ID, reference to the Board and initial position
-        Piece(bool arg_ID, Board& arg_board, std::string arg_pos);
+        Piece(const bool& arg_ID, Board* arg_board, std::string arg_pos);
         // checks if the chosen move is valid for this Piece 
         // (in reference to the Board in which it's positioned)
         // can trow an exception if the move is illegal
@@ -54,6 +56,6 @@ class Piece {
 
 };
 
-#include"../src/Piece.cpp"
+//#include"../src/Piece.cpp"
 
 #endif
