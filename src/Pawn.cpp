@@ -26,11 +26,11 @@ bool Pawn::can_move(const std::string& to) const {
         else if(to.at(1)-pos.at(1)==2 && to.at(1)==2 && (*board)[to]==nullptr && (*board)[to.at(0)+"3"]==nullptr)
             return true;
 
-        // if there's an opponent's Piece diagonally and in front of this Pawn, the move can be executed
+        // if there's an opponent's Piece diagonally and in front of this Pawn, the move is legal
         else if(to.at(1)-pos.at(1)==1 && std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))==1 && (*(*board)[to]).get_ID()==Piece::BLACK)
             return true;
 
-        // otherwise the selected move is unexecutable
+        // otherwise the selected move is illegal
         else    
             throw IllegalMoveException("The selected move is considered illegal.");
 
@@ -48,11 +48,11 @@ bool Pawn::can_move(const std::string& to) const {
         else if(pos.at(1)-to.at(1)==2 && to.at(1)==7 && (*board)[to]==nullptr && (*board)[to.at(0)+"6"]==nullptr)
             return true;
 
-        // if there's an opponent's Piece diagonally and in front of this Pawn, the move can be executed
+        // if there's an opponent's Piece diagonally and in front of this Pawn, the move is legal
         else if(pos.at(1)-to.at(1)==1 && std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))==1 && (*(*board)[to]).get_ID()==Piece::WHITE)
             return true;
 
-        // otherwise the selected move is unexecutable
+        // otherwise the selected move is illegal
         else    
             throw IllegalMoveException("The selected move is considered illegal.");
 

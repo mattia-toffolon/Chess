@@ -16,7 +16,7 @@ bool King::can_move(const std::string& to) const {
     if(std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))<=1 && std::abs(to.at(1)-pos.at(1))<=1 && (((*board)[to]==nullptr) || (*(*board)[to]).get_ID()!=ID) )
         return true;
 
-    // otherwise the selected move is unexcecutable
+    // otherwise the selected move is illegal
     else
         throw IllegalMoveException("The selected move is considered illegal.");
 }
