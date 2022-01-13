@@ -2,11 +2,11 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 #include<iostream>
-#include "Board.hpp"
+#include "../include/Board.hpp"
 
 class Player
 {
-private:
+protected:
     //Pointer to access the board
     Board* board;
     //Identies the color of the pawn that a player is
@@ -24,6 +24,6 @@ public:
     Player& operator=(Player&) = delete;
 };
 
-#include "src/Player.cpp"
+#include "../src/Player.cpp"
 
 #endif  //PLAYER_HPP

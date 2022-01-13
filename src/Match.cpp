@@ -9,23 +9,21 @@
 #include "include/Board.hpp"
 #include "time.h"
 
-//to determine playerB
 Match::Match(bool isHuman){
     srand(time(NULL));
     int pawnsColor = rand()%2;
+
     board = new Board(pawnsColor);
+
     playerA = Computer::Computer((bool)pawnsColor, board);
     if(isHuman){
-    playerB = Human::Human(!((bool)pawnsColor), board);
+        playerB = Human::Human(!((bool)pawnsColor), board);
     }
     else{
         playerB = Computer::Computer(!((bool)pawnsColor, board));
     }
-}
-    
+}  
 
-//Until the value is true, the game is still going on
-//When it became false the game is over
 bool start(){
     return false;
 }

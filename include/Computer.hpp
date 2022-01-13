@@ -13,4 +13,6 @@ public:
     void turn();
 };
 
+#include "../src/Computer.cpp"
+
 #endif  //COMPUTER_HPP
