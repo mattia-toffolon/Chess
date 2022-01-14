@@ -4,7 +4,7 @@
 
 int main(){
     // test
-    //Board b (Piece::WHITE);
+    Board b (Piece::WHITE);
 
     //std::cout << "B"<< b << std::endl;
     return 0;

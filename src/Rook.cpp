@@ -5,7 +5,6 @@
 
 #include <algorithm>
 
-#include "../include/Rook.hpp"
 #include "../include/King.hpp"
 #include "../include/Board.hpp"
 

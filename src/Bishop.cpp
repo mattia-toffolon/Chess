@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <cmath>
 
-#include "../include/Bishop.hpp"
 #include "../include/Board.hpp"
 
 // checks if the chosen move is valid for this Bishop 

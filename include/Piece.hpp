@@ -56,6 +56,6 @@ class Piece {
 
 };
 
-//#include"../src/Piece.cpp"
+#include"../src/Piece.cpp"
 
 #endif

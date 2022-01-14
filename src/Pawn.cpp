@@ -7,7 +7,6 @@
 #include <string>
 #include <cmath>
 
-#include "../include/Pawn.hpp"
 #include "../include/Board.hpp"
 
 // checks if the chosen move is valid for this Pawn 
