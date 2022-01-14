@@ -4,12 +4,38 @@
 #define KING_CPP
 
 #include"../include/King.hpp"
+#include"../include/Rook.hpp"
 #include "../include/Board.hpp"
 
 // checks if the chosen move is valid for this King 
 // (in reference to the Board in which it's positioned)
 // can trow an exception if the move is illegal or if the match ends
 bool King::can_move(const std::string& to) const {
+
+    // if the 'to' tile matches the current position of this Piece the move is considered illegal
+    if(pos.compare(to)==0)
+        throw IllegalMoveException("The selected move is considered illegal.");
+
+    // if the 'to' tile is occupied by a Piece of this player other than one of his Rooks (so that the castling can be performed), the move is illegal
+    if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())!='T' )
+        throw IllegalMoveException("The selected move is considered illegal.");
+
+    // checks the conditions to perform the castling
+    if((*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())=='T'){
+        Rook* t = dynamic_cast<Rook*>((*board)[to]);
+        if(get_castling()!=true || (*t).get_castling()!=true)
+            throw IllegalMoveException("The selected move is considered illegal.");
+
+        for(char i=(char)(std::min((int)pos.at(0),(int)to.at(0)) +1); i<(char)(std::max((int)pos.at(0),(int)to.at(0))); i++ ){
+            std::string p;
+            p.push_back(i);
+            p.push_back(pos.at(1));
+            if((*board)[p] != nullptr)
+                throw IllegalMoveException("The selected move is considered illegal.");
+        }
+
+        return true;
+    }
 
     // if the absolute values of the both differences between the x and y coordinates of the 'pos' tile and the 'to' tile are <=1 
     // and the 'to' tile is empty or there's an opponent's Piece in it, the move is valid

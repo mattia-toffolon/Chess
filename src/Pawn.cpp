@@ -15,8 +15,21 @@
 // can trow an exception if the move is illegal or if the match ends
 bool Pawn::can_move(const std::string& to) const {
 
+    // if the 'to' tile matches the current position of this Piece the move is considered illegal
+    if(pos.compare(to)==0)
+        throw IllegalMoveException("The selected move is considered illegal.");
+
+    // if the conditions to perfom the en-passant are matched the move is legal
+    if(pos.at(1)==to.at(1) && std::abs(pos.at(0)-to.at(0))==1 && (*board)[to]!=nullptr && (*(*board)[to]).get_ID()!=ID && std::toupper((*(*board)[to]).to_char())!='P' ){
+        Pawn* p = dynamic_cast<Pawn*>((*board)[to]);
+        if((*p).get_en_passant())
+            return true;
+        else    
+            throw IllegalMoveException("The selected move is considered illegal.");
+    }
+
     // case: white Pawn
-    if( (*(*board)[pos]).get_ID() ){
+    if(ID){
 
         // if the tile in front is free this Pawn can be moved
         if(to.at(1) - pos.at(1) == 1 && (*board)[to]==nullptr)
@@ -34,7 +47,6 @@ bool Pawn::can_move(const std::string& to) const {
         else    
             throw IllegalMoveException("The selected move is considered illegal.");
 
-        // --- DA IMPLEMENTARE: EN PASSANT!
     }
 
     // case: black Pawn
@@ -55,8 +67,6 @@ bool Pawn::can_move(const std::string& to) const {
         // otherwise the selected move is illegal
         else    
             throw IllegalMoveException("The selected move is considered illegal.");
-
-        // --- DA IMPLEMENTARE: EN PASSANT!
 
     }
 
@@ -98,6 +108,16 @@ std::ostream& Pawn::operator<<(std::ostream& os){
 // returns the characther associated with this Pawn
 char Pawn::to_char(){
     return (ID ? 'p' : 'P');
+}
+
+// sets en_passant
+void Pawn::set_en_passant(bool p){
+    en_passant = p;
+}
+
+// returns en_passant
+bool Pawn::get_en_passant() const{
+    return en_passant;
 }
 
 #endif

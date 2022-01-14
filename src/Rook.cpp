@@ -14,25 +14,29 @@
 // can trow an exception if the move is illegal
 bool Rook::can_move(const std::string& to) const {
 
+    // if the 'to' tile matches the current position of this Piece the move is considered illegal
+    if(pos.compare(to)==0)
+        throw IllegalMoveException("The selected move is considered illegal.");
+
     // if the 'to' tile is in a different row and colummn of to 'pos' tile, the move is illegal
     if(std::toupper(pos.at(0))!=std::toupper(to.at(0)) && pos.at(1)!=to.at(1))
         throw IllegalMoveException("The selected move is considered illegal.");
 
+    // if the 'to' tile is occupied by a Piece of this player other than his King (so that the castling can be performed), the move is illegal
+    if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())!='R' )
+        throw IllegalMoveException("The selected move is considered illegal.");
+
     // checks the conditions to perform the castling
-    if((*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())=='R'){
+    if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())=='R'){
         King* k = dynamic_cast<King*>((*board)[to]);
         if(get_castling()!=true || (*k).get_castling()!=true)
             throw IllegalMoveException("The selected move is considered illegal.");
     }
 
-    // if the 'to' tile is occupied by a Piece of this player other than his King (so that the castling can be performed), the move is illegal
-    if((*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())!='R' )
-        throw IllegalMoveException("The selected move is considered illegal.");
-
     // if the 'to' and 'pos' tiles are in the same column, the algorithm checks if the tiles in beetwen are empty.
     // if not, the selected move is illegal
     if(std::toupper(pos.at(0))==std::toupper(to.at(0))){
-        for(int i=std::min(pos.at(1), to.at(1))-'1'+1; i<std::max(pos.at(1), to.at(1))-'1'; i++ ){
+        for(int i=(int)std::min(pos.at(1), to.at(1))-'1'+1; i<std::max(pos.at(1), to.at(1))-'1'; i++ ){
             std::string p;
             p.push_back(pos.at(0));
             p.push_back(i);
@@ -42,7 +46,7 @@ bool Rook::can_move(const std::string& to) const {
         return true;
     }
 
-    // otherwise the 'to' and 'pos' tiles must be in the same column, the algorithm checks if the tiles in beetwen are empty.
+    // otherwise the 'to' and 'pos' tiles must be in the same row, the algorithm checks if the tiles in beetwen are empty.
     // if not, the selected move is illegal
     else{
         for(char i=(char)(std::min((int)pos.at(0),(int)to.at(0)) +1); i<(char)(std::max((int)pos.at(0),(int)to.at(0))); i++ ){
