@@ -5,6 +5,7 @@
 #include "../src/Board.cpp"
 #include "../include/Player.hpp"
 
+Player::Player(){};
 //Costructor with argument ID for the color of the pawns
 // and a reference to the chessboard
 Player::Player(bool id, Board& b){

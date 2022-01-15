@@ -1,8 +1,8 @@
 //Francesco Stella 2008816
 #ifndef COMPUTER_HPP
 #define COMPUTER_HPP
-#include "Player.hpp"
-#include "Board.hpp"
+#include "../include/Player.hpp"
+#include "../include/Board.hpp"
  
 class Computer : public Player
 {

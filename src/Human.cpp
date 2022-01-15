@@ -7,23 +7,23 @@
 #include "../include/IllegalMoveException.hpp"
 #include<iostream>
 
-void turn(){
+void Human::turn(){
     std::string from = "";
     std::string to = "";
     std::cout<<"Insert the box where is the piece to move and the box of arrival:"<<std::endl;
     std::cin>>from>>to;
     try
     {
-        (*(Player::board)).move(from, to, Player::ID);
+        (*(board)).move(from, to, ID);
     }
     catch(IllegalMoveException e)
     {
-        std::cout<<"The move is not allowed, reinsert the values: "<<std::endl;
+        std::cout<<"The move is not allowed, reinsert the boxes: "<<std::endl;
         std::cin>>from>>to;
-        (*(Player::board)).move(from, to, Player::ID);
+        (*(board)).move(from, to, ID);
     }
 
-    std::cout<<(*(Player::board))<<std::endl;
+    std::cout<<(*(board))<<std::endl;
     return;
 }
 

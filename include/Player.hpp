@@ -13,6 +13,8 @@ protected:
     //to use during the game
     bool ID;
 public:
+    //Default Costructor
+    Player();
     //Costructor with argument ID for the color of the pawns
     // and a reference to the chessboard
     Player(bool ID, Board& b);

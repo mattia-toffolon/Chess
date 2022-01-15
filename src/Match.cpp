@@ -2,30 +2,40 @@
 #ifndef MATCH_CPP
 #define MATCH_CPP
 #include<iostream>
-#include "include/Player.hpp"
-#include "include/Match.hpp"
-#include "include/Computer.hpp"
-#include "include/Human.hpp"
-#include "include/Board.hpp"
+#include "../include/Player.hpp"
+#include "../include/Match.hpp"
+#include "../include/Computer.hpp"
+#include "../include/Human.hpp"
+#include "../include/Board.hpp"
 #include "time.h"
 
 Match::Match(bool isHuman){
     srand(time(NULL));
+    //Random colors for the players
     int pawnsColor = rand()%2;
-
     board = new Board(pawnsColor);
-
-    playerA = Computer::Computer((bool)pawnsColor, board);
+    //PlayerA is always a computer
+    playerA = &Computer((bool)pawnsColor, *board);
+    //First case: playerB is a Human. Second case: playerB is another computer
     if(isHuman){
-        playerB = Human::Human(!((bool)pawnsColor), board);
+        playerB = &Human(!((bool)pawnsColor), *board);
     }
     else{
-        playerB = Computer::Computer(!((bool)pawnsColor, board));
+        playerB = &Computer(!((bool)pawnsColor), *board);
+    }   
+}
+/*
+bool Match::start(){
+    if((*playerA).ID){
+        (*playerA).turn();
+        (*playerB).turn();
     }
-}  
-
-bool start(){
+    else{
+        (*playerB).turn();
+        (*playerA).turn();
+    }
     return false;
 }
+*/
 
 #endif  //MATCH_CPP
