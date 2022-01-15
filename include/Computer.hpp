@@ -1,7 +1,8 @@
 //Francesco Stella 2008816
 #ifndef COMPUTER_HPP
 #define COMPUTER_HPP
-#include "Player.hpp"
+#include "../include/Player.hpp"
+#include "../include/Board.hpp"
  
 class Computer : public Player
 {
@@ -11,5 +12,7 @@ public:
     //Function that control the turn
     void turn();
 };
+
+#include "../src/Computer.cpp"
 
 #endif  //COMPUTER_HPP
