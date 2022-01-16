@@ -99,16 +99,36 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         if((*this)[to] != nullptr) {
             // if the piece in to cell has the player color it must be a castling move
             if((*this)[to]->get_ID() == player_ID)
-                return this->castling(from, to, player_ID);
+                this->castling(from, to, player_ID);
             // if it can't be a castling it have to be a capture
             else
-                return this->capture(from, to);
+                this->capture(from, to);
         } else {
         // if the cell "to" is empty simply move the piece
         // make the pointer in the "to" cell pointing to the moved piece
         (*this)[to] = (*this)[from];
+        (*this)[to]->set_pos(to);
         // set to nullptr the pointer in the cell from;
         (*this)[from] = nullptr;
+        
+        // en passant flag setting for pawns
+        Pawn* p = dynamic_cast<Pawn*>((*this)[to]);
+        // if it is a pawn
+        if( p != nullptr)
+            // and en_passant is set to true
+            if(p->get_en_passant())
+                p->set_en_passant(false);
+            // if en passant is false and pawn has just done the first move
+            else if (std::abs(from.at(1)-to.at(1)) == 2)
+                p-> set_en_passant(true);
+
+        // castling flag setting for rook and king
+        Rook* r = dynamic_cast<Rook*>((*this)[to]);
+        if(r != nullptr)
+            r->set_castling(false);
+        King* k = dynamic_cast<King*>((*this)[to]);
+        if(k != nullptr)
+            k->set_castling(false);
         return true;
         }
     }
