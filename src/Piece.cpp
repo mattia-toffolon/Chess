@@ -3,6 +3,8 @@
 #ifndef PIECE_CPP
 #define PIECE_CPP
 
+#include "../include/Piece.hpp"
+
 constexpr bool Piece::WHITE;
 constexpr bool Piece::BLACK;
 
