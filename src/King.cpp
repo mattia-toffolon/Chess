@@ -3,7 +3,6 @@
 #ifndef KING_CPP
 #define KING_CPP
 
-#include"../include/King.hpp"
 #include"../include/Rook.hpp"
 #include "../include/Board.hpp"
 

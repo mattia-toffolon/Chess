@@ -11,7 +11,6 @@
 #include "../include/Queen.hpp"
 #include "../include/King.hpp"
 #include "../include/IllegalMoveException.hpp"
-#include "../include/Board.hpp"
 
 Board::Board(const bool player_color) {
     // reserve space in the vectors to store all pieces

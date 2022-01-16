@@ -3,7 +3,8 @@
 #ifndef PIECE_CPP
 #define PIECE_CPP
 
-#include"../include/Piece.hpp"
+constexpr bool Piece::WHITE;
+constexpr bool Piece::BLACK;
 
 // constructs an object "Piece" with the given ID and the given reference to the Board
 // (when a new Piece is created, status is automatically set to true beacuse we assume 

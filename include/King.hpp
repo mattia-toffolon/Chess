@@ -35,4 +35,6 @@ class King : public Piece{
 
 //#include "../src/King.cpp"
 
+#include "../src/King.cpp"
+
 #endif
