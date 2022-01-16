@@ -5,6 +5,7 @@
 
 #include <cmath>
 
+#include "../include/Knight.hpp"
 #include "../include/Board.hpp"
 
 // checks if the chosen move is valid for this Knight 

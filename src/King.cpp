@@ -3,7 +3,8 @@
 #ifndef KING_CPP
 #define KING_CPP
 
-#include"../include/Rook.hpp"
+#include "../include/King.hpp"
+#include "../include/Rook.hpp"
 #include "../include/Board.hpp"
 
 // checks if the chosen move is valid for this King 

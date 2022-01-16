@@ -2,7 +2,7 @@
 #ifndef PLAYER_CPP
 #define PLAYER_CPP
 #include<iostream>
-#include "../src/Board.cpp"
+#include "../include/Board.hpp"
 #include "../include/Player.hpp"
 
 Player::Player(){};

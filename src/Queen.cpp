@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <cmath>
 
+#include "../include/Queen.hpp"
 #include "../include/Board.hpp"
 
 // checks if the chosen move is valid for this Queen 

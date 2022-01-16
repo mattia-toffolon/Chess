@@ -54,6 +54,6 @@ class Board {
 // writes in the os stream the dashboard as a square using letters to identify pieces
 std::ostream& operator<<(std::ostream& os, Board& b);
 
-#include "../src/Board.cpp"
+//#include "../src/Board.cpp"
 
 #endif

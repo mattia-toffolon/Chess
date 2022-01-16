@@ -3,6 +3,7 @@
 #ifndef BOARD_CPP
 #define BOARD_CPP
 
+#include "../include/Board.hpp"
 #include "../include/Piece.hpp"
 #include "../include/Pawn.hpp"
 #include "../include/Rook.hpp"

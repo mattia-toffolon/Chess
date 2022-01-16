@@ -26,5 +26,6 @@ public:
     bool start();
 };
 
-#include "../src/Match.cpp"
+//#include "../src/Match.cpp"
+
 #endif  //MATCH_HPP

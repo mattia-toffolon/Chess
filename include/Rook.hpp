@@ -33,6 +33,6 @@ class Rook : public Piece{
         bool get_castling() const;
 };
 
-#include "../src/Rook.cpp"
+//#include "../src/Rook.cpp"
 
 #endif

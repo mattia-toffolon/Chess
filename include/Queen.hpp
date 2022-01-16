@@ -23,6 +23,6 @@ class Queen : public Piece{
         char to_char();
 };
 
-#include "../src/Queen.cpp"
+//#include "../src/Queen.cpp"
 
 #endif
