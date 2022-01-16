@@ -13,6 +13,8 @@ set(LIBRARIES
     Pawn
     Piece
     Rook
+    Bishop
+    Queen
 )
 
 project(${PROJ_NAME})
