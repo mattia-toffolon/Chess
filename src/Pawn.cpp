@@ -15,6 +15,8 @@
 // can trow an exception if the move is illegal or if the match ends
 bool Pawn::can_move(const std::string& to) const {
 
+    std::cout<<"BULABULA! "<<pos<<" "<<to<<"\n";
+
     // if the 'to' tile matches the current position of this Piece the move is considered illegal
     if(pos.compare(to)==0)
         throw IllegalMoveException("The selected move is considered illegal.");

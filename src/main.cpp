@@ -8,9 +8,14 @@ int main(){
 
     std::cout << "\n" << b << std::endl;
 
-    //b.move("A2", "A3", Piece::WHITE);
+    try{
+        b.move("A2", "A3", Piece::WHITE);
+    }
+    catch(IllegalMoveException e){
+        std::cout<<e.what();
+    }
 
-    //std::cout << "\n" << b << std::endl;
+    std::cout << "\n" << b << std::endl;
 
     return 0;
 }
