@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <string>
 
 #include "../include/Bishop.hpp"
 #include "../include/Board.hpp"
@@ -16,23 +17,23 @@ bool Bishop::can_move(const std::string& to) const{
 
     // if the 'to' tile matches the current position of this Piece the move is considered illegal
     if(pos.compare(to)==0)
-        throw IllegalMoveException("The selected move is considered illegal.");
+        throw IllegalMoveException("The selected move is considered illegal: No move made");
 
     // if the 'to' tile is occupied by a Piece of this player, the move is illegal
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID)
-        throw IllegalMoveException("The selected move is considered illegal.");
+        throw IllegalMoveException("The selected move is considered illegal: Can't attach same color");
 
     // the Bishop must move diagonally and so, if the absolute value of difference between the first
     // coordinates isn't equal to the one of the second coordinates, the move is illegal 
-    if(std::abs(pos.at(0)-to.at(0)) != std::abs(pos.at(1)-to.at(1)))
-        throw IllegalMoveException("The selected move is considered illegal.");
+    if(std::abs(pos.at(0)-(int)std::toupper(to.at(0))) != std::abs(pos.at(1)-to.at(1)))
+        throw IllegalMoveException("The selected move is considered illegal: Not diagonal");
 
     // case: this Bishop is moving up to the right or down to the left
     // the algorithm checks if the tiles in beetwen are empty. If not, the selected move is illegal
-    if( (pos.at(0)>to.at(0)&&(pos.at(1)>to.at(1))) || (pos.at(0)<to.at(0)&&(pos.at(1)<to.at(1))) ){
-        char i=((char)std::min(pos.at(0), to.at(0)))+1;
+    if( (pos.at(0)>std::toupper(to.at(0))&&(pos.at(1)>to.at(1))) || (pos.at(0)<std::toupper(to.at(0))&&(pos.at(1)<to.at(1))) ){
+        char i=((char)std::min((int)pos.at(0), std::toupper(to.at(0))))+1;
         char j=((char)std::min(pos.at(1), to.at(1)))+1;
-        while(i!=std::max(pos.at(0), to.at(0)) && j!=std::max(pos.at(1), to.at(1))){
+        while(i!=std::max((int)pos.at(0), std::toupper(to.at(0))) && j!=std::max(pos.at(1), to.at(1))){
             std::string p;
             p.push_back(i);
             p.push_back(j);
@@ -47,9 +48,9 @@ bool Bishop::can_move(const std::string& to) const{
     // case: this Bishop is moving up to the right or down to the left
     // the algorithm checks if the tiles in beetwen are empty. If not, the selected move is illegal   
     else{
-        char i=((char)std::min(pos.at(0), to.at(0)))+1;
+        char i=((char)std::min((int)pos.at(0), std::toupper(to.at(0))))+1;
         char j=((char)std::max(pos.at(1), to.at(1)))+1;
-        while(i!=std::max(pos.at(0), to.at(0)) && j!=std::min(pos.at(1), to.at(1))){
+        while(i!=std::max((int)pos.at(0), std::toupper(to.at(0))) && j!=std::min(pos.at(1), to.at(1))){
             std::string p;
             p.push_back(i);
             p.push_back(j);

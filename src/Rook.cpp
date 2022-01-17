@@ -4,7 +4,7 @@
 #define ROOK_CPP
 
 #include <algorithm>
-
+#include <string>
 #include "../include/Rook.hpp"
 #include "../include/King.hpp"
 #include "../include/Board.hpp"
@@ -15,7 +15,10 @@
 bool Rook::can_move(const std::string& to) const {
 
     // if the 'to' tile matches the current position of this Piece the move is considered illegal
-    if(pos.compare(to)==0)
+    std::string up_to;
+    up_to.push_back(std::toupper(to.at(0)));
+    up_to.push_back(to.at(1));
+    if(pos.compare(up_to)==0)
         throw IllegalMoveException("The selected move is considered illegal.");
 
     // if the 'to' tile is in a different row and colummn of to 'pos' tile, the move is illegal
@@ -49,7 +52,7 @@ bool Rook::can_move(const std::string& to) const {
     // otherwise the 'to' and 'pos' tiles must be in the same row, the algorithm checks if the tiles in beetwen are empty.
     // if not, the selected move is illegal
     else{
-        for(char i=(char)(std::min((int)pos.at(0),(int)to.at(0)) +1); i<(char)(std::max((int)pos.at(0),(int)to.at(0))); i++ ){
+        for(char i=(char)(std::min((int)pos.at(0),(int)std::toupper(to.at(0))) +1); i<(char)(std::max((int)pos.at(0),(int)std::toupper(to.at(0)))); i++ ){
             std::string p;
             p.push_back(i);
             p.push_back(pos.at(1));

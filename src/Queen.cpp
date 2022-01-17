@@ -16,22 +16,22 @@ bool Queen::can_move(const std::string& to) const{
 
     // if the 'to' tile matches the current position of this Piece the move is considered illegal
     if(pos.compare(to)==0)
-        throw IllegalMoveException("The selected move is considered illegal.");
+        throw IllegalMoveException("The selected move is considered illegal: No move");
 
     // if the 'to' tile is occupied by a Piece of this player, the move is illegal
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID)
-        throw IllegalMoveException("The selected move is considered illegal.");
+        throw IllegalMoveException("The selected move is considered illegal: can't attack same color");
 
     // if this move can neither be perfomed by a Rook nor a Bishop, the move illegal
-    if((std::toupper(pos.at(0))!=std::toupper(to.at(0)) && pos.at(1)!=to.at(1)) && (std::abs(pos.at(0)-to.at(0)) != std::abs(pos.at(1)-to.at(1))))
+    if((std::toupper(pos.at(0))!=std::toupper(to.at(0)) && pos.at(1)!=to.at(1)) && (std::abs(pos.at(0)-std::toupper(to.at(0))) != std::abs(pos.at(1)-to.at(1))))
         throw IllegalMoveException("The selected move is considered illegal.");
 
     // case: this Queen is moving up to the right or down to the left
     // the algorithm checks if the tiles in beetwen are empty. If not, the selected move is illegal
-    if( (pos.at(0)>to.at(0)&&(pos.at(1)>to.at(1))) || (pos.at(0)<to.at(0)&&(pos.at(1)<to.at(1))) ){
+    if( (pos.at(0)>std::toupper(to.at(0))&&(pos.at(1)>to.at(1))) || (pos.at(0)<std::toupper(to.at(0))&&(pos.at(1)<to.at(1))) ){
         char i=((char)std::min(pos.at(0), to.at(0)))+1;
         char j=((char)std::min(pos.at(1), to.at(1)))+1;
-        while(i!=std::max(pos.at(0), to.at(0)) && j!=std::max(pos.at(1), to.at(1))){
+        while(i!=std::max((int)pos.at(0), std::toupper(to.at(0))) && j!=std::max(pos.at(1), to.at(1))){
             std::string p;
             p.push_back(i);
             p.push_back(j);
@@ -45,10 +45,10 @@ bool Queen::can_move(const std::string& to) const{
     }
     // case: this Queen is moving up to the right or down to the left
     // the algorithm checks if the tiles in beetwen are empty. If not, the selected move is illegal   
-    else if( (pos.at(0)>to.at(0)&&(pos.at(1)<to.at(1))) || (pos.at(0)<to.at(0)&&(pos.at(1)>to.at(1))) ){
-        char i=((char)std::min(pos.at(0), to.at(0)))+1;
+    else if( (pos.at(0)>std::toupper(to.at(0))&&(pos.at(1)<to.at(1))) || (pos.at(0)<std::toupper(to.at(0))&&(pos.at(1)>to.at(1))) ){
+        char i=((char)std::min((int)pos.at(0), std::toupper(to.at(0))))+1;
         char j=((char)std::max(pos.at(1), to.at(1)))+1;
-        while(i!=std::max(pos.at(0), to.at(0)) && j!=std::min(pos.at(1), to.at(1))){
+        while(i!=std::max((int)pos.at(0), std::toupper(to.at(0))) && j!=std::min(pos.at(1), to.at(1))){
             std::string p;
             p.push_back(i);
             p.push_back(j);
@@ -75,7 +75,7 @@ bool Queen::can_move(const std::string& to) const{
     // case: this Queen is moving straight to the right or to the left
     // the algorithm checks if the tiles in beetwen are empty. If not, the selected move is illegal
     else{
-        for(char i=(char)(std::min((int)pos.at(0),(int)to.at(0)) +1); i<(char)(std::max((int)pos.at(0),(int)to.at(0))); i++ ){
+        for(char i=(char)(std::min((int)pos.at(0),(int)std::toupper(to.at(0))) +1); i<(char)(std::max((int)pos.at(0),(int)std::toupper(to.at(0)))); i++ ){
             std::string p;
             p.push_back(i);
             p.push_back(pos.at(1));

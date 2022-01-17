@@ -23,16 +23,16 @@ int main(){
         std::cout << std::endl << b << std::endl;
     }
 
-    try{
-        b.move("A2", "A4", Piece::WHITE);
-    }
-    catch(IllegalMoveException e){
-        std::cout<<e.what();
-    }
+    // try{
+    //     b.move("A2", "A4", Piece::WHITE);
+    // }
+    // catch(IllegalMoveException e){
+    //     std::cout<<e.what();
+    // }
 
-    b.move("A7", "A5", Piece::BLACK);
+    // b.move("A7", "A5", Piece::BLACK);
 
-    std::cout << "\n" << b << std::endl;
+    // std::cout << "\n" << b << std::endl;
 
     return 0;
 }

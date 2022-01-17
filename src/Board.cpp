@@ -32,8 +32,6 @@ Board::Board(const bool& player_color) {
     int pawns_row_w = (player_color == Piece::WHITE)? 1 : 6;
     int pawns_row_b = (player_color == Piece::BLACK)? 1 : 6;
 
-    std::cout<<" w: "<<pawns_row_w<<" b: "<<pawns_row_b<<"\n";
-
     // add 8 pawns for each color in the correct position of the array
     // and add pawns to the dashboard
     int idx = 0;
@@ -43,44 +41,42 @@ Board::Board(const bool& player_color) {
         dashboard_.at(pawns_row_w).at(idx) = pieces_.at(idx);
         // black pawns
         pieces_.at(COLOR_OFFSET + idx) = new Pawn(Piece::BLACK, this, char('A'+idx) + std::to_string(pawns_row_b+1), player_color);
-        dashboard_.at(pawns_row_w).at(idx) = pieces_.at(idx);
+        dashboard_.at(pawns_row_b).at(idx) = pieces_.at(COLOR_OFFSET + idx);
     }
 
-    // add non pawn pieces in the pieces_ vector
-    pieces_.at(idx)                 = new Rook(Piece::WHITE, this, 'A'+std::to_string(pawns_row_w));
-    pieces_.at(idx + COLOR_OFFSET)  = new Rook(Piece::BLACK, this, 'A'+std::to_string(pawns_row_b));
-    idx++;
-    pieces_.at(idx)                 = new Knight(Piece::WHITE, this, 'B'+std::to_string(pawns_row_w));
-    pieces_.at(idx + COLOR_OFFSET)  = new Knight(Piece::BLACK, this, 'B'+std::to_string(pawns_row_b));
-    idx++;
-    pieces_.at(idx)                 = new Bishop(Piece::WHITE, this, 'C'+std::to_string(pawns_row_w));
-    pieces_.at(idx + COLOR_OFFSET)  = new Bishop(Piece::BLACK, this, 'C'+std::to_string(pawns_row_b));
-    idx++;
-    pieces_.at(idx)                 = new Queen(Piece::WHITE, this, 'D'+std::to_string(pawns_row_w));
-    pieces_.at(idx + COLOR_OFFSET)  = new Queen(Piece::BLACK, this, 'D'+std::to_string(pawns_row_b));
-    idx++;
-    pieces_.at(idx)                 = new King(Piece::WHITE, this, 'E'+std::to_string(pawns_row_w));
-    pieces_.at(idx + COLOR_OFFSET)  = new King(Piece::BLACK, this, 'E'+std::to_string(pawns_row_b));
-    idx++;
-    pieces_.at(idx)                 = new Bishop(Piece::WHITE, this, 'F'+std::to_string(pawns_row_w));
-    pieces_.at(idx + COLOR_OFFSET)  = new Bishop(Piece::BLACK, this, 'F'+std::to_string(pawns_row_b));
-    idx++;
-    pieces_.at(idx)                 = new Knight(Piece::WHITE, this, 'G'+std::to_string(pawns_row_w));
-    pieces_.at(idx + COLOR_OFFSET)  = new Knight(Piece::BLACK, this, 'G'+std::to_string(pawns_row_b));
-    idx++;
-    pieces_.at(idx)                 = new Rook(Piece::WHITE, this, 'H'+std::to_string(pawns_row_w));
-    pieces_.at(idx + COLOR_OFFSET)  = new Rook(Piece::BLACK, this, 'H'+std::to_string(pawns_row_b));
-    
     // set the index of dashboard rows in wich there are non pawns pieces
     int pieces_row_w = player_color == Piece::WHITE? 0 : 7;
     int pieces_row_b = player_color == Piece::BLACK? 0 : 7;
+
+    // add non pawn pieces in the pieces_ vector
+    pieces_.at(idx)                 = new Rook(Piece::WHITE, this, 'A'+std::to_string(pieces_row_w+1));
+    pieces_.at(idx + COLOR_OFFSET)  = new Rook(Piece::BLACK, this, 'A'+std::to_string(pieces_row_b+1));
+    idx++;
+    pieces_.at(idx)                 = new Knight(Piece::WHITE, this, 'B'+std::to_string(pieces_row_w+1));
+    pieces_.at(idx + COLOR_OFFSET)  = new Knight(Piece::BLACK, this, 'B'+std::to_string(pieces_row_b+1));
+    idx++;
+    pieces_.at(idx)                 = new Bishop(Piece::WHITE, this, 'C'+std::to_string(pieces_row_w+1));
+    pieces_.at(idx + COLOR_OFFSET)  = new Bishop(Piece::BLACK, this, 'C'+std::to_string(pieces_row_b+1));
+    idx++;
+    pieces_.at(idx)                 = new Queen(Piece::WHITE, this, 'D'+std::to_string(pieces_row_w+1));
+    pieces_.at(idx + COLOR_OFFSET)  = new Queen(Piece::BLACK, this, 'D'+std::to_string(pieces_row_b+1));
+    idx++;
+    pieces_.at(idx)                 = new King(Piece::WHITE, this, 'E'+std::to_string(pieces_row_w+1));
+    pieces_.at(idx + COLOR_OFFSET)  = new King(Piece::BLACK, this, 'E'+std::to_string(pieces_row_b+1));
+    idx++;
+    pieces_.at(idx)                 = new Bishop(Piece::WHITE, this, 'F'+std::to_string(pieces_row_w+1));
+    pieces_.at(idx + COLOR_OFFSET)  = new Bishop(Piece::BLACK, this, 'F'+std::to_string(pieces_row_b+1));
+    idx++;
+    pieces_.at(idx)                 = new Knight(Piece::WHITE, this, 'G'+std::to_string(pieces_row_w+1));
+    pieces_.at(idx + COLOR_OFFSET)  = new Knight(Piece::BLACK, this, 'G'+std::to_string(pieces_row_b+1));
+    idx++;
+    pieces_.at(idx)                 = new Rook(Piece::WHITE, this, 'H'+std::to_string(pieces_row_w+1));
+    pieces_.at(idx + COLOR_OFFSET)  = new Rook(Piece::BLACK, this, 'H'+std::to_string(pieces_row_b+1));
 
     // copy references to white pieces to the dashboard
     std::copy(pieces_.begin() + Board::DIM, 
               pieces_.begin() + Board::COLOR_OFFSET, 
               dashboard_.at(pieces_row_w).begin());
-
-    std::cout<<"TEST 5\n";
             
     // copy references to black pieces to the dashboard
     std::copy(pieces_.begin() + Board::COLOR_OFFSET + Board::DIM, 
@@ -117,13 +113,16 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
             else
                 this->capture(from, to);
         } else {
-        // if the cell "to" is empty simply move the piece
-        // make the pointer in the "to" cell pointing to the moved piece
-        (*this)[to] = (*this)[from];
-        (*this)[to]->set_pos(to);
-        // set to nullptr the pointer in the cell from;
-        (*this)[from] = nullptr;
-        
+            // if the cell "to" is empty simply move the piece
+            // make the pointer in the "to" cell pointing to the moved piece
+            (*this)[to] = (*this)[from];
+            std::string up_to;
+            up_to.push_back(std::toupper(to.at(0)));
+            up_to.push_back(to.at(1));
+            (*this)[to]->set_pos(up_to);
+            // set to nullptr the pointer in the cell from;
+            (*this)[from] = nullptr;
+        }
         // en passant flag setting for pawns
         Pawn* p = dynamic_cast<Pawn*>((*this)[to]);
         // if it is a pawn
@@ -143,7 +142,6 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         if(k != nullptr)
             k->set_castling(false);
         return true;
-        }
     }
     else
         throw IllegalMoveException("Can't made the move" + from + " " + to);      
@@ -151,14 +149,17 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
 }
 
 bool Board::capture(const std::string& from, const std::string& to) {
-    // if the pieces have the same color, it can't capture
-    // if((*this)[from]->get_ID() == (*this)[to]->get_ID())
-    //     return false;
-
     // find and replace with nullptr the captured piece into the pieces_ vector
     std::replace(pieces_.begin(), pieces_.end(), (*this)[to], (Piece*)nullptr);
     // delete the piece from the free space
     delete (*this)[to];
+    // make the pointer in the "to" cell pointing to the moved piece
+    (*this)[to] = (*this)[from];
+    std::string up_to;
+    up_to.push_back(std::toupper(to.at(0)));
+    up_to.push_back(to.at(1));
+    (*this)[to]->set_pos(up_to);
+    (*this)[from] = nullptr;
     return true;   
 }
 
