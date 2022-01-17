@@ -32,24 +32,15 @@ Board::Board(const bool& player_color) {
     int pawns_row_w = (player_color == Piece::WHITE)? 1 : 6;
     int pawns_row_b = (player_color == Piece::BLACK)? 1 : 6;
 
-    std::cout<<" w: "<<pawns_row_w<<" b: "<<pawns_row_b<<"\n";
-
     // add 8 pawns for each color in the correct position of the array
     // and add pawns to the dashboard
     int idx = 0;
     for(idx = 0; idx < DIM; idx++) {
         // white pawns
-<<<<<<< HEAD
-        pieces_.at(idx) = new Pawn(Piece::WHITE, this, char('A'+idx) + std::to_string(pawns_row_w+1));
+        pieces_.at(idx) = new Pawn(Piece::WHITE, this, char('A'+idx) + std::to_string(pawns_row_w+1), player_color);
         dashboard_.at(pawns_row_w).at(idx) = pieces_.at(idx);
         // black pawns
-        pieces_.at(COLOR_OFFSET + idx) = new Pawn(Piece::BLACK, this, char('A'+idx) + std::to_string(pawns_row_b+1));
-=======
-        pieces_.at(idx) = new Pawn(Piece::WHITE, this, std::to_string(pawns_row_w)+char('A'+idx), player_color);
-        dashboard_.at(pawns_row_w).at(idx) = pieces_.at(idx);
-        // black pawns
-        pieces_.at(COLOR_OFFSET + idx) = new Pawn(Piece::BLACK, this, std::to_string(pawns_row_b)+char('A'+idx), player_color);
->>>>>>> main
+        pieces_.at(COLOR_OFFSET + idx) = new Pawn(Piece::BLACK, this, char('A'+idx) + std::to_string(pawns_row_b+1), player_color);
         dashboard_.at(pawns_row_b).at(idx) = pieces_.at(COLOR_OFFSET + idx);
     }
 
@@ -86,8 +77,6 @@ Board::Board(const bool& player_color) {
     std::copy(pieces_.begin() + Board::DIM, 
               pieces_.begin() + Board::COLOR_OFFSET, 
               dashboard_.at(pieces_row_w).begin());
-
-    std::cout<<"TEST 5\n";
             
     // copy references to black pieces to the dashboard
     std::copy(pieces_.begin() + Board::COLOR_OFFSET + Board::DIM, 

@@ -15,7 +15,7 @@ int main(){
         std::cout<<e.what();
     }
 
-    b.move("A7", "A5", Piece::BLACK);
+    //b.move("A7", "A5", Piece::BLACK);
 
     std::cout << "\n" << b << std::endl;
 
