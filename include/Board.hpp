@@ -28,7 +28,7 @@ class Board {
         std::vector<std::vector<Piece*>> dashboard_;
 
     public:
-        explicit Board(const bool player_color);
+        explicit Board(const bool& player_color);
         ~Board();
         // moves the piece in the cell identified by the coordinates "from" to the one identified
         // by the coordinates "to". Can trow an exception if the move is illegal or if the match ends
