@@ -39,11 +39,10 @@ Board::Board(const bool& player_color) {
     int idx = 0;
     for(idx = 0; idx < DIM; idx++) {
         // white pawns
-        pieces_.at(idx) = new Pawn(Piece::WHITE, this, char('A'+idx) + std::to_string(pawns_row_w+1));
+        pieces_.at(idx) = new Pawn(Piece::WHITE, this, char('A'+idx) + std::to_string(pawns_row_w+1), player_color);
         dashboard_.at(pawns_row_w).at(idx) = pieces_.at(idx);
         // black pawns
-        pieces_.at(COLOR_OFFSET + idx) = new Pawn(Piece::BLACK, this, char('A'+idx) + std::to_string(pawns_row_b+1));
-        pieces_.at(idx) = new Pawn(Piece::WHITE, this, std::to_string(pawns_row_w)+char('A'+idx), player_color);
+        pieces_.at(COLOR_OFFSET + idx) = new Pawn(Piece::BLACK, this, char('A'+idx) + std::to_string(pawns_row_b+1), player_color);
         dashboard_.at(pawns_row_w).at(idx) = pieces_.at(idx);
     }
 
