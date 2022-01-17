@@ -37,10 +37,10 @@ Board::Board(const bool& player_color) {
     int idx = 0;
     for(idx = 0; idx < DIM; idx++) {
         // white pawns
-        pieces_.at(idx) = new Pawn(Piece::WHITE, this, std::to_string(pawns_row_w)+char('A'+idx));
+        pieces_.at(idx) = new Pawn(Piece::WHITE, this, std::to_string(pawns_row_w)+char('A'+idx), player_color);
         dashboard_.at(pawns_row_w).at(idx) = pieces_.at(idx);
         // black pawns
-        pieces_.at(COLOR_OFFSET + idx) = new Pawn(Piece::BLACK, this, std::to_string(pawns_row_b)+char('A'+idx));
+        pieces_.at(COLOR_OFFSET + idx) = new Pawn(Piece::BLACK, this, std::to_string(pawns_row_b)+char('A'+idx), player_color);
         dashboard_.at(pawns_row_b).at(idx) = pieces_.at(COLOR_OFFSET + idx);
     }
 
@@ -105,7 +105,7 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
     // check if the "to" coordinates are valid (operator[] can throw exceptions)
     (*this)[to];
     // check if the piece in coordinates from can move to the cell "to"
-    if((*this)[from]->can_move(to, player_ID)) {
+    if((*this)[from]->can_move(to)) {
         // manage the capture of the piece or castling, if there is one, in cell "to"
         if((*this)[to] != nullptr) {
             // if the piece in to cell has the player color it must be a castling move
