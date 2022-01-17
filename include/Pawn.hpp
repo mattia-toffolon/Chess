@@ -8,6 +8,8 @@
 class Pawn : public Piece{
 
     private:
+        // determines the direction of the moves of this Pawn
+        bool direction;
         // determines if the en-passant can be performed on this Pawn or not
         bool en_passant;
 
@@ -15,7 +17,10 @@ class Pawn : public Piece{
         // constructs an object "Rook" with the given ID, reference to the Board and initial position
         // (en-passant is set to false when to the object is created because to enable the en-passant condition
         // the selected Pawn must have moved by to tiles up or down in one move from its starting position)
-        Pawn(const bool& ID, Board* b, std::string arg_pos) : Piece(ID, b, arg_pos) {en_passant=false;};
+        Pawn(const bool& ID, Board* b, std::string arg_pos, bool dir) : Piece(ID, b, arg_pos) {
+            en_passant = false;
+            direction = dir;
+        };
         // checks if the chosen move is valid for this Pawn 
         // (in reference to the Board in which it's positioned)
         // can trow an exception if the move is illegal or if the match ends

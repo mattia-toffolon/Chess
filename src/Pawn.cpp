@@ -15,6 +15,9 @@
 // can trow an exception if the move is illegal or if the match ends
 bool Pawn::can_move(const std::string& to) const {
 
+    if(to.at(1) - pos.at(1) > 0 && direction == ID || to.at(1) - pos.at(1) < 0 && direction != ID)
+        throw IllegalMoveException("The selected move is considered illegal.");
+
     // if the 'to' tile matches the current position of this Piece the move is considered illegal
     if(pos.compare(to)==0)
         throw IllegalMoveException("The selected move is considered illegal.");
@@ -28,40 +31,48 @@ bool Pawn::can_move(const std::string& to) const {
             throw IllegalMoveException("The selected move is considered illegal.");
     }
 
-    // case: white Pawn
-    if(ID){
+    // case: upper direction
+    if(direction){
+
+        std::string mid;
+        mid.push_back(to.at(0));
+        mid.push_back('3');
 
         // if the tile in front is free this Pawn can be moved
         if(to.at(1) - pos.at(1) == 1 && (*board)[to]==nullptr)
             return true;
 
         // if the next two tiles in front are free and this Pawn is in his starting position, it can be moved
-        else if(to.at(1)-pos.at(1)==2 && to.at(1)==2 && (*board)[to]==nullptr && (*board)[to.at(0)+"3"]==nullptr)
+        else if(to.at(1)-pos.at(1)==2 && pos.at(1)=='2' && (*board)[to]==nullptr && (*board)[mid]==nullptr)
             return true;
 
         // if there's an opponent's Piece diagonally and in front of this Pawn, the move is legal
-        else if(to.at(1)-pos.at(1)==1 && std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))==1 && (*(*board)[to]).get_ID()==Piece::BLACK)
+        else if(to.at(1)-pos.at(1)==1 && std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))==1 && (*(*board)[to]).get_ID()==(!ID))
             return true;
 
         // otherwise the selected move is illegal
         else    
-            throw IllegalMoveException("The selected move is considered illegal.");
+            throw IllegalMoveException("The selected move is considered illegal. XD");
 
     }
 
-    // case: black Pawn
+    // case: lower direction
     else{
+
+        std::string mid;
+        mid.push_back(to.at(0));
+        mid.push_back('6');
 
         // if the tile in front is free this Pawn can be moved
         if(pos.at(1) - to.at(1) == 1 && (*board)[to]==nullptr)
             return true;
 
         // if the next two tiles in front are free and this Pawn is in his starting position, it can be moved
-        else if(pos.at(1)-to.at(1)==2 && to.at(1)==7 && (*board)[to]==nullptr && (*board)[to.at(0)+"6"]==nullptr)
+        else if(pos.at(1)-to.at(1)==2 && pos.at(1)=='7' && (*board)[to]==nullptr && (*board)[mid]==nullptr)
             return true;
 
         // if there's an opponent's Piece diagonally and in front of this Pawn, the move is legal
-        else if(pos.at(1)-to.at(1)==1 && std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))==1 && (*(*board)[to]).get_ID()==Piece::WHITE)
+        else if(pos.at(1)-to.at(1)==1 && std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))==1 && (*(*board)[to]).get_ID()==(!ID))
             return true;
 
         // otherwise the selected move is illegal

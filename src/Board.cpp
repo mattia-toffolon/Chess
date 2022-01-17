@@ -29,19 +29,22 @@ Board::Board(const bool& player_color) {
         std::fill(dashboard_.at(i).begin(), dashboard_.at(i).end(), nullptr);
     }
     // sets the index of dashboard rows in wich there are pawns
-    int pawns_row_w = player_color == Piece::WHITE? 1 : 6;
-    int pawns_row_b = player_color == Piece::BLACK? 1 : 6;
+    int pawns_row_w = (player_color == Piece::WHITE)? 1 : 6;
+    int pawns_row_b = (player_color == Piece::BLACK)? 1 : 6;
+
+    std::cout<<" w: "<<pawns_row_w<<" b: "<<pawns_row_b<<"\n";
 
     // add 8 pawns for each color in the correct position of the array
     // and add pawns to the dashboard
     int idx = 0;
     for(idx = 0; idx < DIM; idx++) {
         // white pawns
-        pieces_.at(idx) = new Pawn(Piece::WHITE, this, std::to_string(pawns_row_w)+char('A'+idx));
+        pieces_.at(idx) = new Pawn(Piece::WHITE, this, char('A'+idx) + std::to_string(pawns_row_w+1));
         dashboard_.at(pawns_row_w).at(idx) = pieces_.at(idx);
         // black pawns
-        pieces_.at(COLOR_OFFSET + idx) = new Pawn(Piece::BLACK, this, std::to_string(pawns_row_b)+char('A'+idx));
-        dashboard_.at(pawns_row_b).at(idx) = pieces_.at(COLOR_OFFSET + idx);
+        pieces_.at(COLOR_OFFSET + idx) = new Pawn(Piece::BLACK, this, char('A'+idx) + std::to_string(pawns_row_b+1));
+        pieces_.at(idx) = new Pawn(Piece::WHITE, this, std::to_string(pawns_row_w)+char('A'+idx), player_color);
+        dashboard_.at(pawns_row_w).at(idx) = pieces_.at(idx);
     }
 
     // add non pawn pieces in the pieces_ vector
