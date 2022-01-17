@@ -91,8 +91,7 @@ Board::Board(const bool& player_color) {
     // copy references to black pieces to the dashboard
     std::copy(pieces_.begin() + Board::COLOR_OFFSET + Board::DIM, 
               pieces_.begin() + 2*Board::COLOR_OFFSET, 
-              dashboard_.at(pieces_row_w).begin());
-    std::cout << "constr\n";
+              dashboard_.at(pieces_row_b).begin());
 }
 
 Board::~Board() {
