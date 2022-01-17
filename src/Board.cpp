@@ -105,7 +105,7 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
     // check if the "to" coordinates are valid (operator[] can throw exceptions)
     (*this)[to];
     // check if the piece in coordinates from can move to the cell "to"
-    if((*this)[from]->can_move(to)) {
+    if((*this)[from]->can_move(to, player_ID)) {
         // manage the capture of the piece or castling, if there is one, in cell "to"
         if((*this)[to] != nullptr) {
             // if the piece in to cell has the player color it must be a castling move
