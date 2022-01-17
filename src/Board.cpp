@@ -31,8 +31,10 @@ Board::Board(const bool& player_color) {
         std::fill(dashboard_.at(i).begin(), dashboard_.at(i).end(), nullptr);
     }
     // sets the index of dashboard rows in wich there are pawns
-    int pawns_row_w = player_color == Piece::WHITE? 1 : 6;
-    int pawns_row_b = player_color == Piece::BLACK? 1 : 6;
+    int pawns_row_w = (player_color == Piece::WHITE)? 1 : 6;
+    int pawns_row_b = (player_color == Piece::BLACK)? 1 : 6;
+
+    std::cout<<" w: "<<pawns_row_w<<" b: "<<pawns_row_b<<"\n";
 
     std::cout<<"TEST 2\n";
 
@@ -91,7 +93,7 @@ Board::Board(const bool& player_color) {
     // copy references to black pieces to the dashboard
     std::copy(pieces_.begin() + Board::COLOR_OFFSET + Board::DIM, 
               pieces_.begin() + 2*Board::COLOR_OFFSET, 
-              dashboard_.at(pieces_row_w).begin());
+              dashboard_.at(pieces_row_b).begin());
     std::cout << "constr\n";
 }
 
