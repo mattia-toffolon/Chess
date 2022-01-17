@@ -12,12 +12,10 @@ void Human::turn(){
     std::string to = "";
     std::cout<<"Insert the box where is the piece to move and the box of arrival:"<<std::endl;
     std::cin>>from>>to;
-    try
-    {
+    try{
         (*(board)).move(from, to, ID);
     }
-    catch(IllegalMoveException e)
-    {
+    catch(IllegalMoveException e){
         std::cout<<"The move is not allowed, reinsert the boxes: "<<std::endl;
         std::cin>>from>>to;
         (*(board)).move(from, to, ID);

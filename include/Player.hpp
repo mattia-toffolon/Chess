@@ -20,6 +20,8 @@ public:
     Player(bool ID, Board& b);
     //pure virtual function to manage each turn
     virtual void turn();
+    //Return the ID of the player
+    bool get_ID();
     //Invalidate copy costructor and copy assignement
     //to avoid slicing
     Player(Player&) = delete;
