@@ -13,11 +13,11 @@
 #include "../include/King.hpp"
 #include "../include/IllegalMoveException.hpp"
 
-Board::Board(const bool player_color) {
+Board::Board(const bool& player_color) {
 
     // reserve space in the vectors to store all pieces
-    pieces_.reserve(4*Board::DIM);
-    dashboard_.reserve(Board::DIM);
+    pieces_.resize(4*Board::DIM);
+    dashboard_.resize(Board::DIM);
     // for every row in dashboard reserve 8 cells and initialize them to nullptr
 
     std::cout<<"TEST 1\n";
@@ -26,7 +26,7 @@ Board::Board(const bool player_color) {
         std::vector<Piece*> vP;
         dashboard_.push_back(vP);
 
-        dashboard_.at(i).reserve(DIM);
+        dashboard_.at(i).resize(DIM);
         
         std::fill(dashboard_.at(i).begin(), dashboard_.at(i).end(), nullptr);
     }
@@ -89,9 +89,10 @@ Board::Board(const bool player_color) {
     std::cout<<"TEST 5\n";
             
     // copy references to black pieces to the dashboard
-    std::copy(pieces_.begin() + Board::DIM, 
-              pieces_.begin() + Board::COLOR_OFFSET, 
+    std::copy(pieces_.begin() + Board::COLOR_OFFSET + Board::DIM, 
+              pieces_.begin() + 2*Board::COLOR_OFFSET, 
               dashboard_.at(pieces_row_w).begin());
+    std::cout << "constr";
 }
 
 Board::~Board() {
