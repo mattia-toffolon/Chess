@@ -13,9 +13,9 @@
 // checks if the chosen move is valid for this Pawn 
 // (in reference to the Board in which it's positioned)
 // can trow an exception if the move is illegal or if the match ends
-bool Pawn::can_move(const std::string& to, bool player_ID) const {
+bool Pawn::can_move(const std::string& to) const {
 
-    if(to.at(1) - pos.at(1) > 0 && player_ID == ID || to.at(1) - pos.at(1) < 0 && player_ID != ID)
+    if(to.at(1) - pos.at(1) > 0 && direction == ID || to.at(1) - pos.at(1) < 0 && direction != ID)
         throw IllegalMoveException("The selected move is considered illegal.");
 
     // if the 'to' tile matches the current position of this Piece the move is considered illegal
@@ -32,7 +32,7 @@ bool Pawn::can_move(const std::string& to, bool player_ID) const {
     }
 
     // case: upper direction
-    if(player_ID){
+    if(direction){
 
         std::string mid;
         mid.push_back(to.at(0));
@@ -85,7 +85,7 @@ bool Pawn::can_move(const std::string& to, bool player_ID) const {
 
 // generates and returns a vector contaning all the possible moves that this Pawn can do as strings 
 // (in reference to the Board in which it's positioned
-std::vector<std::string> Pawn::get_possible_moves(bool player_ID) const {
+std::vector<std::string> Pawn::get_possible_moves() const {
 
     // scans all tiles of dashboard in search of possible moves
     std::vector<std::string> ret;
@@ -95,7 +95,7 @@ std::vector<std::string> Pawn::get_possible_moves(bool player_ID) const {
             to.push_back(i);
             to.push_back(j);
             try{
-                if(can_move(to, player_ID))
+                if(can_move(to))
                 ret.push_back(to);
             }
             catch(IllegalMoveException e){

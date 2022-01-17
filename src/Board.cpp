@@ -20,8 +20,6 @@ Board::Board(const bool& player_color) {
     dashboard_.resize(Board::DIM);
     // for every row in dashboard reserve 8 cells and initialize them to nullptr
 
-    std::cout<<"TEST 1\n";
-
     for (short i = 0; i < DIM; i++) {
         std::vector<Piece*> vP;
         dashboard_.push_back(vP);
@@ -36,8 +34,6 @@ Board::Board(const bool& player_color) {
 
     std::cout<<" w: "<<pawns_row_w<<" b: "<<pawns_row_b<<"\n";
 
-    std::cout<<"TEST 2\n";
-
     // add 8 pawns for each color in the correct position of the array
     // and add pawns to the dashboard
     int idx = 0;
@@ -50,8 +46,6 @@ Board::Board(const bool& player_color) {
         dashboard_.at(pawns_row_b).at(idx) = pieces_.at(COLOR_OFFSET + idx);
     }
 
-    std::cout<<"TEST 3\n";
-
     // add non pawn pieces in the pieces_ vector
     pieces_.at(idx)                 = new Rook(Piece::WHITE, this, 'A'+std::to_string(pawns_row_w));
     pieces_.at(idx + COLOR_OFFSET)  = new Rook(Piece::BLACK, this, 'A'+std::to_string(pawns_row_b));
@@ -59,14 +53,14 @@ Board::Board(const bool& player_color) {
     pieces_.at(idx)                 = new Knight(Piece::WHITE, this, 'B'+std::to_string(pawns_row_w));
     pieces_.at(idx + COLOR_OFFSET)  = new Knight(Piece::BLACK, this, 'B'+std::to_string(pawns_row_b));
     idx++;
-    pieces_.at(idx)                 = new Bishop(Piece::WHITE, this, 'E'+std::to_string(pawns_row_w));
-    pieces_.at(idx + COLOR_OFFSET)  = new Bishop(Piece::BLACK, this, 'E'+std::to_string(pawns_row_b));
+    pieces_.at(idx)                 = new Bishop(Piece::WHITE, this, 'C'+std::to_string(pawns_row_w));
+    pieces_.at(idx + COLOR_OFFSET)  = new Bishop(Piece::BLACK, this, 'C'+std::to_string(pawns_row_b));
     idx++;
-    pieces_.at(idx)                 = new Queen(Piece::WHITE, this, 'C'+std::to_string(pawns_row_w));
-    pieces_.at(idx + COLOR_OFFSET)  = new Queen(Piece::BLACK, this, 'C'+std::to_string(pawns_row_b));
+    pieces_.at(idx)                 = new Queen(Piece::WHITE, this, 'D'+std::to_string(pawns_row_w));
+    pieces_.at(idx + COLOR_OFFSET)  = new Queen(Piece::BLACK, this, 'D'+std::to_string(pawns_row_b));
     idx++;
-    pieces_.at(idx)                 = new King(Piece::WHITE, this, 'D'+std::to_string(pawns_row_w));
-    pieces_.at(idx + COLOR_OFFSET)  = new King(Piece::BLACK, this, 'D'+std::to_string(pawns_row_b));
+    pieces_.at(idx)                 = new King(Piece::WHITE, this, 'E'+std::to_string(pawns_row_w));
+    pieces_.at(idx + COLOR_OFFSET)  = new King(Piece::BLACK, this, 'E'+std::to_string(pawns_row_b));
     idx++;
     pieces_.at(idx)                 = new Bishop(Piece::WHITE, this, 'F'+std::to_string(pawns_row_w));
     pieces_.at(idx + COLOR_OFFSET)  = new Bishop(Piece::BLACK, this, 'F'+std::to_string(pawns_row_b));
@@ -81,8 +75,6 @@ Board::Board(const bool& player_color) {
     int pieces_row_w = player_color == Piece::WHITE? 0 : 7;
     int pieces_row_b = player_color == Piece::BLACK? 0 : 7;
 
-    std::cout<<"TEST 4\n";
-
     // copy references to white pieces to the dashboard
     std::copy(pieces_.begin() + Board::DIM, 
               pieces_.begin() + Board::COLOR_OFFSET, 
@@ -94,7 +86,6 @@ Board::Board(const bool& player_color) {
     std::copy(pieces_.begin() + Board::COLOR_OFFSET + Board::DIM, 
               pieces_.begin() + 2*Board::COLOR_OFFSET, 
               dashboard_.at(pieces_row_b).begin());
-    std::cout << "constr\n";
 }
 
 Board::~Board() {
@@ -116,7 +107,7 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
     // check if the "to" coordinates are valid (operator[] can throw exceptions)
     (*this)[to];
     // check if the piece in coordinates from can move to the cell "to"
-    if((*this)[from]->can_move(to)) {
+    if((*this)[from]->can_move(to, player_ID)) {
         // manage the capture of the piece or castling, if there is one, in cell "to"
         if((*this)[to] != nullptr) {
             // if the piece in to cell has the player color it must be a castling move
