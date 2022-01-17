@@ -15,16 +15,12 @@
 // can trow an exception if the move is illegal or if the match ends
 bool Pawn::can_move(const std::string& to) const {
 
-    std::cout<<to.at(1)-pos.at(1)<<std::endl;
-        std::cout<<to<<" "<<to.at(1)<<"\n";
-        std::cout<<pos<<" "<<pos.at(1)<<"\n";
-
-    if((to.at(1) - pos.at(1) > 0 && direction == ID) || (to.at(1) - pos.at(1) < 0 && direction != ID))
-        throw IllegalMoveException("The selected move is considered illegal. :)");
+    if((to.at(1) - pos.at(1) > 0 && direction != ID) || (to.at(1) - pos.at(1) < 0 && direction == ID))
+        throw IllegalMoveException("The selected move is considered illegal: wrong direction");
 
     // if the 'to' tile matches the current position of this Piece the move is considered illegal
     if(pos.compare(to)==0)
-        throw IllegalMoveException("The selected move is considered illegal.");
+        throw IllegalMoveException("The selected move is considered illegal. Can't move to the same cell");
 
     // if the conditions to perfom the en-passant are matched the move is legal
     if(pos.at(1)==to.at(1) && std::abs(pos.at(0)-to.at(0))==1 && (*board)[to]!=nullptr && (*(*board)[to]).get_ID()!=ID && std::toupper((*(*board)[to]).to_char())!='P' ){
@@ -32,19 +28,15 @@ bool Pawn::can_move(const std::string& to) const {
         if((*p).get_en_passant())
             return true;
         else    
-            throw IllegalMoveException("The selected move is considered illegal.");
+            throw IllegalMoveException("The selected move is considered illegal. Can't approach en-passant");
     }
 
     // case: upper direction
-    if(direction){
+    if(direction==ID){
 
         std::string mid;
         mid.push_back(to.at(0));
         mid.push_back('3');
-
-        std::cout<<to.at(1)-pos.at(1)<<std::endl;
-        std::cout<<to<<" "<<to.at(1)<<"\n";
-        std::cout<<pos<<" "<<pos.at(1)<<"\n";
 
         // if the tile in front is free this Pawn can be moved
         if(to.at(1) - pos.at(1) == 1 && (*board)[to]==nullptr)
