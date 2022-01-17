@@ -20,8 +20,6 @@ Board::Board(const bool& player_color) {
     dashboard_.resize(Board::DIM);
     // for every row in dashboard reserve 8 cells and initialize them to nullptr
 
-    std::cout<<"TEST 1\n";
-
     for (short i = 0; i < DIM; i++) {
         std::vector<Piece*> vP;
         dashboard_.push_back(vP);
@@ -34,8 +32,6 @@ Board::Board(const bool& player_color) {
     int pawns_row_w = player_color == Piece::WHITE? 1 : 6;
     int pawns_row_b = player_color == Piece::BLACK? 1 : 6;
 
-    std::cout<<"TEST 2\n";
-
     // add 8 pawns for each color in the correct position of the array
     // and add pawns to the dashboard
     int idx = 0;
@@ -47,8 +43,6 @@ Board::Board(const bool& player_color) {
         pieces_.at(COLOR_OFFSET + idx) = new Pawn(Piece::BLACK, this, std::to_string(pawns_row_b)+char('A'+idx));
         dashboard_.at(pawns_row_b).at(idx) = pieces_.at(COLOR_OFFSET + idx);
     }
-
-    std::cout<<"TEST 3\n";
 
     // add non pawn pieces in the pieces_ vector
     pieces_.at(idx)                 = new Rook(Piece::WHITE, this, 'A'+std::to_string(pawns_row_w));
@@ -78,8 +72,6 @@ Board::Board(const bool& player_color) {
     // set the index of dashboard rows in wich there are non pawns pieces
     int pieces_row_w = player_color == Piece::WHITE? 0 : 7;
     int pieces_row_b = player_color == Piece::BLACK? 0 : 7;
-
-    std::cout<<"TEST 4\n";
 
     // copy references to white pieces to the dashboard
     std::copy(pieces_.begin() + Board::DIM, 
