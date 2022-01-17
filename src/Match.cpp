@@ -7,6 +7,7 @@
 #include "../include/Computer.hpp"
 #include "../include/Human.hpp"
 #include "../include/Board.hpp"
+#include "../include/CheckMateException.hpp"
 #include "time.h"
 
 Match::Match(bool isHuman){
@@ -24,9 +25,14 @@ Match::Match(bool isHuman){
         playerB = &Computer(!((bool)pawnsColor), *board);
     }   
 }
-/*
+
 bool Match::start(){
-    if((*playerA).ID){
+
+    bool white_color = Piece::WHITE;
+
+    try
+    {
+        if((*playerA).get_ID() == white_color){
         (*playerA).turn();
         (*playerB).turn();
     }
@@ -34,8 +40,15 @@ bool Match::start(){
         (*playerB).turn();
         (*playerA).turn();
     }
-    return false;
+    }
+    catch(CheckMateException e)
+    {
+        std::cout << "Checkmate!!! The game is done"<<std::endl;
+        return false;
+    }
+    
+    return true;
 }
-*/
+
 
 #endif  //MATCH_CPP

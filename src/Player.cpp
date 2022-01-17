@@ -13,4 +13,9 @@ Player::Player(bool id, Board& b){
     board = &b;
 }
 
+//Return the ID of the player
+bool Player::get_ID(){
+    return ID;
+}
+
 #endif  //PLAYER_CPP
