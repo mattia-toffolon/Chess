@@ -8,6 +8,14 @@ int main(){
     std::string from;
     std::string to;
 
+    try{
+        b.move("b7","b5",Piece::BLACK);
+    std::cout<<b;
+    }
+    catch(IllegalMoveException e){
+        std::cout<<e.what();
+    }
+
     while(true){
         std::cout << std::endl <<"Mossa: ";
         std::cin >> from;
@@ -30,7 +38,7 @@ int main(){
     //     std::cout<<e.what();
     // }
 
-    // b.move("A7", "A5", Piece::BLACK);
+    //b.move("A7", "A5", Piece::BLACK);
 
     // std::cout << "\n" << b << std::endl;
 

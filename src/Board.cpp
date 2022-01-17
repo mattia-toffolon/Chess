@@ -110,8 +110,12 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
             if((*this)[to]->get_ID() == player_ID)
                 this->castling(from, to, player_ID);
             // if it can't be a castling it have to be a capture
-            else
+            else{
                 this->capture(from, to);
+                (*this)[to] = (*this)[from];
+                (*this)[to]->set_pos(to);
+                (*this)[from] = nullptr;
+            }
         } else {
             // if the cell "to" is empty simply move the piece
             // make the pointer in the "to" cell pointing to the moved piece

@@ -14,6 +14,6 @@ class Logger {
         explicit Logger(const std::string& filename);
         ~Logger();
         bool log_move(const std::string& move) const;
-}
+};
 
 #endif
