@@ -6,7 +6,7 @@ int main(){
     // test
     Board b {Piece::WHITE};
 
-    std::cout << "B"<< b << std::endl;
+    std::cout << "\n" << b << std::endl;
 
     return 0;
 }

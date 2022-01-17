@@ -57,16 +57,16 @@ Board::Board(const bool& player_color) {
     pieces_.at(idx)                 = new Knight(Piece::WHITE, this, 'B'+std::to_string(pawns_row_w));
     pieces_.at(idx + COLOR_OFFSET)  = new Knight(Piece::BLACK, this, 'B'+std::to_string(pawns_row_b));
     idx++;
+    pieces_.at(idx)                 = new Bishop(Piece::WHITE, this, 'E'+std::to_string(pawns_row_w));
+    pieces_.at(idx + COLOR_OFFSET)  = new Bishop(Piece::BLACK, this, 'E'+std::to_string(pawns_row_b));
+    idx++;
     pieces_.at(idx)                 = new Queen(Piece::WHITE, this, 'C'+std::to_string(pawns_row_w));
     pieces_.at(idx + COLOR_OFFSET)  = new Queen(Piece::BLACK, this, 'C'+std::to_string(pawns_row_b));
     idx++;
     pieces_.at(idx)                 = new King(Piece::WHITE, this, 'D'+std::to_string(pawns_row_w));
     pieces_.at(idx + COLOR_OFFSET)  = new King(Piece::BLACK, this, 'D'+std::to_string(pawns_row_b));
     idx++;
-    pieces_.at(idx)                 = new Bishop(Piece::WHITE, this, 'E'+std::to_string(pawns_row_w));
-    pieces_.at(idx + COLOR_OFFSET)  = new Bishop(Piece::BLACK, this, 'E'+std::to_string(pawns_row_b));
-    idx++;
-    pieces_.at(idx)                = new Bishop(Piece::WHITE, this, 'F'+std::to_string(pawns_row_w));
+    pieces_.at(idx)                 = new Bishop(Piece::WHITE, this, 'F'+std::to_string(pawns_row_w));
     pieces_.at(idx + COLOR_OFFSET)  = new Bishop(Piece::BLACK, this, 'F'+std::to_string(pawns_row_b));
     idx++;
     pieces_.at(idx)                 = new Knight(Piece::WHITE, this, 'G'+std::to_string(pawns_row_w));
@@ -92,7 +92,7 @@ Board::Board(const bool& player_color) {
     std::copy(pieces_.begin() + Board::COLOR_OFFSET + Board::DIM, 
               pieces_.begin() + 2*Board::COLOR_OFFSET, 
               dashboard_.at(pieces_row_w).begin());
-    std::cout << "constr";
+    std::cout << "constr\n";
 }
 
 Board::~Board() {
@@ -224,7 +224,7 @@ Piece& Board::get_random_piece(const bool ID) {
 
 std::ostream& operator<<(std::ostream& os, Board& board) {
     // print all the rows with its related number
-    for(short i = 8; i > 0; i++) {
+    for(short i = 8; i > 0; i--) {
         os << i << " ";
         for(char j = 'A'; j <= 'H'; j++) {
             if(board[j+std::to_string(i)] != nullptr)
