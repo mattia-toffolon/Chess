@@ -19,7 +19,7 @@ bool Rook::can_move(const std::string& to) const {
     up_to.push_back(std::toupper(to.at(0)));
     up_to.push_back(to.at(1));
     if(pos.compare(up_to)==0)
-        throw IllegalMoveException("The selected move is considered illegal.");
+        throw IllegalMoveException("The selected move is considered illegal: Can't move to the same cell");
 
     // if the 'to' tile is in a different row and colummn of to 'pos' tile, the move is illegal
     if(std::toupper(pos.at(0))!=std::toupper(to.at(0)) && pos.at(1)!=to.at(1))
@@ -27,22 +27,22 @@ bool Rook::can_move(const std::string& to) const {
 
     // if the 'to' tile is occupied by a Piece of this player other than his King (so that the castling can be performed), the move is illegal
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())!='R' )
-        throw IllegalMoveException("The selected move is considered illegal.");
+        throw IllegalMoveException("The selected move is considered illegal: Can't attack same color");
 
     // checks the conditions to perform the castling
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())=='R'){
         King* k = dynamic_cast<King*>((*board)[to]);
         if(get_castling()!=true || (*k).get_castling()!=true)
-            throw IllegalMoveException("The selected move is considered illegal.");
+            throw IllegalMoveException("The selected move is considered illegal: Can't castle due to flags");
     }
 
     // if the 'to' and 'pos' tiles are in the same column, the algorithm checks if the tiles in beetwen are empty.
     // if not, the selected move is illegal
     if(std::toupper(pos.at(0))==std::toupper(to.at(0))){
-        for(int i=(int)std::min(pos.at(1), to.at(1))-'1'+1; i<std::max(pos.at(1), to.at(1))-'1'; i++ ){
+        for(int i=std::min(pos.at(1), to.at(1))-'1'+2; i<std::max(pos.at(1), to.at(1))-'1'+1; i++ ){
             std::string p;
             p.push_back(pos.at(0));
-            p.push_back(i);
+            p.push_back(i+'0');
             if((*board)[p] != nullptr)
                 throw IllegalMoveException("The selected move is considered illegal.");
         }
@@ -74,7 +74,7 @@ std::vector<std::string> Rook::get_possible_moves() const {
         for(int j=1; j<=8; j++){
             std::string to;
             to.push_back(i);
-            to.push_back(j);
+            to.push_back(j+'0');
             try{
                 if(can_move(to))
                 ret.push_back(to);
@@ -86,9 +86,6 @@ std::vector<std::string> Rook::get_possible_moves() const {
         }
     }
     return ret;
-
-    // --- E' POSSIBILE RENDERLO PIU' EFFICIENTE
-
 }
 
 // writes in the os stream the characther associated with this Rook

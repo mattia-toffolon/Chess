@@ -15,7 +15,7 @@ bool Knight::can_move(const std::string& to) const{
     
     // if the 'to' tile matches the current position of this Piece the move is considered illegal
     if(pos.compare(to)==0)
-        throw IllegalMoveException("The selected move is considered illegal.");
+        throw IllegalMoveException("The selected move is considered illegal: Can't move to the same cell");
 
     // if the 'to' tile is occupied by a Piece of this player, the move is illegal
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID)
@@ -41,7 +41,7 @@ std::vector<std::string> Knight::get_possible_moves() const{
         for(int j=1; j<=8; j++){
             std::string to;
             to.push_back(i);
-            to.push_back(j);
+            to.push_back(j+'0');
             try{
                 if(can_move(to))
                 ret.push_back(to);
@@ -53,9 +53,6 @@ std::vector<std::string> Knight::get_possible_moves() const{
         }
     }
     return ret;
-
-    // --- E' POSSIBILE RENDERLO PIU' EFFICIENTE
-
 }
 
 // writes in the os stream the characther associated with this Knight

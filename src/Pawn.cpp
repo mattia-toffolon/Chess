@@ -16,19 +16,19 @@
 bool Pawn::can_move(const std::string& to) const {
 
     if((to.at(1) - pos.at(1) > 0 && direction != ID) || (to.at(1) - pos.at(1) < 0 && direction == ID))
-        throw IllegalMoveException("The selected move is considered illegal: wrong direction");
+        throw IllegalMoveException("The selected move is considered illegal: Wrong direction");
 
     // if the 'to' tile matches the current position of this Piece the move is considered illegal
     if(pos.compare(to)==0)
-        throw IllegalMoveException("The selected move is considered illegal. Can't move to the same cell");
+        throw IllegalMoveException("The selected move is considered illegal: Can't move to the same cell");
 
     // if the conditions to perfom the en-passant are matched the move is legal
-    if(pos.at(1)==to.at(1) && std::abs(pos.at(0)-to.at(0))==1 && (*board)[to]!=nullptr && (*(*board)[to]).get_ID()!=ID && std::toupper((*(*board)[to]).to_char())!='P' ){
+    if(pos.at(1)==to.at(1) && std::abs(pos.at(0)-std::toupper(to.at(0)))==1 && (*board)[to]!=nullptr && (*(*board)[to]).get_ID()!=ID && (char)std::toupper((*(*board)[to]).to_char())=='P' ){
         Pawn* p = dynamic_cast<Pawn*>((*board)[to]);
         if((*p).get_en_passant())
             return true;
         else    
-            throw IllegalMoveException("The selected move is considered illegal. Can't approach en-passant");
+            throw IllegalMoveException("The selected move is considered illegal: Can't approach en-passant");
     }
 
     // case: upper direction
@@ -52,7 +52,7 @@ bool Pawn::can_move(const std::string& to) const {
 
         // otherwise the selected move is illegal
         else    
-            throw IllegalMoveException("The selected move is considered illegal. XD");
+            throw IllegalMoveException("The selected move is considered illegal.");
 
     }
 
@@ -93,7 +93,7 @@ std::vector<std::string> Pawn::get_possible_moves() const {
         for(int j=1; j<=8; j++){
             std::string to;
             to.push_back(i);
-            to.push_back(j);
+            to.push_back(j+'0');
             try{
                 if(can_move(to))
                 ret.push_back(to);
@@ -105,9 +105,6 @@ std::vector<std::string> Pawn::get_possible_moves() const {
         }
     }
     return ret;
-
-    // --- E' POSSIBILE RENDERLO PIU' EFFICIENTE
-
 }
 
 // writes in the os stream the characther associated with this Pawn

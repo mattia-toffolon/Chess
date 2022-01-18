@@ -20,7 +20,7 @@ bool Queen::can_move(const std::string& to) const{
 
     // if the 'to' tile is occupied by a Piece of this player, the move is illegal
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID)
-        throw IllegalMoveException("The selected move is considered illegal: can't attack same color");
+        throw IllegalMoveException("The selected move is considered illegal: Can't attack same color");
 
     // if this move can neither be perfomed by a Rook nor a Bishop, the move illegal
     if((std::toupper(pos.at(0))!=std::toupper(to.at(0)) && pos.at(1)!=to.at(1)) && (std::abs(pos.at(0)-std::toupper(to.at(0))) != std::abs(pos.at(1)-to.at(1))))
@@ -43,11 +43,11 @@ bool Queen::can_move(const std::string& to) const{
         }
         return true;
     }
-    // case: this Queen is moving up to the right or down to the left
+    // case: this Queen is moving up to the left or down to the right
     // the algorithm checks if the tiles in beetwen are empty. If not, the selected move is illegal   
     else if( (pos.at(0)>std::toupper(to.at(0))&&(pos.at(1)<to.at(1))) || (pos.at(0)<std::toupper(to.at(0))&&(pos.at(1)>to.at(1))) ){
         char i=((char)std::min((int)pos.at(0), std::toupper(to.at(0))))+1;
-        char j=((char)std::max(pos.at(1), to.at(1)))+1;
+        char j=((char)std::max(pos.at(1), to.at(1)))-1;
         while(i!=std::max((int)pos.at(0), std::toupper(to.at(0))) && j!=std::min(pos.at(1), to.at(1))){
             std::string p;
             p.push_back(i);
@@ -63,10 +63,10 @@ bool Queen::can_move(const std::string& to) const{
     // case: this Queen is moving straight up or down
     // the algorithm checks if the tiles in beetwen are empty. If not, the selected move is illegal
     else if(std::toupper(pos.at(0))==std::toupper(to.at(0))){
-        for(int i=std::min(pos.at(1), to.at(1))-'1'+1; i<std::max(pos.at(1), to.at(1))-'1'; i++ ){
+        for(int i=std::min(pos.at(1), to.at(1))-'1'+2; i<std::max(pos.at(1), to.at(1))-'1'+1; i++ ){
             std::string p;
             p.push_back(pos.at(0));
-            p.push_back(i);
+            p.push_back(i+'0');
             if((*board)[p] != nullptr)
                 throw IllegalMoveException("The selected move is considered illegal.");
         }
@@ -97,7 +97,7 @@ std::vector<std::string> Queen::get_possible_moves() const {
         for(int j=1; j<=8; j++){
             std::string to;
             to.push_back(i);
-            to.push_back(j);
+            to.push_back(j+'0');
             try{
                 if(can_move(to))
                 ret.push_back(to);
@@ -109,9 +109,6 @@ std::vector<std::string> Queen::get_possible_moves() const {
         }
     }
     return ret;
-
-    // --- E' POSSIBILE RENDERLO PIU' EFFICIENTE
-
 }
 
 // writes in the os stream the characther associated with this Queen

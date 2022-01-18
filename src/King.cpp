@@ -14,14 +14,14 @@ bool King::can_move(const std::string& to) const {
 
     // if the 'to' tile matches the current position of this Piece the move is considered illegal
     if(pos.compare(to)==0)
-        throw IllegalMoveException("The selected move is considered illegal.");
+        throw IllegalMoveException("The selected move is considered illegal: Can't move to the same cell");
 
     // if the 'to' tile is occupied by a Piece of this player other than one of his Rooks (so that the castling can be performed), the move is illegal
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())!='T' )
         throw IllegalMoveException("The selected move is considered illegal: Can't attack same color");
 
     // checks the conditions to perform the castling
-    if((*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())=='T'){
+    if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())=='T'){
         Rook* t = dynamic_cast<Rook*>((*board)[to]);
         if(get_castling()!=true || (*t).get_castling()!=true)
             throw IllegalMoveException("The selected move is considered illegal: Can't castle due to flags");
@@ -56,7 +56,7 @@ std::vector<std::string> King::get_possible_moves() const{
         for(int j=1; j<=8; j++){
             std::string to;
             to.push_back(i);
-            to.push_back(j);
+            to.push_back(j+'0');
             try{
                 if(can_move(to))
                 ret.push_back(to);
@@ -68,9 +68,6 @@ std::vector<std::string> King::get_possible_moves() const{
         }
     }
     return ret;
-
-    // --- E' POSSIBILE RENDERLO PIU' EFFICIENTE
-
 }
 
 // writes in the os stream the characther associated with this King

@@ -5,7 +5,7 @@
 #include "../include/Human.hpp"
 #include "../include/Board.hpp"
 #include "../include/IllegalMoveException.hpp"
-#include<iostream>
+#include <iostream>
 
 void Human::turn(){
     std::string from = "";
@@ -16,7 +16,7 @@ void Human::turn(){
         (*(board)).move(from, to, ID);
     }
     catch(IllegalMoveException e){
-        std::cout<<"The move is not allowed, reinsert the boxes: "<<std::endl;
+        std::cout<<"The move is not allowed, reinsert the tiles: "<<std::endl;
         std::cin>>from>>to;
         (*(board)).move(from, to, ID);
     }
