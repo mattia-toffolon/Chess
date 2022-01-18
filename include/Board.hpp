@@ -13,6 +13,7 @@
 #include <time.h>
 
 #include "IllegalMoveException.hpp"
+#include "Logger.hpp"
 #include "Piece.hpp"
 
 class Board {
@@ -26,6 +27,8 @@ class Board {
         std::vector<Piece*> pieces_;
         // represents the dashboard, it starts having in the first rows the pieces of the player
         std::vector<std::vector<Piece*>> dashboard_;
+        // for logging all the moves made in a file
+        Logger logger_;
 
     public:
         explicit Board(const bool& player_color);
