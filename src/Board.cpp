@@ -18,14 +18,12 @@ Board::Board(const bool& player_color) {
     // reserve space in the vectors to store all pieces
     pieces_.resize(4*Board::DIM);
     dashboard_.resize(Board::DIM);
+    
     // for every row in dashboard reserve 8 cells and initialize them to nullptr
-
     for (short i = 0; i < DIM; i++) {
         std::vector<Piece*> vP;
         dashboard_.push_back(vP);
-
         dashboard_.at(i).resize(DIM);
-        
         std::fill(dashboard_.at(i).begin(), dashboard_.at(i).end(), nullptr);
     }
     // sets the index of dashboard rows in wich there are pawns
