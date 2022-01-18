@@ -49,7 +49,7 @@ bool Bishop::can_move(const std::string& to) const{
     // the algorithm checks if the tiles in beetwen are empty. If not, the selected move is illegal   
     else{
         char i=((char)std::min((int)pos.at(0), std::toupper(to.at(0))))+1;
-        char j=((char)std::max(pos.at(1), to.at(1)))+1;
+        char j=((char)std::max(pos.at(1), to.at(1)))-1;
         while(i!=std::max((int)pos.at(0), std::toupper(to.at(0))) && j!=std::min(pos.at(1), to.at(1))){
             std::string p;
             p.push_back(i);

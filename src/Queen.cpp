@@ -43,11 +43,11 @@ bool Queen::can_move(const std::string& to) const{
         }
         return true;
     }
-    // case: this Queen is moving up to the right or down to the left
+    // case: this Queen is moving up to the left or down to the right
     // the algorithm checks if the tiles in beetwen are empty. If not, the selected move is illegal   
     else if( (pos.at(0)>std::toupper(to.at(0))&&(pos.at(1)<to.at(1))) || (pos.at(0)<std::toupper(to.at(0))&&(pos.at(1)>to.at(1))) ){
         char i=((char)std::min((int)pos.at(0), std::toupper(to.at(0))))+1;
-        char j=((char)std::max(pos.at(1), to.at(1)))+1;
+        char j=((char)std::max(pos.at(1), to.at(1)))-1;
         while(i!=std::max((int)pos.at(0), std::toupper(to.at(0))) && j!=std::min(pos.at(1), to.at(1))){
             std::string p;
             p.push_back(i);

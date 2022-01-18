@@ -27,7 +27,7 @@ bool Rook::can_move(const std::string& to) const {
 
     // if the 'to' tile is occupied by a Piece of this player other than his King (so that the castling can be performed), the move is illegal
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())!='R' )
-        throw IllegalMoveException("The selected move is considered illegal. TRY");
+        throw IllegalMoveException("The selected move is considered illegal.");
 
     // checks the conditions to perform the castling
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())=='R'){
