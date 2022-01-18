@@ -11,9 +11,9 @@ class Logger {
         std::ofstream log_file;
 
     public:
-        explicit Logger(const std::string& filename);
+        explicit Logger(const std::string& filename = "match_log.txt");
         ~Logger();
-        bool log_move(const std::string& move) const;
+        bool log_move(const std::string& from, const std::string& to);
 };
 
 #endif
