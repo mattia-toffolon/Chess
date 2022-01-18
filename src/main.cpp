@@ -1,6 +1,7 @@
 #include "../include/Board.hpp"
 #include "../include/Piece.hpp"
 #include <iostream>
+#include <time.h>
 
 int main(){
     // test
@@ -8,21 +9,21 @@ int main(){
     std::string from;
     std::string to;
 
-    b.move("e2","e3",Piece::WHITE);
-    b.move("f1","c4",Piece::WHITE);
+    for(int i=1; i<11; i++){
 
-    std::cout<<b;
+        Piece* rand = &(b.get_random_piece(Piece::WHITE));
 
-    std::cout<<b.get_piece_at(13, Piece::WHITE).get_pos()<<std::endl;
+        std::cout<<i<<"   "<<(*rand).to_char()<<std::endl;
 
-    std::vector<std::string> s = (b.get_piece_at(13, Piece::WHITE)).get_possible_moves();
+        std::vector<std::string> moves = (*rand).get_possible_moves();
+        to = moves[std::rand() % moves.size()];
+        from = (*rand).get_pos();
 
-    if(s.empty())
-        std::cout<<"Vuoto e'\n";
+        std::cout<<from<<" "<<to<<std::endl;
 
-    for(int i=0; i<s.size(); i++)
-        std::cout<<s[i]<<" ";
-
+        b.move(from, to, Piece::WHITE);
+        std::cout<<b<<std::endl;
+    }
 
     /*
     try{

@@ -4,9 +4,9 @@
 #include "../include/Player.hpp"
 #include "../include/Computer.hpp"
 #include "../include/Piece.hpp"
-#include<iostream>
-#include<vector>
-#include "time.h"
+#include <iostream>
+#include <vector>
+#include <time.h>
 
 //Function that control the turn
 void Computer::turn(){
@@ -27,7 +27,7 @@ void Computer::turn(){
     }
     catch(IllegalMoveException e){
     
-        std::cout<<"The move is not allowed, reinsert the boxes: "<<std::endl;
+        std::cout<<"The move is not allowed, reinsert the tiles: "<<std::endl;
         Piece& random_piece = (*board).get_random_piece(ID);
         //Position of the pawn
         from = random_piece.get_pos(); 
