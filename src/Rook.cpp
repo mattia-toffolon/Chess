@@ -27,7 +27,7 @@ bool Rook::can_move(const std::string& to) const {
 
     // if the 'to' tile is occupied by a Piece of this player other than his King (so that the castling can be performed), the move is illegal
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())!='R' )
-        throw IllegalMoveException("The selected move is considered illegal.");
+        throw IllegalMoveException("The selected move is considered illegal. TRY");
 
     // checks the conditions to perform the castling
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID && std::toupper((*(*board)[to]).to_char())=='R'){
@@ -39,10 +39,10 @@ bool Rook::can_move(const std::string& to) const {
     // if the 'to' and 'pos' tiles are in the same column, the algorithm checks if the tiles in beetwen are empty.
     // if not, the selected move is illegal
     if(std::toupper(pos.at(0))==std::toupper(to.at(0))){
-        for(int i=(int)std::min(pos.at(1), to.at(1))-'1'+1; i<std::max(pos.at(1), to.at(1))-'1'; i++ ){
+        for(int i=std::min(pos.at(1), to.at(1))-'1'+2; i<std::max(pos.at(1), to.at(1))-'1'+1; i++ ){
             std::string p;
             p.push_back(pos.at(0));
-            p.push_back(i);
+            p.push_back(i+'0');
             if((*board)[p] != nullptr)
                 throw IllegalMoveException("The selected move is considered illegal.");
         }

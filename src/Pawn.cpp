@@ -23,7 +23,7 @@ bool Pawn::can_move(const std::string& to) const {
         throw IllegalMoveException("The selected move is considered illegal. Can't move to the same cell");
 
     // if the conditions to perfom the en-passant are matched the move is legal
-    if(pos.at(1)==to.at(1) && std::abs(pos.at(0)-to.at(0))==1 && (*board)[to]!=nullptr && (*(*board)[to]).get_ID()!=ID && std::toupper((*(*board)[to]).to_char())!='P' ){
+    if(pos.at(1)==to.at(1) && std::abs(pos.at(0)-std::toupper(to.at(0)))==1 && (*board)[to]!=nullptr && (*(*board)[to]).get_ID()!=ID && (char)std::toupper((*(*board)[to]).to_char())=='P' ){
         Pawn* p = dynamic_cast<Pawn*>((*board)[to]);
         if((*p).get_en_passant())
             return true;
@@ -52,7 +52,7 @@ bool Pawn::can_move(const std::string& to) const {
 
         // otherwise the selected move is illegal
         else    
-            throw IllegalMoveException("The selected move is considered illegal. XD");
+            throw IllegalMoveException("The selected move is considered illegal.");
 
     }
 

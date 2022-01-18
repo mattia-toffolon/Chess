@@ -112,9 +112,6 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
             // if it can't be a castling it have to be a capture
             else{
                 this->capture(from, to);
-                (*this)[to] = (*this)[from];
-                (*this)[to]->set_pos(to);
-                (*this)[from] = nullptr;
             }
         } else {
             // if the cell "to" is empty simply move the piece
