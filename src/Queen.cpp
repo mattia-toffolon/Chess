@@ -20,7 +20,7 @@ bool Queen::can_move(const std::string& to) const{
 
     // if the 'to' tile is occupied by a Piece of this player, the move is illegal
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID)
-        throw IllegalMoveException("The selected move is considered illegal: can't attack same color");
+        throw IllegalMoveException("The selected move is considered illegal: Can't attack same color");
 
     // if this move can neither be perfomed by a Rook nor a Bishop, the move illegal
     if((std::toupper(pos.at(0))!=std::toupper(to.at(0)) && pos.at(1)!=to.at(1)) && (std::abs(pos.at(0)-std::toupper(to.at(0))) != std::abs(pos.at(1)-to.at(1))))

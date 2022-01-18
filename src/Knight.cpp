@@ -15,7 +15,7 @@ bool Knight::can_move(const std::string& to) const{
     
     // if the 'to' tile matches the current position of this Piece the move is considered illegal
     if(pos.compare(to)==0)
-        throw IllegalMoveException("The selected move is considered illegal.");
+        throw IllegalMoveException("The selected move is considered illegal: Can't move to the same cell");
 
     // if the 'to' tile is occupied by a Piece of this player, the move is illegal
     if((*board)[to]!=nullptr && (*(*board)[to]).get_ID()==ID)
