@@ -13,7 +13,7 @@
 #include "../include/King.hpp"
 #include "../include/IllegalMoveException.hpp"
 
-Board::Board(const bool& player_color) {
+Board::Board(const bool& player_color) : logger_() {
 
     // reserve space in the vectors to store all pieces
     pieces_.resize(4*Board::DIM);
@@ -80,9 +80,6 @@ Board::Board(const bool& player_color) {
     std::copy(pieces_.begin() + Board::COLOR_OFFSET + Board::DIM, 
               pieces_.begin() + 2*Board::COLOR_OFFSET, 
               dashboard_.at(pieces_row_b).begin());
-
-    // logger set-up
-    logger_ ();
 }
 
 Board::~Board() {
@@ -143,6 +140,9 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         King* k = dynamic_cast<King*>((*this)[to]);
         if(k != nullptr)
             k->set_castling(false);
+
+        // log the move
+        logger_.log_move(from, to);
         return true;
     }
     else
