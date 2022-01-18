@@ -39,9 +39,9 @@ class Board {
         // returns a reference to the piece at i position of the specified color in the pieces array
         // returns nullptr if the piece has been captured
         // i must be in [0,15], the pieces are P P P P P P P P T C A D R A C T
-        Piece& get_piece_at(const int i, const bool ID);
+        Piece* get_piece_at(const int i, const bool ID);
         // returns a reference to a random piece of the specified color
-        Piece& get_random_piece(const bool ID);
+        Piece* get_random_piece(const bool ID);
         // returns the reference to the pointer to the piece in the position identified
         // by the coordinates coord. Returns a reference to null if there isn't pieces
         // Can trow std::invalid_argoument if coordinates aren't in [A-Ha-h][1-8] format

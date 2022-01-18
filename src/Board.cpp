@@ -18,7 +18,7 @@ Board::Board(const bool& player_color) {
     // reserve space in the vectors to store all pieces
     pieces_.resize(4*Board::DIM);
     dashboard_.resize(Board::DIM);
-    
+
     // for every row in dashboard reserve 8 cells and initialize them to nullptr
     for (short i = 0; i < DIM; i++) {
         std::vector<Piece*> vP;
@@ -173,10 +173,10 @@ bool Board::castling(const std::string& from, const std::string& to, const bool 
     if(std::abs(from.at(0) - to.at(0) == 4)) {
         // make the cell Cx pointing to the king
         coord.at(0) = 'C';
-        (*this)[coord] = &this->get_piece_at(12, player_ID);
+        (*this)[coord] = this->get_piece_at(12, player_ID);
         // make the cell Dx pointing to the first rook
         coord.at(0) = 'D';
-        (*this)[coord] = &this->get_piece_at(8, player_ID);
+        (*this)[coord] = this->get_piece_at(8, player_ID);
         // set to null pointers in cells Ax and Ex
         coord.at(0) = 'A';
         (*this)[coord] = nullptr;
@@ -188,10 +188,10 @@ bool Board::castling(const std::string& from, const std::string& to, const bool 
     else {
         // make the cell Gx pointing to the king
         coord.at(0) = 'G';
-        (*this)[coord] = &this->get_piece_at(12, player_ID);
+        (*this)[coord] = this->get_piece_at(12, player_ID);
         // make the cell Fx pointing to the first rook
         coord.at(0) = 'F';
-        (*this)[coord] = &this->get_piece_at(15, player_ID);
+        (*this)[coord] = this->get_piece_at(15, player_ID);
         // set to null pointers in cells Hx and Ex
         coord.at(0) = 'H';
         (*this)[coord] = nullptr;
@@ -201,21 +201,21 @@ bool Board::castling(const std::string& from, const std::string& to, const bool 
     return true;
 }
 
-Piece& Board::get_piece_at(const int i, const bool ID) {
+Piece* Board::get_piece_at(const int i, const bool ID) {
     if(i < 0 || i >= Board::COLOR_OFFSET)
         throw IllegalMoveException("parameter i must be in [0,15]");
     short index = i;
     index += ID == Piece::BLACK? Board::COLOR_OFFSET:0;
-    return *pieces_.at(index);
+    return pieces_.at(index);
 }
        
-Piece& Board::get_random_piece(const bool ID) {
+Piece* Board::get_random_piece(const bool ID) {
     srand(time(NULL));
     Piece* p = nullptr;
     while (p == nullptr) {
         p = this->get_piece_at(rand()%Board::COLOR_OFFSET, ID);
     }
-    return *p;
+    return p;
 }
 
 std::ostream& operator<<(std::ostream& os, Board& board) {
