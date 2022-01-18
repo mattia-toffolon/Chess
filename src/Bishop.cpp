@@ -75,7 +75,7 @@ std::vector<std::string> Bishop::get_possible_moves() const {
         for(int j=1; j<=8; j++){
             std::string to;
             to.push_back(i);
-            to.push_back(j);
+            to.push_back(j+'0');
             try{
                 if(can_move(to))
                 ret.push_back(to);
@@ -87,9 +87,6 @@ std::vector<std::string> Bishop::get_possible_moves() const {
         }
     }
     return ret;
-
-    // --- E' POSSIBILE RENDERLO PIU' EFFICIENTE
-
 }
 
 // writes in the os stream the characther associated with this Bishop
