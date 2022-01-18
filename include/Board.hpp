@@ -16,6 +16,8 @@
 #include "Logger.hpp"
 #include "Piece.hpp"
 
+class Pawn;
+
 class Board {
     private:
         static constexpr short DIM = 8;
@@ -29,6 +31,9 @@ class Board {
         std::vector<std::vector<Piece*>> dashboard_;
         // for logging all the moves made in a file
         Logger logger_;
+        // the pawn that on the next move has to be setted at en_passant = false
+        // nullptr if no pawns needs this feature
+        Pawn* pawn_temp_;
 
     public:
         explicit Board(const bool& player_color);
