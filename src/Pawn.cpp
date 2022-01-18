@@ -39,15 +39,15 @@ bool Pawn::can_move(const std::string& to) const {
         mid.push_back('3');
 
         // if the tile in front is free this Pawn can be moved
-        if(to.at(1) - pos.at(1) == 1 && (*board)[to]==nullptr)
+        if(std::toupper(to.at(0))==std::toupper(pos.at(0)) && to.at(1) - pos.at(1) == 1 && (*board)[to]==nullptr)
             return true;
 
         // if the next two tiles in front are free and this Pawn is in his starting position, it can be moved
-        else if(to.at(1)-pos.at(1)==2 && pos.at(1)=='2' && (*board)[to]==nullptr && (*board)[mid]==nullptr)
+        else if(std::toupper(to.at(0))==std::toupper(pos.at(0)) && to.at(1)-pos.at(1)==2 && pos.at(1)=='2' && (*board)[to]==nullptr && (*board)[mid]==nullptr)
             return true;
 
         // if there's an opponent's Piece diagonally and in front of this Pawn, the move is legal
-        else if(to.at(1)-pos.at(1)==1 && std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))==1 && (*(*board)[to]).get_ID()==(!ID))
+        else if(to.at(1)-pos.at(1)==1 && std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))==1 && (*board)[to]!=nullptr && (*(*board)[to]).get_ID()==(!ID))
             return true;
 
         // otherwise the selected move is illegal
@@ -64,15 +64,15 @@ bool Pawn::can_move(const std::string& to) const {
         mid.push_back('6');
 
         // if the tile in front is free this Pawn can be moved
-        if(pos.at(1) - to.at(1) == 1 && (*board)[to]==nullptr)
+        if(std::toupper(to.at(0))==std::toupper(pos.at(0)) && pos.at(1) - to.at(1) == 1 && (*board)[to]==nullptr)
             return true;
 
         // if the next two tiles in front are free and this Pawn is in his starting position, it can be moved
-        else if(pos.at(1)-to.at(1)==2 && pos.at(1)=='7' && (*board)[to]==nullptr && (*board)[mid]==nullptr)
+        else if(std::toupper(to.at(0))==std::toupper(pos.at(0)) && pos.at(1)-to.at(1)==2 && pos.at(1)=='7' && (*board)[to]==nullptr && (*board)[mid]==nullptr)
             return true;
 
         // if there's an opponent's Piece diagonally and in front of this Pawn, the move is legal
-        else if(pos.at(1)-to.at(1)==1 && std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))==1 && (*(*board)[to]).get_ID()==(!ID))
+        else if(pos.at(1)-to.at(1)==1 && std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))==1 && (*board)[to]!=nullptr && (*(*board)[to]).get_ID()==(!ID))
             return true;
 
         // otherwise the selected move is illegal
