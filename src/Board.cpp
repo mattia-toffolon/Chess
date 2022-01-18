@@ -82,6 +82,9 @@ Board::Board(const bool& player_color) {
     std::copy(pieces_.begin() + Board::COLOR_OFFSET + Board::DIM, 
               pieces_.begin() + 2*Board::COLOR_OFFSET, 
               dashboard_.at(pieces_row_b).begin());
+
+    // logger set-up
+    logger_ ();
 }
 
 Board::~Board() {
@@ -215,7 +218,7 @@ Piece& Board::get_random_piece(const bool ID) {
     srand(time(NULL));
     Piece* p = nullptr;
     while (p == nullptr) {
-        this->get_piece_at(rand()%Board::COLOR_OFFSET, ID);
+        p = this->get_piece_at(rand()%Board::COLOR_OFFSET, ID);
     }
     return *p;
 }
