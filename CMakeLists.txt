@@ -15,6 +15,7 @@ set(LIBRARIES
     Rook
     Bishop
     Queen
+    Logger
 )
 
 project(${PROJ_NAME})
