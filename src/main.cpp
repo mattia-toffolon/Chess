@@ -8,20 +8,23 @@ int main(){
     Board b {Piece::WHITE};
     std::string from;
     std::string to;
+    std::cout<<b<<std::endl;
+
+    srand(time(NULL));
 
     for(int i=1; i<11; i++){
 
-        Piece* rand = &(b.get_random_piece(Piece::WHITE));
+        Piece* random_piece = b.get_random_piece(Piece::WHITE);
 
-        std::cout<<i<<"   "<<(*rand).to_char()<<std::endl;
+        while((*random_piece).get_possible_moves().empty())
+            random_piece = b.get_random_piece(Piece::WHITE);
 
-        std::vector<std::string> moves = (*rand).get_possible_moves();
-        to = moves[std::rand() % moves.size()];
-        from = (*rand).get_pos();
-
-        std::cout<<from<<" "<<to<<std::endl;
+        std::vector<std::string> moves = (*random_piece).get_possible_moves();
+        std::string to = moves[std::rand() % moves.size()];
+        std::string from = (*random_piece).get_pos();
 
         b.move(from, to, Piece::WHITE);
+        std::cout<<random_piece->to_char()<<" from: "<<from<<" to: "<<to<<std::endl;
         std::cout<<b<<std::endl;
     }
 
