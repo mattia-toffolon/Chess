@@ -32,5 +32,9 @@ endforeach(LIBRARY)
 add_executable(${PROJ_NAME}
     src/main.cpp
 )
+add_executable(replay
+    src/main_replay.cpp
+)
 
-target_link_libraries(${PROJ_NAME} ${LIBRARIES}) 
+target_link_libraries(${PROJ_NAME} ${LIBRARIES})
+target_link_libraries(replay ${LIBRARIES}) 
