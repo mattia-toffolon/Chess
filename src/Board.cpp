@@ -81,6 +81,9 @@ Board::Board(const bool& player_color) : logger_(), pawn_temp_{nullptr} {
     std::copy(pieces_.begin() + Board::COLOR_OFFSET + Board::DIM, 
               pieces_.begin() + 2*Board::COLOR_OFFSET, 
               dashboard_.at(pieces_row_b).begin());
+
+    // player color log
+    logger_.log_player_ID(player_color);
 }
 
 Board::~Board() {
@@ -164,8 +167,11 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
             if((*this)[(*it)] == nullptr) continue;
             // se il pezzo può muovere e mangiare un re
             if((*this)[(*it)]->get_ID() != player_ID && ((*this)[(*it)]->to_char() == 'R' || (*this)[(*it)]->to_char() == 'r')) {
-                // add ceck istrustions for checkmate
-                throw CheckException("Check made from piece: " + (*this)[(*it)]->to_char());
+                // ceck for checkmate
+                if(this->get_piece_at(12, !player_ID)->get_possible_moves().size() == 0)
+                    throw CheckMateException("Check mate made from piece: " + (*this)[(*it)]->to_char());
+                else
+                    throw CheckException("Check made from piece: " + (*this)[(*it)]->to_char());
             }
         }
         return true;
@@ -260,6 +266,8 @@ bool Board::promote(const std::string& piece_pos, const bool player_ID, const ch
     std::replace(pieces_.begin(), pieces_.end(), (*this)[piece_pos], promoted_piece);
     // replaces the promoted piece in the dashboard
     (*this)[piece_pos] = promoted_piece;
+    // log the promotion
+    logger_.log_promotion(piece_pos, promotion);
 
     return true;
 }

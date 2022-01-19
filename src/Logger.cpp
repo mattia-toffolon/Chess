@@ -23,4 +23,18 @@ bool Logger::log_move(const std::string& from, const std::string& to) {
     return true;
 }
 
+bool Logger::log_player_ID(const bool& player_ID) {
+    if(!log_file.is_open())
+        throw std::runtime_error("Log file is not open, can't write");
+    log_file << "BOTTOM_PLAYER=" << std::noboolalpha << player_ID << std::endl;
+    return true;
+}
+
+bool Logger::log_promotion(const std::string& cell, const char piece_type) {
+    if(!log_file.is_open())
+        throw std::runtime_error("Log file is not open, can't write");
+    log_file << (char)std::toupper(cell.at(0)) << cell.at(1) << "=" << (char)std::toupper(piece_type) << std::endl;
+    return true;
+}
+
 #endif
