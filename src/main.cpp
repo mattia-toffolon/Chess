@@ -1,5 +1,7 @@
 #include "../include/Board.hpp"
 #include "../include/Piece.hpp"
+#include "../include/King.hpp"
+#include "../include/CheckException.hpp"
 #include <iostream>
 #include <time.h>
 
@@ -12,6 +14,7 @@ int main(){
 
     srand(time(NULL));
 
+    /*
     for(int i=1; i<11; i++){
 
         Piece* random_piece = b.get_random_piece(Piece::WHITE);
@@ -26,7 +29,7 @@ int main(){
         b.move(from, to, Piece::WHITE);
         std::cout<<random_piece->to_char()<<" from: "<<from<<" to: "<<to<<std::endl;
         std::cout<<b<<std::endl;
-    }
+    } */
 
     /*
     try{
@@ -37,21 +40,33 @@ int main(){
         std::cout<<e.what();
     } */
 
-    /*
     while(true){
         std::cout << std::endl <<"Mossa: ";
         std::cin >> from;
         std::cin >> to;
         try
         {
-            b.move(from, to, Piece::WHITE);
+            std::cout<<b[from]->to_char()<<std::endl;
+
+            try{
+                b.move(from, to, Piece::WHITE);
+            }
+            catch(CheckException& e){}
+
+            std::cout << std::endl << b << std::endl;
+            
+            
+            King* k = dynamic_cast<King*>(b.get_piece_at(12, Piece::BLACK));
+                
+            if(k->is_under_check(k->get_pos()))
+                std::cout<<"Il re avversario e' sotto scacco!\n";
+            
         }
         catch(IllegalMoveException& e)
         {
             std::cerr << e.what() << '\n';
         }
-        std::cout << std::endl << b << std::endl;
-    } */
+    } 
 
     // try{
     //     b.move("A2", "A4", Piece::WHITE);

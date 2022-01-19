@@ -20,9 +20,6 @@ class Pawn;
 
 class Board {
     private:
-        static constexpr short DIM = 8;
-        // index offset to reach the first black piece in the pieces_ vector
-        static constexpr short COLOR_OFFSET = 16;
         // contains references to all pieces:
         // [0,7] white pawn, [8,15] white other pieces (in the order from left to right in the board)
         // [16,23] white pawn, [24,31] white other pieces (in the order from left to right in the board)
@@ -36,6 +33,9 @@ class Board {
         Pawn* pawn_temp_;
 
     public:
+        static constexpr short DIM = 8;
+        // index offset to reach the first black piece in the pieces_ vector
+        static constexpr short COLOR_OFFSET = 16;
         explicit Board(const bool& player_color);
         ~Board();
         // moves the piece in the cell identified by the coordinates "from" to the one identified

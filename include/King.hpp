@@ -31,6 +31,8 @@ class King : public Piece{
         void set_castling(bool c);
         // returns castling
         bool get_castling() const;
+        // tells if this King is under Check
+        bool is_under_check(std::string tile) const;
 };
 
 //#include "../src/King.cpp"

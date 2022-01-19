@@ -58,7 +58,7 @@ std::vector<std::string> King::get_possible_moves() const{
             to.push_back(i);
             to.push_back(j+'0');
             try{
-                if(can_move(to))
+                if(can_move(to) && !is_under_check(to))
                 ret.push_back(to);
             }
             catch(IllegalMoveException e){
@@ -89,6 +89,27 @@ void King::set_castling(bool c){
 // returns castling
 bool King::get_castling() const{
     return castling;
+}
+
+// tells if this King is under Check
+bool King::is_under_check(std::string tile) const{
+    for(int i=0; i<Board::COLOR_OFFSET; i++){
+        if((*board).get_piece_at(i, !ID)!=nullptr){
+            try{
+                bool result = (*board).get_piece_at(i, !ID)->can_move(tile);
+                if(result)
+                    return true;
+            }
+            catch(IllegalMoveException& e){
+                if(i==Board::COLOR_OFFSET-1)
+                    return false;
+                else    
+                    continue;
+            }
+        }
+    }
+
+    return false;
 }
 
 
