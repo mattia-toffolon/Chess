@@ -40,7 +40,8 @@ class Board {
         ~Board();
         // moves the piece in the cell identified by the coordinates "from" to the one identified
         // by the coordinates "to". Can trow an exception if the move is illegal or if the match ends
-        bool move(const std::string& from, const std::string& to, const bool player_ID);
+        // promote if setted should be uppercase and specifies the promotion requested for the moved piece
+        bool move(const std::string& from, const std::string& to, const bool player_ID, const char promote = 'N');
         // returns a reference to the piece at i position of the specified color in the pieces array
         // returns nullptr if the piece has been captured
         // i must be in [0,15], the pieces are P P P P P P P P T C A D R A C T
@@ -57,11 +58,11 @@ class Board {
         bool capture(const std::string& from, const std::string& to);
         // implements the castling move
         bool castling(const std::string& from, const std::string& to, const bool player_ID);
+        // implements promotion operation
+        bool promote(const std::string& piece_pos, const bool player_ID, const char promotion);
 };
 
 // writes in the os stream the dashboard as a square using letters to identify pieces
 std::ostream& operator<<(std::ostream& os, Board& b);
-
-//#include "../src/Board.cpp"
 
 #endif

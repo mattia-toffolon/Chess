@@ -92,7 +92,7 @@ Board::~Board() {
         delete p;
 }
 
-bool Board::move(const std::string& from, const std::string& to, const bool player_ID) {
+bool Board::move(const std::string& from, const std::string& to, const bool player_ID, const char promote) {
     // check if the "from" coordinates are referred to an empty cell
     if((*this)[from] == nullptr)
         throw IllegalMoveException("No piece in the cell " + from);
@@ -153,11 +153,15 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         // log the move
         logger_.log_move(from, to);
 
-        // insert promotion
+        // promotion manage
+        if(promote != 'N' && ((int)to.at(1) == 1 || (int)to.at(1) == 8))
+            this->promote(to, player_ID, promote);
 
         // check if there is check or checkmate
         std::vector<std::string> moves = (*this)[to]->get_possible_moves();
         for(std::vector<std::string>::iterator it = moves.begin(); it != moves.end(); it++) {
+            // if the cell are empty skip the iteration
+            if((*this)[(*it)] == nullptr) continue;
             // se il pezzo può muovere e mangiare un re
             if((*this)[(*it)]->get_ID() != player_ID && ((*this)[(*it)]->to_char() == 'R' || (*this)[(*it)]->to_char() == 'r')) {
                 // add ceck istrustions for checkmate
@@ -224,6 +228,39 @@ bool Board::castling(const std::string& from, const std::string& to, const bool 
         coord.at(0) = 'E';
         (*this)[coord] = nullptr;
     }
+    return true;
+}
+
+bool Board::promote(const std::string& piece_pos, const bool player_ID, const char promotion) {
+    Piece* promoted_piece; 
+    // choose what is the new piece for promotion
+    switch (promotion) {
+    case 'T':
+    case 't':
+        promoted_piece = new Rook(player_ID, this, piece_pos);
+        break;
+    case 'C':
+    case 'c':
+        promoted_piece = new Knight(player_ID, this, piece_pos);
+        break;
+    case 'A':
+    case 'a':
+        promoted_piece = new Bishop(player_ID, this, piece_pos);
+        break;
+    case 'D':
+    case 'd':
+        promoted_piece = new Queen(player_ID, this, piece_pos);
+        break;
+
+    default:
+        return false;
+        break;
+    }
+    // replace the promoted piece in pieces_
+    std::replace(pieces_.begin(), pieces_.end(), (*this)[piece_pos], promoted_piece);
+    // replaces the promoted piece in the dashboard
+    (*this)[piece_pos] = promoted_piece;
+
     return true;
 }
 
