@@ -12,6 +12,7 @@
 #include "../include/Queen.hpp"
 #include "../include/King.hpp"
 #include "../include/IllegalMoveException.hpp"
+#include "../include/CheckException.hpp"
 
 Board::Board(const bool& player_color) : logger_(), pawn_temp_{nullptr} {
 
@@ -151,6 +152,18 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
 
         // log the move
         logger_.log_move(from, to);
+
+        // insert promotion
+
+        // check if there is check or checkmate
+        std::vector<std::string> moves = (*this)[to]->get_possible_moves();
+        for(std::vector<std::string>::iterator it = moves.begin(); it != moves.end(); it++) {
+            // se il pezzo può muovere e mangiare un re
+            if((*this)[(*it)]->get_ID() != player_ID && ((*this)[(*it)]->to_char() == 'R' || (*this)[(*it)]->to_char() == 'r')) {
+                // add ceck istrustions for checkmate
+                throw CheckException("Check made from piece: " + (*this)[(*it)]->to_char());
+            }
+        }
         return true;
     }
     else
