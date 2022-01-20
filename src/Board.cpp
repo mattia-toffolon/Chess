@@ -106,11 +106,51 @@ Board::Board(Board& arg){
         if(p != nullptr && p->to_char()=='p'){
             Pawn* pw = dynamic_cast<Pawn*>(p);
             pieces_.at(i) = new Pawn(Piece::WHITE, this, pw->get_pos(), pw->get_direction(), pw->get_en_passant());
+        } 
+        else if(p != nullptr && p->to_char()!='p'){
+            char c = p->to_char();
+            switch(c){
+                case 't':
+                    pieces_.at(i) = new Rook(Piece::WHITE, this, p->get_pos(), false);
+                    break;
+                case 'c':
+                    pieces_.at(i) = new Knight(Piece::WHITE, this, p->get_pos());
+                    break;
+                case 'a':
+                    pieces_.at(i) = new Bishop(Piece::WHITE, this, p->get_pos());
+                    break;
+                case 'd':
+                    pieces_.at(i) = new Queen(Piece::WHITE, this, p->get_pos());
+                    break;
+
+                default:
+                    break;
+            }
         }
         p = (arg).get_piece_at(i, Piece::BLACK);
         if(p != nullptr && p->to_char()=='P'){
             Pawn* pw = dynamic_cast<Pawn*>(p);
             pieces_.at(i+Board::COLOR_OFFSET) = new Pawn(Piece::BLACK, this, pw->get_pos(), pw->get_direction(), pw->get_en_passant());
+        }
+        else if(p != nullptr && p->to_char()!='P'){
+            char c = p->to_char();
+            switch(c){
+                case 'T':
+                    pieces_.at(i) = new Rook(Piece::BLACK, this, p->get_pos(), false);
+                    break;
+                case 'C':
+                    pieces_.at(i) = new Knight(Piece::BLACK, this, p->get_pos());
+                    break;
+                case 'A':
+                    pieces_.at(i) = new Bishop(Piece::BLACK, this, p->get_pos());
+                    break;
+                case 'D':
+                    pieces_.at(i) = new Queen(Piece::BLACK, this, p->get_pos());
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 
