@@ -13,6 +13,7 @@
 #include "../include/King.hpp"
 #include "../include/IllegalMoveException.hpp"
 #include "../include/CheckException.hpp"
+#include "../include/CheckMateException.hpp"
 
 Board::Board(const bool& player_color) : logger_(), pawn_temp_{nullptr} {
 
