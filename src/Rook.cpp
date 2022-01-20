@@ -34,6 +34,16 @@ bool Rook::can_move(const std::string& to) const {
         King* k = dynamic_cast<King*>((*board)[to]);
         if(get_castling()!=true || (*k).get_castling()!=true)
             throw IllegalMoveException("The selected move is considered illegal: Can't castle due to flags");
+        
+        for(char i=(char)(std::min((int)pos.at(0),std::toupper(to.at(0))) +1); i<(char)(std::max((int)pos.at(0),std::toupper(to.at(0)))); i++ ){
+            std::string p;
+            p.push_back(i);
+            p.push_back(pos.at(1));
+            if((*board)[p] != nullptr || k->is_under_check(p))
+                throw IllegalMoveException("The selected move is considered illegal: Can't castle due to pieces or unsafe tiles in between");
+        }
+
+        return true;
     }
 
     // if the 'to' and 'pos' tiles are in the same column, the algorithm checks if the tiles in beetwen are empty.
