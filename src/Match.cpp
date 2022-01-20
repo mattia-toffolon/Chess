@@ -13,7 +13,7 @@
 Match::Match(bool isHuman){
     srand(time(NULL));
     //Random colors for the players
-    int pawnsColor = rand()%2;
+    int pawnsColor = std::rand()%2;
     board = new Board(pawnsColor);
     //PlayerA is always a computer
     playerA = &Computer((bool)pawnsColor, *board);
@@ -28,11 +28,9 @@ Match::Match(bool isHuman){
 
 bool Match::start(){
 
-    bool white_color = Piece::WHITE;
-
     try
     {
-        if((*playerA).get_ID() == white_color){
+        if((*playerA).get_ID() == Piece::WHITE){
         (*playerA).turn();
         (*playerB).turn();
     }
