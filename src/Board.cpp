@@ -176,9 +176,6 @@ Board::~Board() {
 }
 
 bool Board::move(const std::string& from, const std::string& to, const bool player_ID, const char promote) {
-
-    std::cout<<from<<" "<<to<<"\n";
-
     // check if the "from" coordinates are referred to an empty cell
     if((*this)[from] == nullptr)
         throw IllegalMoveException("No piece in the cell " + from);
