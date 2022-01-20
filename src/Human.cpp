@@ -14,12 +14,12 @@ void Human::turn(){
     while(true){
         std::cin>>from>>to;
         try{
-        (*(board)).move(from, to, ID);
-        break;
-    }
-    catch(IllegalMoveException e){
-        std::cout<<"The move is not allowed, reinsert the tiles: "<<std::endl;
-        std::cin>>from>>to;  
+            (*(board)).move(from, to, ID);
+            break;
+        }
+        catch(IllegalMoveException e){
+            std::cout<<"The move is not allowed, reinsert the tiles: "<<std::endl;
+        }
     }
 
     std::cout<<(*(board))<<std::endl;
