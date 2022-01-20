@@ -20,7 +20,7 @@ protected:
 public:
     //Costructor with where the argument is a bool
     //to determine playerB
-    Match(bool isHuman);
+    Match(const bool isHuman);
     //Until the value is true, the game is still going on
     //When it became false the game is over
     bool start();

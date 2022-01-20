@@ -17,7 +17,7 @@ public:
     Player();
     //Costructor with argument ID for the color of the pawns
     // and a reference to the chessboard
-    Player(bool ID, Board& b);
+    Player(const bool ID, Board& b);
     //pure virtual function to manage each turn
     virtual void turn();
     //Return the ID of the player

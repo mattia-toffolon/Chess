@@ -61,6 +61,8 @@ class Board {
         bool castling(const std::string& from, const std::string& to, const bool player_ID);
         // implements promotion operation
         bool promote(const std::string& piece_pos, const bool player_ID, const char promotion);
+        // check if it's a promotion
+        bool Board::isPromotion(const std::string& from, const std::string& to);
 };
 
 // writes in the os stream the dashboard as a square using letters to identify pieces

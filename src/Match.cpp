@@ -10,7 +10,7 @@
 #include "../include/CheckMateException.hpp"
 #include "time.h"
 
-Match::Match(bool isHuman){
+Match::Match(const bool isHuman){
     srand(time(NULL));
     //Random colors for the players
     int pawnsColor = std::rand()%2;
@@ -27,17 +27,16 @@ Match::Match(bool isHuman){
 }
 
 bool Match::start(){
-
     try
     {
-        if((*playerA).get_ID() == Piece::WHITE){
-        (*playerA).turn();
-        (*playerB).turn();
-    }
-    else{
-        (*playerB).turn();
-        (*playerA).turn();
-    }
+        if(playerA->get_ID() == Piece::WHITE){
+        playerA->turn();
+        playerB->turn();
+        }
+        else{
+        playerB->turn();
+        playerA->turn();
+        }
     }
     catch(CheckMateException e)
     {

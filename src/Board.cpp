@@ -399,6 +399,13 @@ Piece*& Board::operator[](const std::string& coord) {
     return dashboard_.at(coord.at(1) - '1').at(std::toupper(coord.at(0)) - 'A');
 }
 
+bool Board::isPromotion(const std::string& from, const std::string& to){
+    std::regex coord_pattern ("[A-Ha-h][1,8]");
+    if(std::toupper((*this)[from]->to_char()) == 'P' && (*this)[from]->can_move(to) && std::regex_match(to, coord_pattern)){
+        return true;
+    }
+    return false;
+}
 #endif
 
 // unused code lambda function 

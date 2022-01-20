@@ -10,16 +10,35 @@
 void Human::turn(){
     std::string from = "";
     std::string to = "";
+    std::string promote = "";
     std::cout<<"Insert the box where is the piece to move and the box of arrival:"<<std::endl;
     while(true){
         std::cin>>from>>to;
         try{
-        (*(board)).move(from, to, ID);
-        break;
-    }
-    catch(IllegalMoveException e){
-        std::cout<<"The move is not allowed, reinsert the tiles: "<<std::endl;
-        std::cin>>from>>to;  
+            /*
+            if((*(board)).isPromotion(from, to){
+                cin>>promote;
+                (*(board)).move(from, to, ID, promote);
+            }
+            else{
+                (*(board)).move(from, to, ID);  
+            }
+            */
+            break;
+        }
+        catch(IllegalMoveException e){
+            std::cout<<"The move is not allowed, reinsert the tiles: "<<std::endl;
+            std::cin>>from>>to; 
+            /*
+            if((*(board)).isPromotion(from, to){
+                cin>>promote;
+                (*(board)).move(from, to, ID, promote);
+            }
+            else{
+                (*(board)).move(from, to, ID);  
+            }
+            */
+        }
     }
 
     std::cout<<(*(board))<<std::endl;

@@ -7,7 +7,7 @@ class Human : public Player
 {
 public:
     //Call to the costructor of Player
-    Human(bool ID, Board& b) : Player(ID, b){};
+    Human(const bool ID, Board& b) : Player(ID, b){};
     //Function that control the turn
     void turn();
 };
