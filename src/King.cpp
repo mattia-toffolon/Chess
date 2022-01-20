@@ -30,8 +30,8 @@ bool King::can_move(const std::string& to) const {
             std::string p;
             p.push_back(i);
             p.push_back(pos.at(1));
-            if((*board)[p] != nullptr)
-                throw IllegalMoveException("The selected move is considered illegal: Can't castle due to pieces");
+            if((*board)[p] != nullptr || is_under_check(p))
+                throw IllegalMoveException("The selected move is considered illegal: Can't castle due to pieces or unsafe tiles in between");
         }
 
         return true;

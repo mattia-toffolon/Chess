@@ -29,10 +29,6 @@ class Board {
         // for logging all the moves made in a file
         Logger logger_;
         
-        // the pawn that on the next move has to be setted at en_passant = false
-        // nullptr if no pawns needs this feature
-        // Pawn* pawn_temp_;
-
     public:
         static constexpr short DIM = 8;
         // index offset to reach the first black piece in the pieces_ vector
