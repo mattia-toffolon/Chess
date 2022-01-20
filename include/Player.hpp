@@ -3,15 +3,18 @@
 #define PLAYER_HPP
 #include<iostream>
 #include "../include/Board.hpp"
+#include "../include/CheckException.hpp"
 
 class Player
 {
 protected:
     //Pointer to access the board
     Board* board;
-    //Identies the color of the pawn that a player is
-    //to use during the game
+    //Identifies the color of the Pieces that 
+    //a player is going to use during the game
     bool ID;
+    //determines if this Player is un undergoing check state
+    bool check;
 public:
     //Default Costructor
     Player();
@@ -22,6 +25,11 @@ public:
     virtual void turn()=0;
     //Return the ID of the player
     bool get_ID();
+    // sets check
+    bool set_check(bool c);
+    // returns a vector<string> containing all the possible moves
+    // for this Player to escape the check condition
+    std::vector<std::pair<std::string, std::string>>& get_escape_moves();
     //Invalidate copy costructor and copy assignement
     //to avoid slicing
     Player(Player&) = delete;

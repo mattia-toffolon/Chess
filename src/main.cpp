@@ -3,11 +3,27 @@
 #include "../include/King.hpp"
 #include "../include/CheckException.hpp"
 #include "../include/Computer.hpp"
+#include "../include/Human.hpp"
+#include "../include/Match.hpp"
 #include <iostream>
 #include <time.h>
 
 int main(){
+    Board b(Piece::WHITE);
+    Human h(Piece::WHITE, b);
+    std::cout<<b<<std::endl;
+    while(true){
+        h.turn();
+    }
+
+    //PROBLEMI ALLA CREAZIONE DI OGGETTO MATCH
+    
+    //Match my_match(true);
+    //my_match.start();
+    
+
     // test
+    /*
     Board b {Piece::WHITE};
     std::string from;
     std::string to;
@@ -22,6 +38,7 @@ int main(){
     
 
     srand(time(NULL));
+    */
 
     /*
     for(int i=1; i<11; i++){
@@ -49,11 +66,14 @@ int main(){
         std::cout<<e.what();
     } */
 
+
+    /*
     Computer c(Piece::WHITE, b);
 
     for(int i=0; i<10; i++){
 
         c.turn();
+    */
 
         /*
         std::cout << std::endl <<"Mossa: ";
@@ -95,7 +115,8 @@ int main(){
             std::cerr << e.what() << '\n';
         }
         */
-    } 
+    //} 
+    
     
 
     // try{

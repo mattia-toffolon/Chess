@@ -86,7 +86,7 @@ bool Pawn::can_move(const std::string& to) const {
 // generates and returns a vector contaning all the possible moves that this Pawn can do as strings 
 // (in reference to the Board in which it's positioned
 std::vector<std::string> Pawn::get_possible_moves() const {
-
+    
     // scans all tiles of dashboard in search of possible moves
     std::vector<std::string> ret;
     for(char i = 'A'; i<='H'; i++){
