@@ -2,6 +2,7 @@
 #include "../include/Piece.hpp"
 #include "../include/King.hpp"
 #include "../include/CheckException.hpp"
+#include "../include/Computer.hpp"
 #include <iostream>
 #include <time.h>
 
@@ -48,8 +49,13 @@ int main(){
         std::cout<<e.what();
     } */
 
-    
+    Computer c(Piece::WHITE, b);
+
     for(int i=0; i<10; i++){
+
+        c.turn();
+
+        /*
         std::cout << std::endl <<"Mossa: ";
         std::cin >> from;
         std::cin >> to;
@@ -88,6 +94,7 @@ int main(){
         {
             std::cerr << e.what() << '\n';
         }
+        */
     } 
     
 

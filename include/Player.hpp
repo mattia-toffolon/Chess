@@ -19,7 +19,7 @@ public:
     // and a reference to the chessboard
     Player(bool ID, Board& b);
     //pure virtual function to manage each turn
-    virtual void turn();
+    virtual void turn()=0;
     //Return the ID of the player
     bool get_ID();
     //Invalidate copy costructor and copy assignement
