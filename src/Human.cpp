@@ -11,14 +11,15 @@ void Human::turn(){
     std::string from = "";
     std::string to = "";
     std::cout<<"Insert the box where is the piece to move and the box of arrival:"<<std::endl;
-    std::cin>>from>>to;
-    try{
+    while(true){
+        std::cin>>from>>to;
+        try{
         (*(board)).move(from, to, ID);
+        break;
     }
     catch(IllegalMoveException e){
         std::cout<<"The move is not allowed, reinsert the tiles: "<<std::endl;
-        std::cin>>from>>to;
-        (*(board)).move(from, to, ID);
+        std::cin>>from>>to;  
     }
 
     std::cout<<(*(board))<<std::endl;
