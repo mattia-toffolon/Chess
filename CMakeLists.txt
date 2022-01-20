@@ -16,6 +16,9 @@ set(LIBRARIES
     Bishop
     Queen
     Logger
+    Player
+    Computer
+    Human
 )
 
 project(${PROJ_NAME})
