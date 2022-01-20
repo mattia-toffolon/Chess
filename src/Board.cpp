@@ -15,7 +15,7 @@
 #include "../include/CheckException.hpp"
 #include "../include/CheckMateException.hpp"
 
-Board::Board(const bool& player_color) : logger_(), pawn_temp_{nullptr} {
+Board::Board(const bool& player_color) : logger_() {
 
     // reserve space in the vectors to store all pieces
     pieces_.resize(4*Board::DIM);
@@ -206,6 +206,28 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
             // set to nullptr the pointer in the cell from;
             (*this)[from] = nullptr;
         }
+
+        // after every move all the en-passant variables are set to false
+        for(int i=0; i<Board::DIM; i++){
+            Piece* p = (*this).get_piece_at(i, Piece::WHITE);
+            if(p != nullptr){
+                Pawn* pw = dynamic_cast<Pawn*>(p);
+                pw->set_en_passant(false);
+            }
+            p = (*this).get_piece_at(i, Piece::BLACK);
+            if(p != nullptr){
+                Pawn* pw = dynamic_cast<Pawn*>(p);
+                pw->set_en_passant(false);
+            }
+        }
+
+        // the only en-passant that could be true is the one of the Pawn which moved two tiles from its starting position
+        if((*this)[to]!=nullptr && std::toupper((*this)[to]->to_char())=='P' && std::abs(from.at(1)-to.at(1))==2){
+            Pawn* pw = dynamic_cast<Pawn*>((*this)[to]);
+            pw->set_en_passant(true);
+        }
+
+        /*
         // en passant flag setting for cached pawn in pawn_temp_
         if(pawn_temp_ != nullptr){
             // if another move is made after the two-cells pawn move, the flag is setted to false
@@ -224,6 +246,7 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
                 p->set_en_passant(true);
                 this->pawn_temp_ = p;
             }
+        */
 
         // castling flag setting for rook and king
         Rook* r = dynamic_cast<Rook*>((*this)[to]);
@@ -264,11 +287,15 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
 bool Board::capture(const std::string& from, const std::string& to) {
     // find and replace with nullptr the captured piece into the pieces_ vector
     std::replace(pieces_.begin(), pieces_.end(), (*this)[to], (Piece*)nullptr);
+
+    /*
     // if the piece in the to cell is the pawn cached in temp_pawn_
     Pawn* paw = dynamic_cast<Pawn*>((*this)[to]);
     if(paw != nullptr && paw == pawn_temp_)
         pawn_temp_ = nullptr;
     paw = nullptr;
+    */
+
     // delete the piece from the free space
     delete (*this)[to];
     // make the pointer in the "to" cell pointing to the moved piece

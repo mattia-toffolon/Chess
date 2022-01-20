@@ -48,14 +48,22 @@ int main(){
         std::cout<<e.what();
     } */
 
-    /*
-
-    while(true){
+    
+    for(int i=0; i<10; i++){
         std::cout << std::endl <<"Mossa: ";
         std::cin >> from;
         std::cin >> to;
         try
         {
+            if(i==2){
+                try{
+                    b.move("C7", "C5", Piece::BLACK);
+                    std::cout << std::endl << b << std::endl;
+                    continue;
+                }
+                catch(CheckException& e){}
+            }
+
             std::cout<<b[from]->to_char()<<std::endl;
 
             try{
@@ -81,7 +89,7 @@ int main(){
             std::cerr << e.what() << '\n';
         }
     } 
-    */
+    
 
     // try{
     //     b.move("A2", "A4", Piece::WHITE);

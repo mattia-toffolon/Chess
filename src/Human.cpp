@@ -15,29 +15,11 @@ void Human::turn(){
     while(true){
         std::cin>>from>>to;
         try{
-            /*
-            if((*(board)).isPromotion(from, to){
-                cin>>promote;
-                (*(board)).move(from, to, ID, promote);
-            }
-            else{
-                (*(board)).move(from, to, ID);  
-            }
-            */
+            (*(board)).move(from, to, ID);
             break;
         }
         catch(IllegalMoveException e){
             std::cout<<"The move is not allowed, reinsert the tiles: "<<std::endl;
-            std::cin>>from>>to; 
-            /*
-            if((*(board)).isPromotion(from, to){
-                cin>>promote;
-                (*(board)).move(from, to, ID, promote);
-            }
-            else{
-                (*(board)).move(from, to, ID);  
-            }
-            */
         }
     }
 
