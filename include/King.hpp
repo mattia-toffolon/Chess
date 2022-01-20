@@ -15,7 +15,9 @@ class King : public Piece{
         // constructs an object "Rook" with the given ID, reference to the Board and initial position
         // (castling is set to true when the Rook is placed in the dashboard since castling can be 
         // performed only if both the selected Rook and the King haven't moved yet)
-        King(const bool& ID, Board* b, std::string arg_pos) : Piece(ID, b, arg_pos) {castling=true;};
+        King(const bool& ID, Board* b, std::string arg_pos, bool arg_castling=true) : Piece(ID, b, arg_pos) {
+            castling=arg_castling;
+        };
         // checks if the chosen move is valid for this King 
         // (in reference to the Board in which it's positioned)
         // can trow an exception if the move is illegal or if the match ends

@@ -83,6 +83,85 @@ Board::Board(const bool& player_color) : logger_(), pawn_temp_{nullptr} {
               dashboard_.at(pieces_row_b).begin());
 }
 
+Board::Board(Board& arg){
+    // reserve space in the vectors to store all pieces
+    pieces_.resize(4*Board::DIM);
+    dashboard_.resize(Board::DIM);
+
+    // for every row in dashboard reserve 8 cells and initialize them to nullptr
+    for (short i = 0; i < DIM; i++) {
+        std::vector<Piece*> vP;
+        dashboard_.push_back(vP);
+        dashboard_.at(i).resize(DIM);
+        std::fill(dashboard_.at(i).begin(), dashboard_.at(i).end(), nullptr);
+    }
+
+    // copies the Pawns of arg.pieces_ in pieces_ in their right positions
+    for(int i=0; i<Board::DIM; i++){
+        Piece* p = (arg).get_piece_at(i, Piece::WHITE);
+        if(p != nullptr){
+            Pawn* pw = dynamic_cast<Pawn*>(p);
+            pieces_.at(i) = new Pawn(Piece::WHITE, this, pw->get_pos(), pw->get_direction(), pw->get_en_passant());
+        }
+        p = (arg).get_piece_at(i, Piece::BLACK);
+        if(p != nullptr){
+            Pawn* pw = dynamic_cast<Pawn*>(p);
+            pieces_.at(i+Board::COLOR_OFFSET) = new Pawn(Piece::BLACK, this, pw->get_pos(), pw->get_direction(), pw->get_en_passant());
+        }
+    }
+
+    // copies the Rooks of arg.pieces_ in pieces_ in their right positions
+    Rook* r = dynamic_cast<Rook*>((arg).get_piece_at(8, Piece::WHITE));
+     pieces_.at(8) = new Rook(Piece::WHITE, this, r->get_pos(), r->get_castling());
+    r = dynamic_cast<Rook*>((arg).get_piece_at(8, Piece::BLACK));
+     pieces_.at(8+Board::COLOR_OFFSET) = new Rook(Piece::BLACK, this, r->get_pos(), r->get_castling());
+    r = dynamic_cast<Rook*>((arg).get_piece_at(15, Piece::WHITE));
+     pieces_.at(15) = new Rook(Piece::WHITE, this, r->get_pos(), r->get_castling());
+    r = dynamic_cast<Rook*>((arg).get_piece_at(15, Piece::BLACK));
+     pieces_.at(15+Board::COLOR_OFFSET) = new Rook(Piece::BLACK, this, r->get_pos(), r->get_castling());
+
+    // copies the Knights of arg.pieces_ in pieces_ in their right positions
+    Knight* k = dynamic_cast<Knight*>((arg).get_piece_at(9, Piece::WHITE));
+     pieces_.at(9) = new Knight(Piece::WHITE, this, k->get_pos());
+    k = dynamic_cast<Knight*>((arg).get_piece_at(9, Piece::BLACK));
+     pieces_.at(9+Board::COLOR_OFFSET) = new Knight(Piece::BLACK, this, k->get_pos());
+    k = dynamic_cast<Knight*>((arg).get_piece_at(14, Piece::WHITE));
+     pieces_.at(14) = new Knight(Piece::WHITE, this, k->get_pos());
+    k = dynamic_cast<Knight*>((arg).get_piece_at(14, Piece::BLACK));
+     pieces_.at(14+Board::COLOR_OFFSET) = new Knight(Piece::BLACK, this, k->get_pos());
+
+    // copies the Bishops of arg.pieces_ in pieces_ in their right positions
+    Bishop* b = dynamic_cast<Bishop*>((arg).get_piece_at(10, Piece::WHITE));
+     pieces_.at(10) = new Bishop(Piece::WHITE, this, b->get_pos());
+    b = dynamic_cast<Bishop*>((arg).get_piece_at(10, Piece::BLACK));
+     pieces_.at(10+Board::COLOR_OFFSET) = new Bishop(Piece::BLACK, this, b->get_pos());
+    b = dynamic_cast<Bishop*>((arg).get_piece_at(13, Piece::WHITE));
+     pieces_.at(13) = new Bishop(Piece::WHITE, this, b->get_pos());
+    b = dynamic_cast<Bishop*>((arg).get_piece_at(13, Piece::BLACK));
+     pieces_.at(13+Board::COLOR_OFFSET) = new Bishop(Piece::BLACK, this, b->get_pos());
+
+    // copies the Queens of arg.pieces_ in pieces_ in their right positions
+    Queen* q = dynamic_cast<Queen*>((arg).get_piece_at(11, Piece::WHITE));
+     pieces_.at(11) = new Queen(Piece::WHITE, this, q->get_pos());
+    q = dynamic_cast<Queen*>((arg).get_piece_at(11, Piece::BLACK));
+     pieces_.at(11+Board::COLOR_OFFSET) = new Queen(Piece::BLACK, this, q->get_pos());
+
+    // copies the Kings of arg.pieces_ in pieces_ in their right positions
+    King* kg = dynamic_cast<King*>((arg).get_piece_at(12, Piece::WHITE));
+     pieces_.at(12) = new King(Piece::WHITE, this, kg->get_pos(), kg->get_castling());
+    kg = dynamic_cast<King*>((arg).get_piece_at(12, Piece::BLACK));
+     pieces_.at(12+Board::COLOR_OFFSET) = new King(Piece::BLACK, this, kg->get_pos(), kg->get_castling()); 
+
+    // sets dashboard_ with the informations contained in pieces_
+    for(int i=0; i<2*Board::COLOR_OFFSET; i++){
+        Piece* p = pieces_.at(i);
+        if(p != nullptr){
+            (*this)[p->get_pos()] = p;
+        }
+    }
+    
+}
+
 Board::~Board() {
     // set to nullptr every reference to pieces in the dashboard vectors
     for(short i = 0; i < DIM; i++)
@@ -264,7 +343,7 @@ bool Board::promote(const std::string& piece_pos, const bool player_ID, const ch
     return true;
 }
 
-Piece* Board::get_piece_at(const int i, const bool ID) {
+Piece* Board::get_piece_at(const int i, const bool ID) const {
     if(i < 0 || i >= Board::COLOR_OFFSET)
         throw IllegalMoveException("parameter i must be in [0,15]");
     short index = i;

@@ -10,7 +10,15 @@ int main(){
     Board b {Piece::WHITE};
     std::string from;
     std::string to;
-    std::cout<<b<<std::endl;
+    std::cout<<b<<std::endl<<std::endl;
+    try{
+        Board copy(b);
+        std::cout<<copy<<std::endl;
+    }
+    catch(IllegalMoveException e){
+        std::cerr<<e.what();
+    }
+    
 
     srand(time(NULL));
 
@@ -40,6 +48,8 @@ int main(){
         std::cout<<e.what();
     } */
 
+    /*
+
     while(true){
         std::cout << std::endl <<"Mossa: ";
         std::cin >> from;
@@ -58,15 +68,20 @@ int main(){
             
             King* k = dynamic_cast<King*>(b.get_piece_at(12, Piece::BLACK));
                 
-            if(k->is_under_check(k->get_pos()))
-                std::cout<<"Il re avversario e' sotto scacco!\n";
-            
+            if(k->is_under_check(k->get_pos())){
+                if(k->get_possible_moves().empty())
+                    std::cout<<"Scacco quasi-matto!\n";
+                else    
+                    std::cout<<"Il re avversario e' sotto scacco!\n";
+            }
+
         }
         catch(IllegalMoveException& e)
         {
             std::cerr << e.what() << '\n';
         }
     } 
+    */
 
     // try{
     //     b.move("A2", "A4", Piece::WHITE);

@@ -37,6 +37,7 @@ class Board {
         // index offset to reach the first black piece in the pieces_ vector
         static constexpr short COLOR_OFFSET = 16;
         explicit Board(const bool& player_color);
+        Board (Board& arg);
         ~Board();
         // moves the piece in the cell identified by the coordinates "from" to the one identified
         // by the coordinates "to". Can trow an exception if the move is illegal or if the match ends
@@ -45,7 +46,7 @@ class Board {
         // returns a reference to the piece at i position of the specified color in the pieces array
         // returns nullptr if the piece has been captured
         // i must be in [0,15], the pieces are P P P P P P P P T C A D R A C T
-        Piece* get_piece_at(const int i, const bool ID);
+        Piece* get_piece_at(const int i, const bool ID) const;
         // returns a reference to a random piece of the specified color
         Piece* get_random_piece(const bool ID);
         // returns the reference to the pointer to the piece in the position identified

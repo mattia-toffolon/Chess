@@ -118,6 +118,11 @@ char Pawn::to_char(){
     return (ID ? 'p' : 'P');
 }
 
+// returns the direction of this Pawn
+bool Pawn::get_direction(){
+    return direction;
+}
+
 // sets en_passant
 void Pawn::set_en_passant(bool p){
     en_passant = p;

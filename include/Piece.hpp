@@ -16,8 +16,6 @@ class Piece {
     protected:
         // specifies the color of the Piece (true=WHITE, false=BLACK)
         bool ID;
-        // specifies if the Piece is still on the dashboard or if it has been eaten
-        bool status;
         // string that determines the position of this Piece on the dashboard
         std::string pos;
         // pointer to the dashboard in which the Piece is positioned
@@ -42,10 +40,6 @@ class Piece {
         bool get_ID();
         // return the characther associated with this Piece
         virtual char to_char() = 0;
-        // returns the status of this Piece (true=still on the dashboard, false=eaten)
-        bool get_status();
-        // sets the status of this Piece (true=still on the dashboard, false=eaten)
-        void set_status(bool status);
         // returns the string that determines the position of this Piece on the dashboard
         std::string get_pos();
         // sets the string that determines the position of this Piece on the dashboard
