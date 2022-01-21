@@ -261,8 +261,9 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         // manage the capture of the piece or castling, if there is one, in cell "to"
         if((*this)[to] != nullptr) {
             // if the piece in to cell has the player color it must be a castling move
-            if((*this)[to]->get_ID() == player_ID)
+            if((*this)[to]->get_ID() == player_ID){
                 this->castling(from, to, player_ID);
+            }
             // if it can't be a castling it have to be a capture
             else{
                 this->capture(from, to);
@@ -314,20 +315,19 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         if(promote != 'N' && ((int)to.at(1) == 1 || (int)to.at(1) == 8))
             this->promote(to, player_ID, promote);
 
-        // check if there is check or checkmate
-        std::vector<std::string> moves = (*this)[to]->get_possible_moves();
-        for(std::vector<std::string>::iterator it = moves.begin(); it != moves.end(); it++) {
-            // if the cell are empty skip the iteration
-            if((*this)[(*it)] == nullptr) continue;
-            // se il pezzo può muovere e mangiare un re
-            if((*this)[(*it)]->get_ID() != player_ID && ((*this)[(*it)]->to_char() == 'R' || (*this)[(*it)]->to_char() == 'r')) {
-                // ceck for checkmate
-                if(this->get_piece_at(12, !player_ID)->get_possible_moves().size() == 0)
-                    throw CheckMateException("Check mate made from piece: " + (*this)[(*it)]->to_char());
-                else
+        if((*this)[to] != nullptr){
+            // check if there is check or checkmate
+            std::vector<std::string> moves = (*this)[to]->get_possible_moves();
+
+            for(std::vector<std::string>::iterator it = moves.begin(); it != moves.end(); it++) {
+                // if the cell is empty skip the iteration
+                if((*this)[(*it)] == nullptr) continue;
+                // if the moven Piece can now eat the opponent's King, throw CheckException
+                if((*this)[(*it)]->get_ID() != player_ID && std::toupper(((*this)[(*it)]->to_char()) == 'R'))
                     throw CheckException("Check made from piece: " + (*this)[(*it)]->to_char());
             }
         }
+
         return true;
     }
     else
@@ -355,7 +355,7 @@ bool Board::castling(const std::string& from, const std::string& to, const bool 
     std::string coord ("XX");
     coord.at(1) = from.at(1);
     // check if it is a long castling
-    if(std::abs(from.at(0) - to.at(0) == 4)) {
+    if(std::abs(std::toupper(from.at(0)) - std::toupper(to.at(0))) == 4) {
         // make the cell Cx pointing to the king
         coord.at(0) = 'C';
         (*this)[coord] = this->get_piece_at(12, player_ID);

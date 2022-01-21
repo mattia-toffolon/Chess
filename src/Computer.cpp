@@ -10,9 +10,10 @@
 
 //Function that control the turn
 void Computer::turn(){
-
     srand(time(NULL));
-        Piece* random_piece = board->get_random_piece(ID);
+
+    if(check==false){
+        Piece* random_piece = (*board).get_random_piece(ID);
 
         while(random_piece->get_possible_moves().empty())
             random_piece = board->get_random_piece(ID);
@@ -40,8 +41,14 @@ void Computer::turn(){
         */
 
 
-    std::cout<<(*(board))<<std::endl;
-    return;
+        std::cout<<(*(board))<<std::endl;
+        return;
+    }
+    else{
+        std::vector<std::pair<std::string, std::string>> escape_moves = get_escape_moves();
+        int i = std::rand()%(escape_moves.size());
+        (*board).move(escape_moves[i].first, escape_moves[i].second, ID);
+    }
 }
 
 #endif  //COMPUTER_CPP

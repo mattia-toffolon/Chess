@@ -13,20 +13,37 @@
 Match::Match(const bool isHuman){
     srand(time(NULL));
     //Random colors for the players
-    int pawnsColor = std::rand()%2;
-    board = new Board(pawnsColor);
+    int piecesColor = std::rand()%2;
+    board = new Board((bool)piecesColor);
     //PlayerA is always a computer
-    playerA = &Computer((bool)pawnsColor, *board);
+    playerA =  new Computer(!(bool)piecesColor, *board);
     //First case: playerB is a Human. Second case: playerB is another computer
     if(isHuman){
-        playerB = &Human(!((bool)pawnsColor), *board);
+        playerB =  new Human((bool)piecesColor, *board);
     }
     else{
-        playerB = &Computer(!((bool)pawnsColor), *board);
+        playerB =  new Computer((bool)piecesColor, *board);
     }   
 }
 
 bool Match::start(){
+    bool currentID=Piece::WHITE;
+
+    while(true){
+        if(playerA->get_ID() == currentID){
+            playerA->turn();
+        }
+        else{
+            playerB->turn();
+        }
+
+        currentID = !currentID;
+    }
+
+
+
+
+    /*
     try
     {
         if(playerA->get_ID() == Piece::WHITE){
@@ -43,6 +60,7 @@ bool Match::start(){
         std::cout << "Checkmate!!! The game is done"<<std::endl;
         return false;
     }
+    */
     
     return true;
 }
