@@ -18,11 +18,27 @@ void Human::turn(){
         while(true){
             std::cin>>from>>to;
             try{
-                (*(board)).move(from, to, ID);
-                break;
+                if(board->isPromotion(from, to)){
+                    std::cout<<"You are promoting one of your Pawns, choose a Piece to procede: ";
+                    std::string prom;
+                    std::cin>>prom;
+                    std::cout<<std::endl;
+                    std::regex prom_pattern("[t,T,c,C,a,A,d,D]");
+                    if(prom.size()!=1 || !std::regex_match(prom, prom_pattern)){
+                        std::cout<<"Input not valid, please choose again a move: ";
+                        continue;
+                    }
+                    (*(board)).move(from, to, ID, prom.at(0));
+                    break;
+                }
+                else{
+                    (*(board)).move(from, to, ID);
+                    break;
+                }
             }
             catch(IllegalMoveException e){
-                std::cout<<"The chosen move is not allowed, please reinsert the tiles: ";
+                std::cout<<e.what()<<std::endl;
+                std::cout<<"Please reinsert the tiles: ";
             }
         }   
     }

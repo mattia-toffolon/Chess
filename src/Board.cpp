@@ -312,24 +312,13 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         logger_.log_move(from, to);
 
         // promotion manage
-        if(promote != 'N' && ((int)to.at(1) == 1 || (int)to.at(1) == 8))
+        if(promote != 'N' && (to.at(1)== '1' || to.at(1)=='8'))
             this->promote(to, player_ID, promote);
 
-        if((*this)[to] != nullptr){
-            // check if there is check or checkmate
-            std::vector<std::string> moves = (*this)[to]->get_possible_moves();
-
-            for(std::vector<std::string>::iterator it = moves.begin(); it != moves.end(); it++) {
-                // if the cell is empty skip the iteration
-                if((*this)[(*it)] == nullptr) continue;
-                // if the moven Piece can now eat the opponent's King, throw CheckException
-                if((*this)[(*it)]->get_ID() != player_ID && std::toupper((*this)[(*it)]->to_char()) == 'R'){
-                    std::string exc = "Check made from piece: ";
-                    exc.push_back((*this)[to]->to_char());
-                    throw CheckException(exc);
-                }
-            }
-        }
+        // check if there is check
+        King* opponents_king = dynamic_cast<King*>(get_piece_at(12, !player_ID));
+        if(opponents_king->is_under_check(opponents_king->get_pos()))
+            throw CheckException("The opponent player is now undergoing Check!");
 
         return true;
     }
@@ -395,7 +384,7 @@ bool Board::promote(const std::string& piece_pos, const bool player_ID, const ch
     switch (promotion) {
     case 'T':
     case 't':
-        promoted_piece = new Rook(player_ID, this, piece_pos);
+        promoted_piece = new Rook(player_ID, this, piece_pos, false);
         break;
     case 'C':
     case 'c':
@@ -426,7 +415,7 @@ bool Board::promote(const std::string& piece_pos, const bool player_ID, const ch
 
 bool Board::isPromotion(const std::string& from, const std::string& to){
     std::regex coord_pattern ("[A-Ha-h][1,8]");
-    if(std::toupper((*this)[from]->to_char()) == 'P' && (*this)[from]->can_move(to) && std::regex_match(to, coord_pattern)){
+    if((*this)[from]!=nullptr && std::toupper((*this)[from]->to_char()) == 'P' && (*this)[from]->can_move(to) && std::regex_match(to, coord_pattern)){
         return true;
     }
     return false;

@@ -49,6 +49,9 @@ std::vector<std::pair<std::string, std::string>> Player::get_escape_moves(){
 
         for(std::string to : possible_moves){
             Board temp(*board);
+
+            //std::cout<<temp<<std::endl;
+
             try{
                 temp.move(from, to, ID);
             }
