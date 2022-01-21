@@ -40,7 +40,7 @@ class Board {
         // by the coordinates "to". Can trow an exception if the move is illegal or if the match ends
         // promote if setted should be uppercase and specifies the promotion requested for the moved piece
         bool move(const std::string& from, const std::string& to, const bool player_ID, const char promote = 'N');
-        // check if it's a promotion
+        // check if the chosen move is a promotion
         bool isPromotion(const std::string& from, const std::string& to);
         // returns a reference to the piece at i position of the specified color in the pieces array
         // returns nullptr if the piece has been captured

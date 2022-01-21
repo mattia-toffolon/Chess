@@ -34,6 +34,8 @@ void Computer::turn(){
 
         int i = std::rand()%(escape_moves.size());
         (*board).move(escape_moves[i].first, escape_moves[i].second, ID);
+
+        check=false;
     }
 
     //std::cout<<(*(board))<<std::endl;
