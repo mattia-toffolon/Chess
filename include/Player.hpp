@@ -26,10 +26,12 @@ public:
     //Return the ID of the player
     bool get_ID();
     // sets check
-    bool set_check(bool c);
+    void set_check(bool c);
+    // returns check
+    bool get_check();
     // returns a vector<string> containing all the possible moves
     // for this Player to escape the check condition
-    std::vector<std::pair<std::string, std::string>>& get_escape_moves();
+    std::vector<std::pair<std::string, std::string>> get_escape_moves();
     //Invalidate copy costructor and copy assignement
     //to avoid slicing
     Player(Player&) = delete;

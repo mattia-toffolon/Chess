@@ -21,13 +21,18 @@ bool Player::get_ID(){
 }
 
 // sets check
-bool Player::set_check(bool c){
+void Player::set_check(bool c){
     check=c;
+}
+
+//returns check
+bool Player::get_check(){
+    return check;
 }
 
 // returns a vector<string> containing all the possible moves
 // for this Player to escape the check condition
-std::vector<std::pair<std::string, std::string>>& Player::get_escape_moves(){
+std::vector<std::pair<std::string, std::string>> Player::get_escape_moves(){
     if(check==false)
         std::cout<<"get_escape_moves cannot be called if the Player isn't under a check state\n";
 

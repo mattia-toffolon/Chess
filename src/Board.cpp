@@ -355,7 +355,7 @@ bool Board::castling(const std::string& from, const std::string& to, const bool 
     std::string coord ("XX");
     coord.at(1) = from.at(1);
     // check if it is a long castling
-    if(std::abs(from.at(0) - to.at(0) == 4)) {
+    if(std::abs(std::toupper(from.at(0)) - std::toupper(to.at(0))) == 4) {
         // make the cell Cx pointing to the king
         coord.at(0) = 'C';
         (*this)[coord] = this->get_piece_at(12, player_ID);
