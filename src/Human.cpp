@@ -49,7 +49,7 @@ void Human::turn(){
         check=false;
     }
 
-    std::cout<<(*(board))<<std::endl;
+    //std::cout<<(*(board))<<std::endl;
     return;
 }
 

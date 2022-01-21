@@ -323,8 +323,11 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
                 // if the cell is empty skip the iteration
                 if((*this)[(*it)] == nullptr) continue;
                 // if the moven Piece can now eat the opponent's King, throw CheckException
-                if((*this)[(*it)]->get_ID() != player_ID && std::toupper(((*this)[(*it)]->to_char()) == 'R'))
-                    throw CheckException("Check made from piece: " + (*this)[(*it)]->to_char());
+                if((*this)[(*it)]->get_ID() != player_ID && std::toupper((*this)[(*it)]->to_char()) == 'R'){
+                    std::string exc = "Check made from piece: ";
+                    exc.push_back((*this)[to]->to_char());
+                    throw CheckException(exc);
+                }
             }
         }
 

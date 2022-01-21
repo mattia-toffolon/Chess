@@ -23,15 +23,21 @@ void Computer::turn(){
         std::string from = (*random_piece).get_pos();
 
         (*board).move(from, to, ID);
-
-        std::cout<<(*(board))<<std::endl;
-        return;
     }
     else{
         std::vector<std::pair<std::string, std::string>> escape_moves = get_escape_moves();
+
+        for(std::pair<std::string, std::string> pair : escape_moves){
+                std::cout<<pair.first<<"-"<<pair.second<<", ";
+        }
+        std::cout<<std::endl;
+
         int i = std::rand()%(escape_moves.size());
         (*board).move(escape_moves[i].first, escape_moves[i].second, ID);
     }
+
+    //std::cout<<(*(board))<<std::endl;
+    return;
 }
 
 #endif  //COMPUTER_CPP
