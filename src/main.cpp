@@ -9,11 +9,42 @@
 #include <time.h>
 
 int main(){
-    Board b(Piece::WHITE);
-    Human h(Piece::WHITE, b);
+    Board b(Piece::BLACK);
+    Human h(Piece::BLACK, b);
+    Computer c(Piece::WHITE, b);
     std::cout<<b<<std::endl;
+
+    bool currentID = Piece::WHITE;
     while(true){
-        h.turn();
+        if(currentID == h.get_ID()){
+            try{
+                h.turn();
+            }
+            catch(CheckException e){
+                std::cout<<e.what()<<std::endl;
+                c.set_check(true);
+                if(c.get_escape_moves().size()==0){
+                    std::cout<<"CheckMate! Human won!\n";
+                    return 0;
+                }
+            }
+        }
+        else{
+            try{
+                c.turn();
+            }
+            catch(CheckException e){
+                std::cout<<e.what()<<std::endl;
+                h.set_check(true);
+                if(h.get_escape_moves().size()==0){
+                    std::cout<<"CheckMate! Computer won!\n";
+                    return 0;
+                }
+            }
+        }    
+
+        std::cout<<b<<std::endl;
+        currentID = !currentID;
     }
 
     //PROBLEMI ALLA CREAZIONE DI OGGETTO MATCH

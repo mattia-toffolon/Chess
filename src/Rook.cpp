@@ -62,7 +62,7 @@ bool Rook::can_move(const std::string& to) const {
     // otherwise the 'to' and 'pos' tiles must be in the same row, the algorithm checks if the tiles in beetwen are empty.
     // if not, the selected move is illegal
     else{
-        for(char i=(char)(std::min((int)pos.at(0),(int)std::toupper(to.at(0))) +1); i<(char)(std::max((int)pos.at(0),(int)std::toupper(to.at(0)))); i++ ){
+        for(char i=(char)(std::min((int)std::toupper(pos.at(0)),(int)std::toupper(to.at(0))) +1); i<(char)(std::max((int)std::toupper(pos.at(0)),(int)std::toupper(to.at(0)))); i++ ){
             std::string p;
             p.push_back(i);
             p.push_back(pos.at(1));
