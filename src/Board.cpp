@@ -103,7 +103,7 @@ Board::Board(Board& arg){
         std::fill(dashboard_.at(i).begin(), dashboard_.at(i).end(), nullptr);
     }
 
-    // copies the Pawns of arg.pieces_ in pieces_ in their right positions
+    // copies the Pawns or the promoted Pieces of arg.pieces_ in pieces_ in their right positions
     for(int i=0; i<Board::DIM; i++){
         Piece* p = (arg).get_piece_at(i, Piece::WHITE);
         if(p != nullptr && p->to_char()=='p'){
