@@ -33,7 +33,7 @@ class Piece {
         virtual bool can_move(const std::string& to) const = 0;
         // generates and returns a vector contaning all the possible moves that this Piece can do as strings 
         // (in reference to the Board in which it's positioned)
-        virtual std::vector<std::string> get_possible_moves() const = 0;
+        std::vector<std::string> get_possible_moves() const;
         // writes in the given os stream the characther associated with this Piece
         virtual std::ostream& operator<<(std::ostream& os) = 0;
         // returns a copy of the Piece's ID (that determines its color)

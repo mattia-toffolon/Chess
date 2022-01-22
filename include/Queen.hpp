@@ -14,9 +14,6 @@ class Queen : public Piece{
         // (in reference to the Board in which it's positioned)
         // can trow an exception if the move is illegal
         bool can_move(const std::string& to) const;
-        // generates and returns a vector contaning all the possible moves that this Queen can do as strings 
-        // (in reference to the Board in which it's positioned)
-        std::vector<std::string> get_possible_moves() const;
         // writes in the given os stream the characther associated with this Queen
         std::ostream& operator<<(std::ostream& os);
         // returns the characther associated with this Queen
