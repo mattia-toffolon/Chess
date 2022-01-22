@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS_RELEASE, "-02")
 
 # variabile for project name that names the executable
 set(PROJ_NAME
-    Chess
+    scacchiera
 )
 
 set(LIBRARIES
