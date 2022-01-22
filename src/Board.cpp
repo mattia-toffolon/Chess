@@ -260,10 +260,14 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
     (*this)[to];
     // check if the piece in coordinates from can move to the cell "to"
     if((*this)[from]->can_move(to)) {
-        //increment the number of moves without the capture of a piece
-        moves_counter++;
+        //verify if a pawn moves
+        if(std::toupper((*this)[from]->to_char())=='P'){
+            moves_counter = 0;
+        }else{
+            moves_counter++;
+        }   
         // manage the capture of the piece or castling, if there is one, in cell "to"
-        if((*this)[to] != nullptr) {
+        if((*this)[to] != nullptr) {        
             // if the piece in to cell has the player color it must be a castling move
             if((*this)[to]->get_ID() == player_ID){
                 this->castling(from, to, player_ID);
@@ -315,9 +319,6 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         // log the move
         logger_.log_move(from, to);
 
-        if(std::toupper((*this)[to]->to_char())=='P')
-            moves_counter++;
-
         // promotion manage
         if(promote != 'N')
             this->promote(to, player_ID, promote);
@@ -326,6 +327,10 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         King* opponents_king = dynamic_cast<King*>(get_piece_at(12, !player_ID));
         if(opponents_king->is_under_check(opponents_king->get_pos()))
             throw CheckException("The opponent player is now undergoing Check!");
+
+        // control for the draw
+        if(moves_counter >= 50)
+            throw DrawException("Draw: the players didn't move pawns or captured pieces in the last 50 moves");
 
         return true;
     }
