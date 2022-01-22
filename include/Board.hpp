@@ -28,7 +28,7 @@ class Board {
         std::vector<std::vector<Piece*>> dashboard_;
         // for logging all the moves made in a file
         Logger logger_;
-        //number of moves without a capture of a piece
+        // number of moves without a capture of a piece
         int moves_counter;
         
     public:
