@@ -14,6 +14,7 @@
 #include "../include/IllegalMoveException.hpp"
 #include "../include/CheckException.hpp"
 #include "../include/CheckMateException.hpp"
+#include "../include/DrawException.hpp"
 
 Board::Board(const bool& player_color) : logger_() {
 
@@ -318,6 +319,9 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
 
         // log the move
         logger_.log_move(from, to);
+
+        if(std::toupper((*this)[to]->to_char())=='P')
+            moves_counter = 0;
 
         // promotion manage
         if(promote != 'N')
