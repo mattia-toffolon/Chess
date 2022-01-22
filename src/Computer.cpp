@@ -29,14 +29,18 @@ void Computer::turn(){
         }
         else
             (*board).move(from, to, ID);
+
+        std::cout<<"Computer move: "<<from<<"-"<<to<<std::endl;
     }
     else{
         std::vector<std::pair<std::string, std::string>> escape_moves = get_escape_moves();
 
+        /*
         for(std::pair<std::string, std::string> pair : escape_moves){
                 std::cout<<pair.first<<"-"<<pair.second<<", ";
         }
         std::cout<<std::endl;
+        */
 
         int i_em = std::rand()%(escape_moves.size());
         if(board->isPromotion(escape_moves[i_em].first, escape_moves[i_em].second)){
@@ -47,6 +51,7 @@ void Computer::turn(){
         else
             (*board).move(escape_moves[i_em].first, escape_moves[i_em].second, ID);
 
+        std::cout<<"Computer move: "<<escape_moves[i_em].first<<"-"<<escape_moves[i_em].second<<std::endl;
         check=false;
     }
 

@@ -136,16 +136,16 @@ Board::Board(Board& arg){
             char c = p->to_char();
             switch(c){
                 case 'T':
-                    pieces_.at(i) = new Rook(Piece::BLACK, this, p->get_pos(), false);
+                    pieces_.at(i+Board::COLOR_OFFSET) = new Rook(Piece::BLACK, this, p->get_pos(), false);
                     break;
                 case 'C':
-                    pieces_.at(i) = new Knight(Piece::BLACK, this, p->get_pos());
+                    pieces_.at(i+Board::COLOR_OFFSET) = new Knight(Piece::BLACK, this, p->get_pos());
                     break;
                 case 'A':
-                    pieces_.at(i) = new Bishop(Piece::BLACK, this, p->get_pos());
+                    pieces_.at(i+Board::COLOR_OFFSET) = new Bishop(Piece::BLACK, this, p->get_pos());
                     break;
                 case 'D':
-                    pieces_.at(i) = new Queen(Piece::BLACK, this, p->get_pos());
+                    pieces_.at(i+Board::COLOR_OFFSET) = new Queen(Piece::BLACK, this, p->get_pos());
                     break;
 
                 default:
@@ -235,7 +235,6 @@ Board::Board(Board& arg){
             (*this)[p->get_pos()] = p;
         }
     }
-    
 }
 
 Board::~Board() {
@@ -312,7 +311,7 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         logger_.log_move(from, to);
 
         // promotion manage
-        if(promote != 'N' && (to.at(1)== '1' || to.at(1)=='8'))
+        if(promote != 'N')
             this->promote(to, player_ID, promote);
 
         // check if there is check
@@ -403,6 +402,8 @@ bool Board::promote(const std::string& piece_pos, const bool player_ID, const ch
         return false;
         break;
     }
+    // deletes the old Pawn
+    delete (*this)[piece_pos];
     // replace the promoted piece in pieces_
     std::replace(pieces_.begin(), pieces_.end(), (*this)[piece_pos], promoted_piece);
     // replaces the promoted piece in the dashboard
