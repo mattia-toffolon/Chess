@@ -239,6 +239,8 @@ Board::Board(Board& arg){
             (*this)[p->get_pos()] = p;
         }
     }
+
+    moves_counter = 0;
 }
 
 Board::~Board() {
@@ -262,7 +264,7 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
     // check if the piece in coordinates from can move to the cell "to"
     if((*this)[from]->can_move(to)) {
         //verify if a pawn moves
-        if(std::toupper((*this)[from]->to_char())=='P'){
+        if(std::toupper(((*this)[from])->to_char())=='P'){
             moves_counter = 0;
         }else{
             moves_counter++;
@@ -320,9 +322,6 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         // log the move
         logger_.log_move(from, to);
 
-        if(std::toupper((*this)[to]->to_char())=='P')
-            moves_counter = 0;
-
         // promotion manage
         if(promote != 'N')
             this->promote(to, player_ID, promote);
@@ -332,10 +331,11 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         if(opponents_king->is_under_check(opponents_king->get_pos()))
             throw CheckException("The opponent player is now undergoing Check!");
 
+        
         // control for the draw
-        if(moves_counter >= 50)
+        if(moves_counter >=50)
             throw DrawException("Draw: the players didn't move pawns or captured pieces in the last 50 moves");
-
+        
         return true;
     }
     else
