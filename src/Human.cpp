@@ -53,14 +53,29 @@ void Human::turn(){
             std::cout<<"Choose between the following pairs of escape-tiles:\n";
 
             for(std::pair<std::string, std::string> pair : escape_moves){
-                std::cout<<pair.first<<"-"<<pair.second<<", ";
+                std::cout<<pair.first<<"-"<<pair.second<<"  ";
             }
-            std::cout<<std::endl;
+            std::cout<<"->  ";
 
             std::cin>>from>>to;
             for(std::pair<std::string, std::string> pair : escape_moves){
-                if(from.compare(pair.first) && to.compare(pair.second)){
-                    (*board).move(from, to, ID);
+                if(std::toupper(from.at(0))==pair.first.at(0) && from.at(1)==pair.first.at(1) && std::toupper(to.at(0))==pair.second.at(0) && to.at(1)==pair.second.at(1)){
+                    //from.compare(pair.first)==0 && to.compare(pair.second)==0){
+                    if(board->isPromotion(from, to)){
+                        std::cout<<"You are promoting one of your Pawns, choose a Piece to procede: ";
+                        std::string prom;
+                        std::cin>>prom;
+                        std::cout<<std::endl;
+                        std::regex prom_pattern("[t,T,c,C,a,A,d,D]");
+                        if(prom.size()!=1 || !std::regex_match(prom, prom_pattern)){
+                            std::cout<<"Input not valid, please choose again a move: ";
+                            continue;
+                        }
+                        (*board).move(from, to, ID, prom.at(0));
+                    }
+                    else{
+                        (*board).move(from, to, ID);
+                    }
                     check=false;
                     return;
                 }

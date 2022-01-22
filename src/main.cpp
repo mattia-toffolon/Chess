@@ -19,8 +19,10 @@ int main(){
         if(currentID == h.get_ID()){
             try{
                 h.turn();
+                std::cout<<b<<std::endl;
             }
             catch(CheckException e){
+                std::cout<<b<<std::endl;
                 std::cout<<e.what()<<std::endl;
                 c.set_check(true);
                 if(c.get_escape_moves().size()==0){
@@ -32,8 +34,10 @@ int main(){
         else{
             try{
                 c.turn();
+                std::cout<<b<<std::endl;
             }
             catch(CheckException e){
+                std::cout<<b<<std::endl;
                 std::cout<<e.what()<<std::endl;
                 h.set_check(true);
                 if(h.get_escape_moves().size()==0){
@@ -43,7 +47,6 @@ int main(){
             }
         }    
 
-        std::cout<<b<<std::endl;
         currentID = !currentID;
     }
 

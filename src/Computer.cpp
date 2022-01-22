@@ -22,7 +22,13 @@ void Computer::turn(){
         std::string to = moves[std::rand() % moves.size()];
         std::string from = (*random_piece).get_pos();
 
-        (*board).move(from, to, ID);
+        if(board->isPromotion(from, to)){
+            char prom_chars[] = {'T','C','A','D'};
+            int i_p = std::rand()%4;
+            (*board).move(from, to, ID, prom_chars[i_p]);
+        }
+        else
+            (*board).move(from, to, ID);
     }
     else{
         std::vector<std::pair<std::string, std::string>> escape_moves = get_escape_moves();
@@ -32,8 +38,14 @@ void Computer::turn(){
         }
         std::cout<<std::endl;
 
-        int i = std::rand()%(escape_moves.size());
-        (*board).move(escape_moves[i].first, escape_moves[i].second, ID);
+        int i_em = std::rand()%(escape_moves.size());
+        if(board->isPromotion(escape_moves[i_em].first, escape_moves[i_em].second)){
+            char prom_chars[] = {'T','C','A','D'};
+            int i_p = std::rand()%4;
+            (*board).move(escape_moves[i_em].first, escape_moves[i_em].second, ID, prom_chars[i_p]);
+        }
+        else
+            (*board).move(escape_moves[i_em].first, escape_moves[i_em].second, ID);
 
         check=false;
     }
