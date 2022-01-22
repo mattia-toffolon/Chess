@@ -1,0 +1,2 @@
+/usr/bin/ar qc libKing.a CMakeFiles/King.dir/src/King.cpp.o
+/usr/bin/ranlib libKing.a

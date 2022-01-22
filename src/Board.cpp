@@ -85,6 +85,9 @@ Board::Board(const bool& player_color) : logger_() {
 
     // player color log
     logger_.log_player_ID(player_color);
+
+    //moves counter to zero
+    moves_counter = 0;
 }
 
 Board::Board(Board& arg){
@@ -257,6 +260,8 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
     (*this)[to];
     // check if the piece in coordinates from can move to the cell "to"
     if((*this)[from]->can_move(to)) {
+        // increment the number of moves without the capture of a piece
+        moves_counter++;
         // manage the capture of the piece or castling, if there is one, in cell "to"
         if((*this)[to] != nullptr) {
             // if the piece in to cell has the player color it must be a castling move
@@ -310,6 +315,9 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         // log the move
         logger_.log_move(from, to);
 
+        if(std::toupper(((*this)[from])->to_char())=='P')
+            moves_counter = 0;
+
         // promotion manage
         if(promote != 'N')
             this->promote(to, player_ID, promote);
@@ -338,6 +346,7 @@ bool Board::capture(const std::string& from, const std::string& to) {
     up_to.push_back(to.at(1));
     (*this)[to]->set_pos(up_to);
     (*this)[from] = nullptr;
+    moves_counter = 0;
     return true;   
 }
 

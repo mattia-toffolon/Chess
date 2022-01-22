@@ -1,0 +1,16 @@
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/Board.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/King.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/Knight.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/Pawn.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/Piece.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/Rook.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/Bishop.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/Queen.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/Logger.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/Player.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/Computer.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/Human.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/scacchiera.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/replay.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/edit_cache.dir
+/Users/francescostella/Documents/GitHub/ProgettoDEA/CMakeFiles/rebuild_cache.dir
