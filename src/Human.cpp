@@ -13,6 +13,9 @@ void Human::turn(){
     std::string from;
     std::string to;
 
+    if(board->enough_pieces() == false)
+        throw DrawException("Draw: there aren't enough pieces to force a CheckMate");
+
     if(check==false){
         if(get_escape_moves().size() == 0)
             throw DrawException("Draw: this Player doesn't have any available legal move");

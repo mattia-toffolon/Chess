@@ -423,12 +423,54 @@ bool Board::promote(const std::string& piece_pos, const bool player_ID, const ch
     return true;
 }
 
+// check if the chosen move is a promotion
 bool Board::isPromotion(const std::string& from, const std::string& to){
     std::regex coord_pattern ("[A-Ha-h][1,8]");
     if((*this)[from]!=nullptr && std::toupper((*this)[from]->to_char()) == 'P' && (*this)[from]->can_move(to) && std::regex_match(to, coord_pattern)){
         return true;
     }
     return false;
+}
+
+// returns a string version of dashboard_
+std::string Board::to_string(){
+    std::string ret;
+    for(char i = 'A'; i<='H'; i++){
+        for(int j=1; j<=8; j++){
+            std::string to;
+            to.push_back(i);
+            to.push_back(j+'0');
+            if((*this)[to]!=nullptr)
+                ret.push_back((*this)[to]->to_char());
+            else    
+                ret.push_back(' ');  
+        }
+    }
+    return ret;
+}
+
+// tells if there are enough pieces to go on with the match
+bool Board::enough_pieces(){
+    std::string pieces_w;
+    std::string pieces_b;
+
+    for(int i=0; i<Board::COLOR_OFFSET; i++){
+        if(get_piece_at(i, Piece::WHITE)!=nullptr)
+            pieces_w.push_back(get_piece_at(i, Piece::WHITE)->to_char());
+        if(get_piece_at(i, Piece::BLACK)!=nullptr)
+            pieces_w.push_back(get_piece_at(i, Piece::BLACK)->to_char());
+    }
+
+    if(pieces_w.compare("r")==0 && pieces_b.compare("R"))
+        return false;
+    else if( (pieces_w.compare("ar")==0 && pieces_b.compare("R")) || (pieces_w.compare("ra")==0 && pieces_b.compare("R")) || (pieces_w.compare("r")==0 && pieces_b.compare("AR")) || (pieces_w.compare("r")==0 && pieces_b.compare("RA")) )
+        return false;
+    else if( (pieces_w.compare("ac")==0 && pieces_b.compare("R")) || (pieces_w.compare("ca")==0 && pieces_b.compare("R")) || (pieces_w.compare("r")==0 && pieces_b.compare("CR")) || (pieces_w.compare("r")==0 && pieces_b.compare("RC")) )
+        return false;
+    else if( (pieces_w.compare("ar")==0 && pieces_b.compare("AR")) || (pieces_w.compare("ra")==0 && pieces_b.compare("AR")) || (pieces_w.compare("ar")==0 && pieces_b.compare("RA")) || (pieces_w.compare("ra")==0 && pieces_b.compare("RA")) )
+        return false;
+    else 
+        return true;
 }
 
 Piece* Board::get_piece_at(const int i, const bool ID) const {
