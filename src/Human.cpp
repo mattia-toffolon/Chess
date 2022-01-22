@@ -6,6 +6,7 @@
 #include "../include/Board.hpp"
 #include "../include/IllegalMoveException.hpp"
 #include "../include/CheckException.hpp"
+#include "../include/DrawException.hpp"
 #include <iostream>
 
 void Human::turn(){
@@ -13,6 +14,9 @@ void Human::turn(){
     std::string to;
 
     if(check==false){
+        if(get_escape_moves().size() == 0)
+            throw DrawException("Draw: this Player doesn't have any available legal move");
+
         //asks to Human to insert a pair of tiles until a legal move is inserted
         std::cout<<"Insert the tile in which the chosen Piece is placed and an arrival tile: ";
         while(true){

@@ -4,6 +4,7 @@
 #include "../include/Player.hpp"
 #include "../include/Computer.hpp"
 #include "../include/Piece.hpp"
+#include "../include/DrawException.hpp"
 #include <iostream>
 #include <vector>
 #include <time.h>
@@ -13,6 +14,9 @@ void Computer::turn(){
     srand(time(NULL));
 
     if(check==false){
+        if(get_escape_moves().size() == 0)
+            throw CheckException("Draw: this Player doesn't have any available legal move");
+
         Piece* random_piece = (*board).get_random_piece(ID);
 
         while((*random_piece).get_possible_moves().empty())

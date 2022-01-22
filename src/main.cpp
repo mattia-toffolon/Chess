@@ -3,9 +3,9 @@
 #include "../include/Piece.hpp"
 #include "../include/King.hpp"
 #include "../include/CheckException.hpp"
+#include "../include/DrawException.hpp"
 #include "../include/Computer.hpp"
 #include "../include/Human.hpp"
-#include "../include/Match.hpp"
 #include <iostream>
 #include <time.h>
 
@@ -31,6 +31,10 @@ int main(){
                     return 0;
                 }
             }
+            catch(DrawException e){
+                std::cout<<e.what()<<std::endl;
+                return 0;
+            }
         }
         else{
             try{
@@ -45,6 +49,10 @@ int main(){
                     std::cout<<"CheckMate! Computer won!\n";
                     return 0;
                 }
+            }
+            catch(DrawException e){
+                std::cout<<e.what()<<std::endl;
+                return 0;
             }
         }    
 
