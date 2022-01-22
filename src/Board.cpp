@@ -449,25 +449,25 @@ std::string Board::to_string(){
     return ret;
 }
 
-// tells if there are enough pieces to go on with the match
+// tells if there are enough pieces to go on with the match 
+// if false, a CheckMate cannot be forced by any Player
 bool Board::enough_pieces(){
-    std::string pieces_w;
-    std::string pieces_b;
-
-    for(int i=0; i<Board::COLOR_OFFSET; i++){
-        if(get_piece_at(i, Piece::WHITE)!=nullptr)
-            pieces_w.push_back(get_piece_at(i, Piece::WHITE)->to_char());
-        if(get_piece_at(i, Piece::BLACK)!=nullptr)
-            pieces_w.push_back(get_piece_at(i, Piece::BLACK)->to_char());
+    std::string str_pieces;
+    for(int i=0; i<2*Board::COLOR_OFFSET; i++){
+        if(pieces_.at(i)!=nullptr)
+            str_pieces.push_back(pieces_.at(i)->to_char());
     }
-
-    if(pieces_w.compare("r")==0 && pieces_b.compare("R"))
+    // if King vs King then false
+    if(str_pieces.compare("rR")==0 )
         return false;
-    else if( (pieces_w.compare("ar")==0 && pieces_b.compare("R")) || (pieces_w.compare("ra")==0 && pieces_b.compare("R")) || (pieces_w.compare("r")==0 && pieces_b.compare("AR")) || (pieces_w.compare("r")==0 && pieces_b.compare("RA")) )
+    // if King & Bishop vs King then false
+    else if( str_pieces.compare("arR")==0  || str_pieces.compare("raR")==0 || str_pieces.compare("rAR")==0 || str_pieces.compare("rRA")==0 )
         return false;
-    else if( (pieces_w.compare("ac")==0 && pieces_b.compare("R")) || (pieces_w.compare("ca")==0 && pieces_b.compare("R")) || (pieces_w.compare("r")==0 && pieces_b.compare("CR")) || (pieces_w.compare("r")==0 && pieces_b.compare("RC")) )
+    // if King & Knight vs King then false
+    else if( str_pieces.compare("crR")==0  || str_pieces.compare("rcR")==0 || str_pieces.compare("rCR")==0 || str_pieces.compare("rRC")==0 )
         return false;
-    else if( (pieces_w.compare("ar")==0 && pieces_b.compare("AR")) || (pieces_w.compare("ra")==0 && pieces_b.compare("AR")) || (pieces_w.compare("ar")==0 && pieces_b.compare("RA")) || (pieces_w.compare("ra")==0 && pieces_b.compare("RA")) )
+    // if King & Bishop vs King & Bishop then false
+    else if( str_pieces.compare("arAR")==0  || str_pieces.compare("raAR")==0 || str_pieces.compare("arRA")==0 || str_pieces.compare("raRA")==0 )
         return false;
     else 
         return true;
