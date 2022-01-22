@@ -29,6 +29,8 @@ public:
     void set_check(bool c);
     // returns check
     bool get_check();
+    //  checks if the move choosen by this player is safe for his King
+    bool is_safe_move(const std::string& from, const std::string& to, const char promote = 'N');
     // returns a vector<string> containing all the possible moves
     // for this Player to escape the check condition
     std::vector<std::pair<std::string, std::string>> get_escape_moves();

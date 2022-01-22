@@ -28,17 +28,20 @@ void Human::turn(){
                         std::cout<<"Input not valid, please choose again a move: ";
                         continue;
                     }
-                    (*(board)).move(from, to, ID, prom.at(0));
+                    is_safe_move(from, to, prom.at(0));
+                    (*board).move(from, to, ID, prom.at(0));
                     break;
                 }
                 else{
-                    (*(board)).move(from, to, ID);
+                    is_safe_move(from, to);
+                    (*board).move(from, to, ID);
                     break;
                 }
             }
             catch(IllegalMoveException e){
                 std::cout<<e.what()<<std::endl;
                 std::cout<<"Please reinsert the tiles: ";
+                continue;
             }
         }   
     }
@@ -47,7 +50,7 @@ void Human::turn(){
         std::cout<<"You are undergoing a check state, choose the right move to free yourself\n";
         std::vector<std::pair<std::string, std::string>> escape_moves = get_escape_moves();
         while(true){
-            std::cout<<"Choose between the following escape pairs of tiles:\n";
+            std::cout<<"Choose between the following pairs of escape-tiles:\n";
 
             for(std::pair<std::string, std::string> pair : escape_moves){
                 std::cout<<pair.first<<"-"<<pair.second<<", ";
@@ -56,13 +59,13 @@ void Human::turn(){
 
             std::cin>>from>>to;
             for(std::pair<std::string, std::string> pair : escape_moves){
-                if(from==pair.first && to==pair.second)
-                    break;
+                if(from.compare(pair.first) && to.compare(pair.second)){
+                    (*board).move(from, to, ID);
+                    check=false;
+                    return;
+                }
             }
         }
-
-        (*board).move(from, to, ID);
-        check=false;
     }
 
     //std::cout<<(*(board))<<std::endl;

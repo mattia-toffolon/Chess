@@ -39,7 +39,7 @@ bool King::can_move(const std::string& to) const {
 
     // if the absolute values of the both differences between the x and y coordinates of the 'pos' tile and the 'to' tile are <=1 
     // and the 'to' tile is empty or there's an opponent's Piece in it, the move is valid
-    if(std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))<=1 && std::abs(to.at(1)-pos.at(1))<=1 && (((*board)[to]==nullptr) || (*(*board)[to]).get_ID()!=ID) && !is_under_check(to))
+    if(std::abs(std::toupper(to.at(0))-std::toupper(pos.at(0)))<=1 && std::abs(to.at(1)-pos.at(1))<=1 && (((*board)[to]==nullptr) || (*(*board)[to]).get_ID()!=ID))
         return true;
 
     // otherwise the selected move is illegal

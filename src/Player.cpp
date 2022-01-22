@@ -30,6 +30,24 @@ bool Player::get_check(){
     return check;
 }
 
+//  checks if the move choosen by this player is safe for his King
+bool Player::is_safe_move(const std::string& from, const std::string& to, const char promote){
+    Board temp(*board);
+    try{
+        if(promote!='N')
+            temp.move(from, to, ID);
+        else    
+            temp.move(from, to, ID, promote);
+    }
+    catch(CheckException e) {}
+    King* k = dynamic_cast<King*>(temp.get_piece_at(12, ID));
+    if(k->is_under_check(k->get_pos()))
+        throw IllegalMoveException("The selected move is considered illegal: unsafe for this Player's King");
+    else
+        return true;
+      
+}
+
 // returns a vector<string> containing all the possible moves
 // for this Player to escape the check condition
 std::vector<std::pair<std::string, std::string>> Player::get_escape_moves(){
@@ -48,19 +66,13 @@ std::vector<std::pair<std::string, std::string>> Player::get_escape_moves(){
         std::vector<std::string> possible_moves = p->get_possible_moves();
 
         for(std::string to : possible_moves){
-            Board temp(*board);
-
-            //std::cout<<temp<<std::endl;
-
             try{
-                temp.move(from, to, ID);
+                if(is_safe_move(from, to))
+                    ret.push_back(std::make_pair(from, to));
             }
-            catch(CheckException e) {
+            catch(IllegalMoveException e){
                 continue;
             }
-            King* k = dynamic_cast<King*>(temp.get_piece_at(12, ID));
-            if(!(k->is_under_check(k->get_pos())))
-                ret.push_back(std::make_pair(from, to));
         }
     }
     return ret;
