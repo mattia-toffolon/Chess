@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libHuman.a CMakeFiles/Human.dir/src/Human.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libHuman.a

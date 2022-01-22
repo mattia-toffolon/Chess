@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libPawn.a CMakeFiles/Pawn.dir/src/Pawn.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libPawn.a

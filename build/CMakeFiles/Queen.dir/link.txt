@@ -1,2 +1,0 @@
-/usr/bin/ar qc libQueen.a CMakeFiles/Queen.dir/src/Queen.cpp.o
-/usr/bin/ranlib libQueen.a

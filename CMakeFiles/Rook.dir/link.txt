@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libRook.a CMakeFiles/Rook.dir/src/Rook.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libRook.a

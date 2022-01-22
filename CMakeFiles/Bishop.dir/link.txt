@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libBishop.a CMakeFiles/Bishop.dir/src/Bishop.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libBishop.a

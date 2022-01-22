@@ -1,2 +1,0 @@
-/usr/bin/ar qc libKnight.a CMakeFiles/Knight.dir/src/Knight.cpp.o
-/usr/bin/ranlib libKnight.a
