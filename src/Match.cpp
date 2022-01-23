@@ -2,6 +2,8 @@
 #ifndef MATCH_CPP
 #define MATCH_CPP
 #include<iostream>
+#include <time.h>
+#include <climits>
 #include "../include/Player.hpp"
 #include "../include/Match.hpp"
 #include "../include/Computer.hpp"
@@ -9,7 +11,6 @@
 #include "../include/Board.hpp"
 #include "../include/CheckMateException.hpp"
 #include "../include/DrawException.hpp"
-#include "time.h"
 
 Match::Match(bool isHuman){
     srand(time(NULL));
