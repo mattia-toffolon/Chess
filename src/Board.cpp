@@ -239,6 +239,8 @@ Board::Board(Board& arg){
             (*this)[p->get_pos()] = p;
         }
     }
+
+    moves_counter = 0;
 }
 
 Board::~Board() {
@@ -261,10 +263,14 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
     (*this)[to];
     // check if the piece in coordinates from can move to the cell "to"
     if((*this)[from]->can_move(to)) {
-        //increment the number of moves without the capture of a piece
-        moves_counter++;
+        //verify if a pawn moves
+        if(std::toupper(((*this)[from])->to_char())=='P'){
+            moves_counter = 0;
+        }else{
+            moves_counter++;
+        }   
         // manage the capture of the piece or castling, if there is one, in cell "to"
-        if((*this)[to] != nullptr) {
+        if((*this)[to] != nullptr) {        
             // if the piece in to cell has the player color it must be a castling move
             if((*this)[to]->get_ID() == player_ID){
                 this->castling(from, to, player_ID);
@@ -316,9 +322,6 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         // log the move
         logger_.log_move(from, to);
 
-        if(std::toupper((*this)[to]->to_char())=='P')
-            moves_counter = 0;
-
         // promotion manage
         if(promote != 'N')
             this->promote(to, player_ID, promote);
@@ -328,10 +331,11 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
         if(opponents_king->is_under_check(opponents_king->get_pos()))
             throw CheckException("The opponent player is now undergoing Check!");
 
+        
         // control for the draw
-        if(moves_counter >= 50)
-            throw DrawException("Draw: the players didn't move pawns or capptured pieces in the last 50 moves");
-
+        if(moves_counter >=50)
+            throw DrawException("Draw: the players didn't move pawns or captured pieces in the last 50 moves");
+        
         return true;
     }
     else
@@ -428,12 +432,54 @@ bool Board::promote(const std::string& piece_pos, const bool player_ID, const ch
     return true;
 }
 
+// check if the chosen move is a promotion
 bool Board::isPromotion(const std::string& from, const std::string& to){
     std::regex coord_pattern ("[A-Ha-h][1,8]");
     if((*this)[from]!=nullptr && std::toupper((*this)[from]->to_char()) == 'P' && (*this)[from]->can_move(to) && std::regex_match(to, coord_pattern)){
         return true;
     }
     return false;
+}
+
+// returns a string version of dashboard_
+std::string Board::to_string(){
+    std::string ret;
+    for(char i = 'A'; i<='H'; i++){
+        for(int j=1; j<=8; j++){
+            std::string to;
+            to.push_back(i);
+            to.push_back(j+'0');
+            if((*this)[to]!=nullptr)
+                ret.push_back((*this)[to]->to_char());
+            else    
+                ret.push_back(' ');  
+        }
+    }
+    return ret;
+}
+
+// tells if there are enough pieces to go on with the match 
+// if false, a CheckMate cannot be forced by any Player
+bool Board::enough_pieces(){
+    std::string str_pieces;
+    for(int i=0; i<2*Board::COLOR_OFFSET; i++){
+        if(pieces_.at(i)!=nullptr)
+            str_pieces.push_back(pieces_.at(i)->to_char());
+    }
+    // if King vs King then false
+    if(str_pieces.compare("rR")==0 )
+        return false;
+    // if King & Bishop vs King then false
+    else if( str_pieces.compare("arR")==0  || str_pieces.compare("raR")==0 || str_pieces.compare("rAR")==0 || str_pieces.compare("rRA")==0 )
+        return false;
+    // if King & Knight vs King then false
+    else if( str_pieces.compare("crR")==0  || str_pieces.compare("rcR")==0 || str_pieces.compare("rCR")==0 || str_pieces.compare("rRC")==0 )
+        return false;
+    // if King & Bishop vs King & Bishop then false
+    else if( str_pieces.compare("arAR")==0  || str_pieces.compare("raAR")==0 || str_pieces.compare("arRA")==0 || str_pieces.compare("raRA")==0 )
+        return false;
+    else 
+        return true;
 }
 
 Piece* Board::get_piece_at(const int i, const bool ID) const {

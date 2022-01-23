@@ -13,18 +13,17 @@
 void Computer::turn(){
     srand(time(NULL));
 
+    if(board->enough_pieces() == false)
+        throw DrawException("Draw: there aren't enough pieces to force a CheckMate");
+
     if(check==false){
-        if(get_escape_moves().size() == 0)
+        if(get_safe_moves().size() == 0)
             throw CheckException("Draw: this Player doesn't have any available legal move");
 
-        Piece* random_piece = (*board).get_random_piece(ID);
-
-        while((*random_piece).get_possible_moves().empty())
-            random_piece = (*board).get_random_piece(ID);
-
-        std::vector<std::string> moves = (*random_piece).get_possible_moves();
-        std::string to = moves[std::rand() % moves.size()];
-        std::string from = (*random_piece).get_pos();
+        std::vector<std::pair<std::string, std::string>> escape_moves = get_safe_moves();
+        int i = rand()%(escape_moves.size());
+        std::string from = escape_moves[i].first;
+        std::string to = escape_moves[i].second;
 
         if(board->isPromotion(from, to)){
             char prom_chars[] = {'T','C','A','D'};
@@ -37,7 +36,7 @@ void Computer::turn(){
         std::cout<<"Computer move: "<<from<<"-"<<to<<std::endl;
     }
     else{
-        std::vector<std::pair<std::string, std::string>> escape_moves = get_escape_moves();
+        std::vector<std::pair<std::string, std::string>> escape_moves = get_safe_moves();
 
         /*
         for(std::pair<std::string, std::string> pair : escape_moves){

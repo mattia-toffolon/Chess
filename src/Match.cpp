@@ -8,6 +8,7 @@
 #include "../include/Human.hpp"
 #include "../include/Board.hpp"
 #include "../include/CheckMateException.hpp"
+#include "../include/DrawException.hpp"
 #include "time.h"
 
 Match::Match(bool isHuman){
@@ -27,40 +28,42 @@ Match::Match(bool isHuman){
 }
 
 bool Match::start(){
-    bool currentID=Piece::WHITE;
-
+    std::cout<<*board<<std::endl;
+    bool currentID = Piece::WHITE;
     while(true){
-        if(playerA->get_ID() == currentID){
-            playerA->turn();
+        if(currentID == playerA->get_ID()){
+            try{
+                playerA->turn();
+                std::cout<<*board<<std::endl;
+            }
+            catch(CheckException e){
+                std::cout<<*board<<std::endl;
+                std::cout<<e.what()<<std::endl;
+                playerB->set_check(true);
+                if(playerB->get_safe_moves().size()==0){
+                    throw CheckMateException("CheckMate! Player A won!");
+                    return true;
+                }
+            }
         }
         else{
-            playerB->turn();
-        }
+            try{
+                playerB->turn();
+                std::cout<<*board<<std::endl;
+            }
+            catch(CheckException e){
+                std::cout<<*board<<std::endl;
+                std::cout<<e.what()<<std::endl;
+                playerA->set_check(true);
+                if(playerA->get_safe_moves().size()==0){
+                    throw CheckMateException("CheckMate! Player B won!");
+                    return true;
+                }
+            }
+        }    
 
         currentID = !currentID;
     }
-
-
-
-
-    /*
-    try
-    {
-        if((*playerA).get_ID() == Piece::WHITE){
-        (*playerA).turn();
-        (*playerB).turn();
-    }
-    else{
-        (*playerB).turn();
-        (*playerA).turn();
-    }
-    }
-    catch(CheckMateException e)
-    {
-        std::cout << "Checkmate!!! The game is done"<<std::endl;
-        return false;
-    }
-    */
     
     return true;
 }

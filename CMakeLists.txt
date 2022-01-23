@@ -11,6 +11,7 @@ set(PROJ_NAME
 )
 
 set(LIBRARIES
+    Match
     Board
     King
     Knight

@@ -50,9 +50,7 @@ bool Player::is_safe_move(const std::string& from, const std::string& to, const 
 
 // returns a vector<string> containing all the possible moves
 // for this Player to escape the check condition
-std::vector<std::pair<std::string, std::string>> Player::get_escape_moves(){
-    if(check==false)
-        std::cout<<"get_escape_moves cannot be called if the Player isn't under a check state\n";
+std::vector<std::pair<std::string, std::string>> Player::get_safe_moves(){
 
     std::vector<std::pair<std::string, std::string>> ret;
     Piece* p;
