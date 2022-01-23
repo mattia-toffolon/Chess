@@ -21,16 +21,30 @@ Match::Match(bool isHuman){
     //First case: playerB is a Human. Second case: playerB is another computer
     if(isHuman){
         playerB =  new Human((bool)piecesColor, *board);
+        max_turns = INT_MAX;
     }
     else{
         playerB =  new Computer((bool)piecesColor, *board);
+        max_turns = 20;
     }   
+}
+
+Match::~Match(){
+    delete board;
+    board = nullptr;
+    delete playerA;
+    playerA = nullptr;
+    delete playerB;
+    playerB = nullptr;
 }
 
 bool Match::start(){
     std::cout<<*board<<std::endl;
     bool currentID = Piece::WHITE;
+    int turn_counter=0;
     while(true){
+        if(turn_counter>=max_turns)
+            throw DrawException("Draw: maximum number of turns reached for this type of Match");
 
         // checks the times this board occured, if >=3 the it's a Draw
         if(board->get_moves_counter() == 0)
@@ -76,6 +90,7 @@ bool Match::start(){
             }
         }    
 
+        turn_counter++;
         currentID = !currentID;
     }
     

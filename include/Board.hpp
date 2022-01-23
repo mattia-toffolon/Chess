@@ -35,10 +35,8 @@ class Board {
         static constexpr short DIM = 8;
         // index offset to reach the first black piece in the pieces_ vector
         static constexpr short COLOR_OFFSET = 16;
-        // char array containing all the possible promotion chars
-        static constexpr char promotion_chars[] = {'t','T','c','C','a','A','d','D'};
         explicit Board(const bool& player_color);
-        Board (Board& arg);
+        Board (const Board& arg);
         ~Board();
         // moves the piece in the cell identified by the coordinates "from" to the one identified
         // by the coordinates "to". Can trow an exception if the move is illegal or if the match ends
@@ -51,7 +49,7 @@ class Board {
         // tells if there are enough pieces to go on with the match
         bool enough_pieces();
         // returns moves_counter
-        int get_moves_counter();
+        int get_moves_counter() const;
         // returns a reference to the piece at i position of the specified color in the pieces array
         // returns nullptr if the piece has been captured
         // i must be in [0,15], the pieces are P P P P P P P P T C A D R A C T
