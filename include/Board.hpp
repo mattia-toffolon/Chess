@@ -50,6 +50,8 @@ class Board {
         std::string to_string();
         // tells if there are enough pieces to go on with the match
         bool enough_pieces();
+        // returns moves_counter
+        int get_moves_counter();
         // returns a reference to the piece at i position of the specified color in the pieces array
         // returns nullptr if the piece has been captured
         // i must be in [0,15], the pieces are P P P P P P P P T C A D R A C T

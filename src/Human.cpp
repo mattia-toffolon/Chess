@@ -18,7 +18,7 @@ void Human::turn(){
 
     if(check==false){
         if(get_safe_moves().size() == 0)
-            throw DrawException("Draw: this Player doesn't have any available legal move");
+            throw DrawException("Draw: this Player doesn't have any available safe move without being under Check");
 
         //asks to Human to insert a pair of tiles until a legal move is inserted
         std::cout<<"Insert the tile in which the chosen Piece is placed and an arrival tile: ";

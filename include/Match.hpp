@@ -15,8 +15,11 @@ protected:
     Board* board;
     //Player A is always a computer
     Player* playerA;
-    //Player B should be a human or a computer
+    //Player B can be a human or a computer
     Player* playerB; 
+    // vector that contains the various Boards that occoured during the Match accompained by the times that each one occoured
+    // it gets erased whenever a Pawn moves or a Piece gets captured since they're non-return points in the Match
+    std::vector<std::pair<std::string, int>> board_register;
 public:
     //Costructor with where the argument is a bool
     //to determine playerB

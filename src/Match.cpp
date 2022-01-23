@@ -31,6 +31,20 @@ bool Match::start(){
     std::cout<<*board<<std::endl;
     bool currentID = Piece::WHITE;
     while(true){
+
+        // checks the times this board occured, if >=3 the it's a Draw
+        if(board->get_moves_counter() == 0)
+            board_register.erase(board_register.begin(), board_register.end());
+        else{
+            std::string this_board = board->to_string();
+            if(std::find(board_register.begin(), board_register.end(), std::make_pair(this_board, 1)) != board_register.end())
+                std::replace(board_register.begin(), board_register.end(), std::make_pair(this_board, 1), std::make_pair(this_board, 2));
+            else if(std::find(board_register.begin(), board_register.end(), std::make_pair(this_board, 2)) != board_register.end())
+                throw DrawException("Draw: The same board occoured 3 times during this Match");
+            else    
+                board_register.push_back(std::make_pair(this_board, 1));
+        }
+
         if(currentID == playerA->get_ID()){
             try{
                 playerA->turn();

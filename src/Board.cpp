@@ -240,7 +240,9 @@ Board::Board(Board& arg){
         }
     }
 
-    moves_counter = 0;
+    // the -1 is written to prevent any throw of DrawException while trying moves in this copy of Board. 
+    // Since looking for a draw is legal, we want to consider moves that lead to a Draw as legal
+    moves_counter = arg.get_moves_counter()-1;
 }
 
 Board::~Board() {
@@ -480,6 +482,10 @@ bool Board::enough_pieces(){
         return false;
     else 
         return true;
+}
+
+int Board::get_moves_counter(){
+    return moves_counter;
 }
 
 Piece* Board::get_piece_at(const int i, const bool ID) const {
