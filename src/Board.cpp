@@ -16,7 +16,7 @@
 #include "../include/CheckMateException.hpp"
 #include "../include/DrawException.hpp"
 
-Board::Board(const bool& player_color) : logger_() {
+Board::Board(const bool& player_color) : logger_(), log_moves {true} {
 
     // reserve space in the vectors to store all pieces
     pieces_.resize(4*Board::DIM);
@@ -85,13 +85,14 @@ Board::Board(const bool& player_color) : logger_() {
               dashboard_.at(pieces_row_b).begin());
 
     // player color log
+
     logger_.log_player_ID(player_color);
 
     //moves counter to zero
     moves_counter = 0;
 }
 
-Board::Board(const Board& arg){
+Board::Board(const Board& arg) : log_moves {false} {
     // reserve space in the vectors to store all pieces
     pieces_.resize(4*Board::DIM);
     dashboard_.resize(Board::DIM);
@@ -324,7 +325,8 @@ bool Board::move(const std::string& from, const std::string& to, const bool play
             k->set_castling(false);
 
         // log the move
-        logger_.log_move(from, to);
+        if(log_moves)
+            logger_.log_move(from, to);
 
         // promotion manage
         if(promote != 'N')
@@ -435,7 +437,8 @@ bool Board::promote(const std::string& piece_pos, const bool player_ID, const ch
     // replaces the promoted piece in the dashboard
     (*this)[piece_pos] = promoted_piece;
     // log the promotion
-    logger_.log_promotion(piece_pos, promotion);
+    if(log_moves)
+        logger_.log_promotion(piece_pos, promotion);
 
     return true;
 }

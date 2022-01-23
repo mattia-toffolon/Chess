@@ -30,13 +30,15 @@ class Board {
         Logger logger_;
         // number of moves without a capture of a piece
         int moves_counter;
+        // if true board writes log
+        bool log_moves;
         
     public:
         static constexpr short DIM = 8;
         // index offset to reach the first black piece in the pieces_ vector
         static constexpr short COLOR_OFFSET = 16;
         explicit Board(const bool& player_color);
-        Board (const Board& arg);
+        explicit Board(const Board& arg);
         ~Board();
         // moves the piece in the cell identified by the coordinates "from" to the one identified
         // by the coordinates "to". Can trow an exception if the move is illegal or if the match ends
