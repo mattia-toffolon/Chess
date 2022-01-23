@@ -17,10 +17,10 @@ void Computer::turn(){
         throw DrawException("Draw: there aren't enough pieces to force a CheckMate");
 
     if(check==false){
-        if(get_safe_moves().size() == 0)
+        std::vector<std::pair<std::string, std::string>> safe_moves = get_safe_moves();
+        if(safe_moves.size() == 0)
             throw CheckException("Draw: this Player doesn't have any available legal move");
 
-        std::vector<std::pair<std::string, std::string>> safe_moves = get_safe_moves();
         int i = rand()%(safe_moves.size());
         std::string from = safe_moves[i].first;
         std::string to = safe_moves[i].second;

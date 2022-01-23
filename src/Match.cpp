@@ -25,7 +25,7 @@ Match::Match(bool isHuman){
     }
     else{
         playerB =  new Computer((bool)piecesColor, *board);
-        max_turns = 20;
+        max_turns = 30;
     }   
 }
 
