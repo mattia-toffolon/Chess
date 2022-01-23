@@ -35,8 +35,6 @@ class Board {
         static constexpr short DIM = 8;
         // index offset to reach the first black piece in the pieces_ vector
         static constexpr short COLOR_OFFSET = 16;
-        // char array containing all the possible promotion chars
-        static constexpr char promotion_chars[] = {'t','T','c','C','a','A','d','D'};
         explicit Board(const bool& player_color);
         Board (const Board& arg);
         ~Board();
