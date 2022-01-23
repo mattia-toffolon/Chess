@@ -13,10 +13,10 @@ set(PROJ_NAME
 set(LIBRARIES
     Match
     Board
+    Piece
     King
     Knight
     Pawn
-    Piece
     Rook
     Bishop
     Queen
