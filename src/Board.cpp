@@ -16,7 +16,7 @@
 #include "../include/CheckMateException.hpp"
 #include "../include/DrawException.hpp"
 
-Board::Board(const bool& player_color, const bool& log_match) : logger_(), log_moves {log_match} {
+Board::Board(const bool& player_color, const bool& log_match) : logger_ (log_match), log_moves {log_match} {
 
     // reserve space in the vectors to store all pieces
     pieces_.resize(4*Board::DIM);
@@ -84,9 +84,10 @@ Board::Board(const bool& player_color, const bool& log_match) : logger_(), log_m
               pieces_.begin() + 2*Board::COLOR_OFFSET, 
               dashboard_.at(pieces_row_b).begin());
 
-    // player color log
-
-    logger_.log_player_ID(player_color);
+    // logger setup and player color log
+    if(log_moves) {
+        logger_.log_player_ID(player_color);
+    }
 
     //moves counter to zero
     moves_counter = 0;

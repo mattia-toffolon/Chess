@@ -13,7 +13,7 @@ class Logger {
     public:
         // constructor for logger class, create a logger for logging moves
         // can set a custom log file or use the default file math_log.txt
-        explicit Logger(const std::string& filename = "match_log.txt");
+        explicit Logger(const bool open_file = true, const std::string& filename = "match_log.txt");
         ~Logger();
         // log a move made through cells from and to
         bool log_move(const std::string& from, const std::string& to);

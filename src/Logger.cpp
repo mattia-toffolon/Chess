@@ -5,7 +5,9 @@
 
 #include "../include/Logger.hpp"
 
-Logger::Logger(const std::string& filename) {
+Logger::Logger(const bool open_file, const std::string& filename) {
+    if(!open_file)
+        return;
     // open an output stream to the file passed as parameter
     log_file.open(filename, std::ofstream::out);
     if(!log_file.is_open())
