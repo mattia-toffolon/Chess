@@ -37,7 +37,7 @@ class Board {
         static constexpr short DIM = 8;
         // index offset to reach the first black piece in the pieces_ vector
         static constexpr short COLOR_OFFSET = 16;
-        explicit Board(const bool& player_color);
+        explicit Board(const bool& player_color, const bool& log_match = true);
         explicit Board(const Board& arg);
         ~Board();
         // moves the piece in the cell identified by the coordinates "from" to the one identified

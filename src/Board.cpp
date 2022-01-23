@@ -16,7 +16,7 @@
 #include "../include/CheckMateException.hpp"
 #include "../include/DrawException.hpp"
 
-Board::Board(const bool& player_color) : logger_(), log_moves {true} {
+Board::Board(const bool& player_color, const bool& log_match) : logger_(), log_moves {log_match} {
 
     // reserve space in the vectors to store all pieces
     pieces_.resize(4*Board::DIM);
