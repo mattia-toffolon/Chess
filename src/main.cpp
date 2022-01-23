@@ -11,8 +11,22 @@
 #include <iostream>
 #include <time.h>
 
-int main(){
-    Match m(true);
+int main(int argc, char* argv[]) { 
+
+    if(argc != 2)
+        throw std::invalid_argument("Wrong number of command line argument: must be in format:\n\t-  argument pc: starts a player vs computer match;\n\t-  argument cc: starts a computer vs computer match;\n");
+    
+    if( (*argv[1]!='p' && *argv[1]!='c') || *(argv[1]+1)!='c')
+        throw std::invalid_argument("Wrong argument format:\n\t-  argument pc: starts a player vs computer match;\n\t-  argument cc: starts a computer vs computer match;\n");
+
+    bool HumanPlayer;
+    if(*argv[1]=='p')
+        HumanPlayer=true;
+    else    
+        HumanPlayer=false;
+
+    
+    Match m(HumanPlayer);
     try{
         m.start();
     }
