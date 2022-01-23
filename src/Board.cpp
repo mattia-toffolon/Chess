@@ -370,9 +370,11 @@ bool Board::castling(const std::string& from, const std::string& to, const bool 
         // make the cell Cx pointing to the king
         coord.at(0) = 'C';
         (*this)[coord] = this->get_piece_at(12, player_ID);
+        this->get_piece_at(12, player_ID)->set_pos(coord);
         // make the cell Dx pointing to the first rook
         coord.at(0) = 'D';
         (*this)[coord] = this->get_piece_at(8, player_ID);
+        this->get_piece_at(8, player_ID)->set_pos(coord);
         // set to null pointers in cells Ax and Ex
         coord.at(0) = 'A';
         (*this)[coord] = nullptr;
@@ -385,9 +387,11 @@ bool Board::castling(const std::string& from, const std::string& to, const bool 
         // make the cell Gx pointing to the king
         coord.at(0) = 'G';
         (*this)[coord] = this->get_piece_at(12, player_ID);
+        this->get_piece_at(12, player_ID)->set_pos(coord);
         // make the cell Fx pointing to the first rook
         coord.at(0) = 'F';
         (*this)[coord] = this->get_piece_at(15, player_ID);
+        this->get_piece_at(15, player_ID)->set_pos(coord);
         // set to null pointers in cells Hx and Ex
         coord.at(0) = 'H';
         (*this)[coord] = nullptr;
