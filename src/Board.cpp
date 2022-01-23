@@ -402,6 +402,21 @@ bool Board::castling(const std::string& from, const std::string& to, const bool 
         coord.at(0) = 'E';
         (*this)[coord] = nullptr;
     }
+
+    // sets castling=false for the King and the two Rooks (if alive) of this player
+    if(get_piece_at(12, player_ID) != nullptr){
+        King* kg = dynamic_cast<King*>(get_piece_at(12, player_ID));
+        kg->set_castling(false);
+    }
+    if(get_piece_at(8, player_ID) != nullptr){
+        Rook* r = dynamic_cast<Rook*>(get_piece_at(8, player_ID));
+        r->set_castling(false);
+    }
+    if(get_piece_at(15, player_ID) != nullptr){
+        Rook* r = dynamic_cast<Rook*>(get_piece_at(15, player_ID));
+        r->set_castling(false);
+    }
+
     return true;
 }
 

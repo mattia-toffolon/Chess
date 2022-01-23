@@ -13,6 +13,7 @@ void Human::turn(){
     std::string from;
     std::string to;
 
+    //if the combination of active pieces isn't enough to force a CheckMate then it's a Draw
     if(board->enough_pieces() == false)
         throw DrawException("Draw: there aren't enough pieces to force a CheckMate");
 
@@ -21,9 +22,16 @@ void Human::turn(){
             throw DrawException("Draw: this Player doesn't have any available safe move without being under Check");
 
         //asks to Human to insert a pair of tiles until a legal move is inserted
+        //if "pp pp" is inserted then Human asks to Computer to end the Match with a tie (Computer always accepts)
+        //if "xx xx" is inserted then the Board gets printed in std::ostream
         std::cout<<"Insert the tile in which the chosen Piece is placed and an arrival tile: ";
         while(true){
             std::cin>>from>>to;
+            if(from.size()!=2 || to.size()!=2){
+                std::cout<<"Wrong format. Please reinsert the tiles: ";
+                continue;
+            }
+
             if(std::toupper(from.at(0))=='P' && std::toupper(from.at(1))=='P' && std::toupper(to.at(0))=='P' && std::toupper(to.at(1))=='P')
                 throw DrawException("Draw: players agreed for a tie");
 
@@ -34,6 +42,8 @@ void Human::turn(){
             }
 
             try{
+                //checks is the selected move implies Promotion
+                //if yes, asks Human to insert a char corrisponding to the chosen new Piece
                 if(board->isPromotion(from, to)){
                     std::cout<<"You are promoting one of your Pawns, choose a Piece to procede: ";
                     std::string prom;
@@ -55,6 +65,7 @@ void Human::turn(){
                 }
             }
             catch(IllegalMoveException e){
+                //if the selected move is illegal, Human has to reinsert a pair of tiles
                 std::cout<<e.what()<<std::endl;
                 std::cout<<"Please reinsert the tiles: ";
                 continue;
@@ -74,6 +85,17 @@ void Human::turn(){
             std::cout<<"->  ";
 
             std::cin>>from>>to;
+
+            if(from.size()!=2 || to.size()!=2){
+                std::cout<<"Wrong format\n";
+                continue;
+            }
+
+            if(std::toupper(from.at(0))=='X' && std::toupper(from.at(1))=='X' && std::toupper(to.at(0))=='X' && std::toupper(to.at(1))=='X'){
+                std::cout<<(*board)<<std::endl;
+                continue;
+            }
+
             for(std::pair<std::string, std::string> pair : escape_moves){
                 if(std::toupper(from.at(0))==pair.first.at(0) && from.at(1)==pair.first.at(1) && std::toupper(to.at(0))==pair.second.at(0) && to.at(1)==pair.second.at(1)){
                     //from.compare(pair.first)==0 && to.compare(pair.second)==0){

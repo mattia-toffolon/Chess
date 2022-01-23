@@ -91,7 +91,7 @@ void print(std::ifstream& in_file, std::ofstream& out_file) {
         try {
             board.move(from, to, player_ID, check_promotion(moves));
         }
-        catch(const std::exception& e) { std::cerr << e.what() << '\n'; }
+        catch(const std::exception& e) {}
 
         // change player color
         player_ID = !player_ID;
