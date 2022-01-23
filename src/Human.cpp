@@ -99,7 +99,6 @@ void Human::turn(){
         }
     }
 
-    //std::cout<<(*(board))<<std::endl;
     return;
 }
 

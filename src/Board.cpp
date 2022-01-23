@@ -542,33 +542,3 @@ Piece*& Board::operator[](const std::string& coord) {
 }
 
 #endif
-
-// unused code lambda function 
-//  std::vector<Piece*>::iterator piece_it = std::replace_if(pieces_.begin(), pieces_.end(), 
-//                 [this, to] (Piece* p) {
-//                     return dynamic_cast<void*>(p) == dynamic_cast<void*>((*this)[to]);
-//                 }, nullptr);
-
-
-
-//     // if the pieces have different colors, it can't castle
-//     if((*this)[from]->get_ID() != (*this)[to]->get_ID())
-//         return false;
-//     // try if the first cell contains the king
-//     King* k = dynamic_cast<King*>((*this)[from]);
-//     Rook* r = dynamic_cast<Rook*>((*this)[to]);
-//     // if the first cell don't contains the king, try the second
-//     if(k == nullptr) {
-//         k = dynamic_cast<King*>((*this)[to]);
-//         r = dynamic_cast<Rook*>((*this)[from]);
-//         // can't castle with theese two cells so return false
-//         if(k == nullptr) 
-//             return false; 
-//     }
-//     // if one of the two pieces can't castle return false
-//     if(!k.can_castle() || !k.can_castle())
-//         return false;
-//
-//     // da finire
-//
-//     return true;

@@ -35,6 +35,4 @@ class King : public Piece{
         bool is_under_check(std::string tile) const;
 };
 
-//#include "../src/King.cpp"
-
 #endif

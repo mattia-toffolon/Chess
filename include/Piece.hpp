@@ -6,7 +6,6 @@
 #include<iostream>
 #include<vector>
 
-// #include"Board.hpp"
 #include"IllegalMoveException.hpp"
 
 class Board;
@@ -49,7 +48,5 @@ class Piece {
         Piece& operator=(Piece&) = delete;
 
 };
-
-//#include"../src/Piece.cpp"
 
 #endif

@@ -20,6 +20,4 @@ class Bishop : public Piece{
         char to_char();
 };
 
-//#include "../src/Bishop.cpp"
-
 #endif

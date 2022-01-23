@@ -40,6 +40,4 @@ public:
     Player& operator=(Player&) = delete;
 };
 
-//#include "../src/Player.cpp"
-
 #endif  //PLAYER_HPP

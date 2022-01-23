@@ -37,6 +37,4 @@ class Pawn : public Piece{
         bool get_en_passant() const;
 };
 
-//#include "../src/Pawn.cpp"
-
 #endif

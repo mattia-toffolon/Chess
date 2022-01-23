@@ -20,10 +20,10 @@ void Computer::turn(){
         if(get_safe_moves().size() == 0)
             throw CheckException("Draw: this Player doesn't have any available legal move");
 
-        std::vector<std::pair<std::string, std::string>> escape_moves = get_safe_moves();
-        int i = rand()%(escape_moves.size());
-        std::string from = escape_moves[i].first;
-        std::string to = escape_moves[i].second;
+        std::vector<std::pair<std::string, std::string>> safe_moves = get_safe_moves();
+        int i = rand()%(safe_moves.size());
+        std::string from = safe_moves[i].first;
+        std::string to = safe_moves[i].second;
 
         if(board->isPromotion(from, to)){
             char prom_chars[] = {'T','C','A','D'};
@@ -38,13 +38,6 @@ void Computer::turn(){
     else{
         std::vector<std::pair<std::string, std::string>> escape_moves = get_safe_moves();
 
-        /*
-        for(std::pair<std::string, std::string> pair : escape_moves){
-                std::cout<<pair.first<<"-"<<pair.second<<", ";
-        }
-        std::cout<<std::endl;
-        */
-
         int i_em = std::rand()%(escape_moves.size());
         if(board->isPromotion(escape_moves[i_em].first, escape_moves[i_em].second)){
             char prom_chars[] = {'T','C','A','D'};
@@ -58,7 +51,6 @@ void Computer::turn(){
         check=false;
     }
 
-    //std::cout<<(*(board))<<std::endl;
     return;
 }
 

@@ -12,6 +12,4 @@ public:
     void turn();
 };
 
-//#include "../src/Human.cpp"
-
 #endif  //HUMAN_HPP
