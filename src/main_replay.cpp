@@ -45,18 +45,19 @@ int main(int argc, char* argv[]) {
     // print board
     print(in_file, out_file);
 
-    // file strams closing
+    // file streams closing
     if(out_file.is_open())
         out_file.close(); 
-    in_file.close();
 
-    } catch(const std::exception& e) {std::cerr << e.what() << '\n';}
+    in_file.close();
+    } 
+    catch(const std::exception& e) {std::cerr << e.what() << '\n';}
     
     return 0;
 }
 
 void print(std::ifstream& in_file, std::ofstream& out_file) {
-    // variables for the wile cicle
+    // variables for the while cicle
     std::string temp;
     bool file_has_next = true;
     char promotion = 'N';
@@ -91,7 +92,7 @@ void print(std::ifstream& in_file, std::ofstream& out_file) {
         try {
             board.move(from, to, player_ID, check_promotion(moves));
         }
-        catch(const std::exception& e) { std::cerr << e.what() << '\n'; }
+        catch(const std::exception& e) {}
 
         // change player color
         player_ID = !player_ID;

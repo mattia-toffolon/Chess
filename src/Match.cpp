@@ -16,6 +16,8 @@ Match::Match(bool isHuman){
     srand(time(NULL));
     //Random colors for the players
     int piecesColor = std::rand()%2;
+    //Board is created with PlayerB's Pieces always at the bottom
+    //so that if Human is playing, the game seems a bit more realistic since you're "standing" at the back of your own Pieces
     board = new Board((bool)piecesColor);
     //PlayerA is always a computer
     playerA =  new Computer(!(bool)piecesColor, *board);
@@ -40,7 +42,6 @@ Match::~Match(){
 }
 
 bool Match::start(){
-    std::cout<<*board<<std::endl;
     bool currentID = Piece::WHITE;
     int turn_counter=0;
     while(true){
@@ -63,10 +64,8 @@ bool Match::start(){
         if(currentID == playerA->get_ID()){
             try{
                 playerA->turn();
-                std::cout<<*board<<std::endl;
             }
             catch(CheckException e){
-                std::cout<<*board<<std::endl;
                 std::cout<<e.what()<<std::endl;
                 playerB->set_check(true);
                 if(playerB->get_safe_moves().size()==0){
@@ -78,10 +77,8 @@ bool Match::start(){
         else{
             try{
                 playerB->turn();
-                std::cout<<*board<<std::endl;
             }
             catch(CheckException e){
-                std::cout<<*board<<std::endl;
                 std::cout<<e.what()<<std::endl;
                 playerA->set_check(true);
                 if(playerA->get_safe_moves().size()==0){
