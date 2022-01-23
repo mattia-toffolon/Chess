@@ -29,6 +29,15 @@ Match::Match(bool isHuman){
     }   
 }
 
+Match::~Match(){
+    delete board;
+    board = nullptr;
+    delete playerA;
+    playerA = nullptr;
+    delete playerB;
+    playerB = nullptr;
+}
+
 bool Match::start(){
     std::cout<<*board<<std::endl;
     bool currentID = Piece::WHITE;

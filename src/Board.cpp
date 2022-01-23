@@ -250,8 +250,10 @@ Board::~Board() {
     for(short i = 0; i < DIM; i++)
         std::fill(dashboard_.at(i).begin(), dashboard_.at(i).end(), nullptr);
     // delete all pieces from free space
-    for(Piece* p : pieces_)
+    for(Piece* p : pieces_){
         delete p;
+        p=nullptr;
+    }
 }
 
 bool Board::move(const std::string& from, const std::string& to, const bool player_ID, const char promote) {
