@@ -91,7 +91,7 @@ Board::Board(const bool& player_color) : logger_() {
     moves_counter = 0;
 }
 
-Board::Board(Board& arg){
+Board::Board(const Board& arg){
     // reserve space in the vectors to store all pieces
     pieces_.resize(4*Board::DIM);
     dashboard_.resize(Board::DIM);
@@ -488,7 +488,7 @@ bool Board::enough_pieces(){
         return true;
 }
 
-int Board::get_moves_counter(){
+int Board::get_moves_counter() const{
     return moves_counter;
 }
 
