@@ -65,7 +65,7 @@ void print(std::ifstream& in_file, std::ofstream& out_file) {
     in_file >> temp;
     std::string text = "BOTTOM_PLAYER=";
     // creating board having bottom player color
-    Board board {(bool)(temp.at(text.length()) == '1')};
+    Board board {(bool)(temp.at(text.length()) == '1'), false};
     // setting first player to start
     bool player_ID = Piece::WHITE;
     // FIFO container to buffer strings that are read from input file
