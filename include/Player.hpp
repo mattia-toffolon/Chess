@@ -33,7 +33,7 @@ public:
     bool is_safe_move(const std::string& from, const std::string& to, const char promote = 'N');
     // returns a vector<string> containing all the possible moves
     // for this Player to escape the check condition
-    std::vector<std::pair<std::string, std::string>> get_escape_moves();
+    std::vector<std::pair<std::string, std::string>> get_safe_moves();
     //Invalidate copy costructor and copy assignement
     //to avoid slicing
     Player(Player&) = delete;

@@ -17,7 +17,7 @@ void Human::turn(){
         throw DrawException("Draw: there aren't enough pieces to force a CheckMate");
 
     if(check==false){
-        if(get_escape_moves().size() == 0)
+        if(get_safe_moves().size() == 0)
             throw DrawException("Draw: this Player doesn't have any available legal move");
 
         //asks to Human to insert a pair of tiles until a legal move is inserted
@@ -55,7 +55,7 @@ void Human::turn(){
     else{
         // asks to Human to insert the right tiles to escape the check state
         std::cout<<"You are undergoing a check state, choose the right move to free yourself\n";
-        std::vector<std::pair<std::string, std::string>> escape_moves = get_escape_moves();
+        std::vector<std::pair<std::string, std::string>> escape_moves = get_safe_moves();
         while(true){
             std::cout<<"Choose between the following pairs of escape-tiles:\n";
 
