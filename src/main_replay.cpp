@@ -8,6 +8,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <deque>
 
 #include "../include/Board.hpp"
 #include "../include/Piece.hpp"
@@ -17,7 +18,12 @@
 // argv[0] holds the name of the program.
 // argv[1] points to the first command line argument and argv[n] points last argument
 
+// helper functions declaration
+void print(std::ifstream& in_file, std::ofstream& out_file);
+char check_promotion(std::deque<std::string>& moves);
+
 int main(int argc, char* argv[]) { 
+    try {
     if(argc <= 2)
         throw std::invalid_argument("Too few command line argument: must be in format:\n\t- argument v [log_filename]: prints to cout the boards representing the logged match;\n\t- argument f [log_filename] [replay_filename]: prints into the replay file the logged match.\n");
     if(*argv[1] != 'v' && *argv[1] != 'f')
@@ -35,10 +41,26 @@ int main(int argc, char* argv[]) {
     std::ofstream out_file;
     if(*argv[1] == 'f')
         out_file.open(argv[3]);
+
+    // print board
+    print(in_file, out_file);
+
+    // file strams closing
+    if(out_file.is_open())
+        out_file.close(); 
+    in_file.close();
+
+    } catch(const std::exception& e) {std::cerr << e.what() << '\n';}
     
+    return 0;
+}
+
+void print(std::ifstream& in_file, std::ofstream& out_file) {
+    // variables for the wile cicle
     std::string temp;
+    bool file_has_next = true;
     char promotion = 'N';
-    const std::regex pattern ("[A-Ha-h][1-8][=][TCADtcad]");
+    const int delay_time = 1000;
     // read bottom player color
     in_file >> temp;
     std::string text = "BOTTOM_PLAYER=";
@@ -46,53 +68,54 @@ int main(int argc, char* argv[]) {
     Board board {(bool)(temp.at(text.length()) == '1')};
     // setting first player to start
     bool player_ID = Piece::WHITE;
+    // FIFO container to buffer strings that are read from input file
+    // enqueue back and dequeue front
+    std::deque<std::string> moves;
 
-    std::vector<std::string> moves;
-    // iterate while the file ends
-    while(in_file >> temp)
-        moves.push_back(temp);
-    in_file.close();
+    while(!moves.empty() || file_has_next) {
+        // input 3 strings at time if there are
+        if(file_has_next)
+            for(short i = 0; i < 3 && file_has_next; i++) {
+                if(in_file >> temp)
+                    moves.push_back(temp);
+                else
+                    file_has_next = false;
+            }
 
-    int i = 0;
-    while(i < moves.size()) {
-        // check if there is a promotion
-        // stores the position
-        if(i+2 < moves.size())
-            // if the next line is a promotion
-            if(std::regex_match(moves.at(i+2), pattern))
-                promotion = moves.at(i+2).at(3);
-            else
-                // if it is not a promotion revert the reading
-                promotion = 'N';
-        // if can't read: there is no promotion
-        else
-            promotion = 'N';
-
-        // make the move
+        // stores the positions
+        std::string from = moves.front();
+        moves.pop_front();
+        std::string to = moves.front();
+        moves.pop_front();
+        // check if there is a promotion and make the move
         try {
-            board.move(moves.at(i), moves.at(i+1), player_ID, promotion);
+            board.move(from, to, player_ID, check_promotion(moves));
         }
-        catch(const std::exception& e) {
-            std::cerr << e.what() << '\n';
-        }
-        i = promotion!='N' ? i+3 : i+2;
+        catch(const std::exception& e) { std::cerr << e.what() << '\n'; }
 
         // change player color
         player_ID = !player_ID;
-        if(*argv[1] == 'f')
-            // print to file output
-            out_file << board << std::endl;
-        else{
-            // print to cout
+        // print to output
+        if(!out_file.is_open()) {
             std::cout << board << std::endl;
-            // sleeps for one second
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            std::this_thread::sleep_for(std::chrono::milliseconds(delay_time));
         }
+        else
+            out_file << board << std::endl;
     }
-    // file strams closing
-    if(out_file.is_open())
-        out_file.close(); 
-    return 0;
+}
+
+// checks if the next input is a promotion and return it
+char check_promotion(std::deque<std::string>& moves) {
+    std::regex pattern ("[A-Ha-h][1-8][=][TCADtcad]");
+    char prom;
+    if(!moves.empty())
+        if(std::regex_match(moves.front(), pattern)){
+                prom = moves.front().at(3);
+                moves.pop_front();
+                return prom;
+            }
+    return 'N';
 }
 
 #endif
