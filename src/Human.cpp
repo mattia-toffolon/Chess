@@ -28,7 +28,8 @@ void Human::turn(){
                 throw DrawException("Draw: players agree for a tie");
 
             if(std::toupper(from.at(0))=='X' && std::toupper(from.at(1))=='X' && std::toupper(to.at(0))=='X' && std::toupper(to.at(1))=='X'){
-                std::cout<<board<<std::endl;
+                std::cout<<(*board)<<std::endl;
+                std::cout<<"Insert the tile in which the chosen Piece is placed and an arrival tile: ";
                 std::cin>>from>>to;
             }
 
