@@ -23,7 +23,7 @@ void print(std::ifstream& in_file, std::ofstream& out_file);
 char check_promotion(std::deque<std::string>& moves);
 
 int main(int argc, char* argv[]) { 
-    // check parameters and trow exception for invalid arguments
+    // check parameters and throw exception for invalid arguments
     if(argc <= 2)
         throw std::invalid_argument("Too few command line argument: must be in format:\n\t- argument v [log_filename]: prints to cout the boards representing the logged match;\n\t- argument f [log_filename] [replay_filename]: prints into the replay file the logged match.\n");
     if(*argv[1] != 'v' && *argv[1] != 'f')
