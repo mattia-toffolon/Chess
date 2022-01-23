@@ -20,6 +20,4 @@ class Knight : public Piece{
         char to_char();
 };
 
-//#include "../src/Knight.cpp"
-
 #endif
