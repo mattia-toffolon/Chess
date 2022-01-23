@@ -25,12 +25,12 @@ void Human::turn(){
         while(true){
             std::cin>>from>>to;
             if(std::toupper(from.at(0))=='P' && std::toupper(from.at(1))=='P' && std::toupper(to.at(0))=='P' && std::toupper(to.at(1))=='P')
-                throw DrawException("Draw: players agree for a tie");
+                throw DrawException("Draw: players agreed for a tie");
 
             if(std::toupper(from.at(0))=='X' && std::toupper(from.at(1))=='X' && std::toupper(to.at(0))=='X' && std::toupper(to.at(1))=='X'){
                 std::cout<<(*board)<<std::endl;
                 std::cout<<"Insert the tile in which the chosen Piece is placed and an arrival tile: ";
-                std::cin>>from>>to;
+                continue;
             }
 
             try{
