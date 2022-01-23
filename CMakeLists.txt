@@ -1,4 +1,3 @@
-# Author: Guerrini Alberto
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 
 set(CMAKE_CXX_FLAGS, "-02")
@@ -45,4 +44,4 @@ add_executable(replay
 )
 
 target_link_libraries(${PROJ_NAME} ${LIBRARIES})
-target_link_libraries(replay ${LIBRARIES}) 
+target_link_libraries(replay ${LIBRARIES})

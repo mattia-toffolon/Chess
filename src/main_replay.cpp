@@ -23,7 +23,7 @@ void print(std::ifstream& in_file, std::ofstream& out_file);
 char check_promotion(std::deque<std::string>& moves);
 
 int main(int argc, char* argv[]) { 
-    try {
+    // check parameters and trow exception for invalid arguments
     if(argc <= 2)
         throw std::invalid_argument("Too few command line argument: must be in format:\n\t- argument v [log_filename]: prints to cout the boards representing the logged match;\n\t- argument f [log_filename] [replay_filename]: prints into the replay file the logged match.\n");
     if(*argv[1] != 'v' && *argv[1] != 'f')
@@ -31,32 +31,31 @@ int main(int argc, char* argv[]) {
     if(*argv[1] == 'v' && argc != 3 || *argv[1] == 'f' && argc != 4 )
         throw std::invalid_argument("Wrong number of argument passed for: must be in format:\n\t- argument v [log_filename]: prints to cout the boards representing the logged match;\n\t- argument f [log_filename] [replay_filename]: prints into the replay file the logged match.\n");
 
-    // at this point if no exeption has been trown, the parameters must be ok. But filename can be not found.
-    // opening input log file
+    // at this point if no exeption has been trown, the parameters must be ok. (filename can be not found)
     std::ifstream in_file (argv[2]);
+    std::ofstream out_file;
+
+    // opening input log file
     if(!in_file.is_open())
-        throw std::runtime_error("Input file is not open");
+        throw std::runtime_error("Input file is not open, check if filename exist.");
 
     // setting output file if it is requested
-    std::ofstream out_file;
     if(*argv[1] == 'f')
         out_file.open(argv[3]);
 
-    // print board
+    // call function for print match
     print(in_file, out_file);
 
-    // file strams closing
+    // file streams closing
     if(out_file.is_open())
         out_file.close(); 
     in_file.close();
-
-    } catch(const std::exception& e) {std::cerr << e.what() << '\n';}
     
     return 0;
 }
 
 void print(std::ifstream& in_file, std::ofstream& out_file) {
-    // variables for the wile cicle
+    // variables for the while cicle
     std::string temp;
     bool file_has_next = true;
     char promotion = 'N';
@@ -73,7 +72,8 @@ void print(std::ifstream& in_file, std::ofstream& out_file) {
     std::deque<std::string> moves;
 
     while(!moves.empty() || file_has_next) {
-        // input 3 strings at time if there are
+        // enqueue from file 3 strings at time if there are
+        // queue space complexity is O(n) having n = number of moves (every 3 enqueued, at least 2 are dequeued)
         if(file_has_next)
             for(short i = 0; i < 3 && file_has_next; i++) {
                 if(in_file >> temp)
@@ -82,7 +82,7 @@ void print(std::ifstream& in_file, std::ofstream& out_file) {
                     file_has_next = false;
             }
 
-        // stores the positions
+        // stores the moves coordinates and delete them from the queue
         std::string from = moves.front();
         moves.pop_front();
         std::string to = moves.front();
@@ -95,7 +95,7 @@ void print(std::ifstream& in_file, std::ofstream& out_file) {
 
         // change player color
         player_ID = !player_ID;
-        // print to output
+        // print to output file if it is open, else print to cout
         if(!out_file.is_open()) {
             std::cout << board << std::endl;
             std::this_thread::sleep_for(std::chrono::milliseconds(delay_time));
@@ -108,12 +108,12 @@ void print(std::ifstream& in_file, std::ofstream& out_file) {
 // checks if the next input is a promotion and return it
 char check_promotion(std::deque<std::string>& moves) {
     std::regex pattern ("[A-Ha-h][1-8][=][TCADtcad]");
-    char prom;
     if(!moves.empty())
+        // if the next string have a promotion pattern remove it from the queue and return it
         if(std::regex_match(moves.front(), pattern)){
-                prom = moves.front().at(3);
-                moves.pop_front();
-                return prom;
+            char prom = moves.front().at(3);
+            moves.pop_front();
+            return prom;
             }
     return 'N';
 }
