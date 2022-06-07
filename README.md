@@ -1,2 +1,2 @@
-# ProgettoDEA
-Progetto Dati e Algoritmi - gruppo: Prosecco Coding Team
+# Chess Project
+"Laboratorio di Programmazione" - group: Prosecco Coding
