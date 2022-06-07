@@ -1,2 +1,2 @@
 # Chess Project
-"Laboratorio di Programmazione" - group: Prosecco Coding
+"Laboratorio di Programmazione" exam project - group: Prosecco Coding
